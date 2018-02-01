@@ -1,0 +1,81 @@
+version: '3.3'
+services:
+
+  cm-stream-api:
+    image: cybernode/cm-stream-api:latest
+    ports:
+      - "32801:18080"
+    labels:
+      kompose.service.type: loadbalancer
+    restart: always
+    environment:
+      KAFKA_CONNECTION: kafka:9092
+
+  cm-rest-api:
+    image: cybernode/cm-rest-api:latest
+    ports:
+      - "32800:8085"
+    labels:
+      kompose.service.type: loadbalancer
+    restart: always
+    environment:
+      CASSANDRA_HOSTS: elassandra2
+      CASSANDRA_PORT: 9042
+      CORS_ALLOWED_ORIGINS: "*"
+
+  cm-tickers:
+    container_name: cm-tickers
+    image: cybernode/cm-tickers:latest
+    restart: always
+    environment:
+      KAFKA_CONNECTION: kafka:9092
+      CASSANDRA_HOSTS: elassandra2
+      CASSANDRA_PORT: 9042
+      CM_LOG_LEVEL: INFO
+
+  cm-connector-bitstamp:
+    container_name: cm-connector-bitstamp
+    image: cybernode/cm-connectors-bitstamp:latest
+    restart: always
+    environment:
+      KAFKA_CONNECTION: kafka:9092
+
+  cm-connectors-hitbtc:
+    container_name: cm-connectors-hitbtc
+    image: cybernode/cm-connectors-hitbtc:latest
+    restart: always
+    environment:
+      KAFKA_CONNECTION: kafka:9092
+
+  cm-connectors-poloniex:
+    container_name: cm-connectors-poloniex
+    image: cybernode/cm-connectors-poloniex:latest
+    restart: always
+    environment:
+      KAFKA_CONNECTION: kafka:9092
+
+  cm-connectors-bitfinex:
+    container_name: cm-connectors-bitfinex
+    image: cybernode/cm-connectors-bitfinex:latest
+    restart: always
+    environment:
+      KAFKA_CONNECTION: kafka:9092
+
+  cm-connectors-gdax:
+    container_name: cm-connectors-gdax
+    image: cybernode/cm-connectors-gdax:latest
+    restart: always
+    environment:
+      KAFKA_CONNECTION: kafka:9092
+
+  cm-connectors-etherdelta:
+    container_name: cm-connectors-etherdelta
+    image: cybernode/cm-connectors-etherdelta:latest
+    restart: always
+    environment:
+      KAFKA_CONNECTION: kafka:9092
+
+networks:
+    default:
+        external:
+            name: staging_default

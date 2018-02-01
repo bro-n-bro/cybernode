@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+
+  parity_eth:
+    container_name: parity_eth
+    restart: always
+    image: parity/parity:stable
+    ports:
+      - "8545:8545"
+    command: "--db-path /cyberdata --jsonrpc-hosts all --jsonrpc-interface all --jsonrpc-threads 4"
+    volumes:
+      - /cyberdata/eth:/cyberdata
+
+  parity_etc:
+    container_name: parity_etc
+    restart: always
+    image: parity/parity:stable
+    ports:
+      - "18545:8545"
+    command: "--chain classic --db-path /cyberdata --jsonrpc-hosts all --jsonrpc-interface all --jsonrpc-threads 4"
+    volumes:
+      - /cyberdata/eth_c:/cyberdata
+
+  bitcoind:
+    container_name: bitcoind
+    restart: always
+    image: ruimarinho/bitcoin-core:0.15.1
+    ports:
+      - "8332:8332"
+    command: "-server -rest -txindex -rpcpassword=cyber -rpcuser=cyber -rpcallowip=0.0.0.0/0"
+    volumes:
+      - /cyberdata/bitcoind:/home/bitcoin/.bitcoin
+
+  abc:
+    container_name: abc
+    restart: always
+    image: zquestz/bitcoin-abc:0.16.1
+    ports:
+      - "18332:8332"
+    command: "bitcoind -server -rest -txindex -rpcallowip=0.0.0.0/0"
+    volumes:
+      - /cyberdata/abc:/home/bitcoin/.bitcoin

@@ -1,0 +1,42 @@
+version: '3.3'
+services:
+
+  elassandra:
+    container_name: elassandra
+    image: strapdata/elassandra:5.5.0.8
+    restart: always
+    volumes:
+      - /cyberdata/staging/elassandra/lib:/var/lib/cassandra
+      - /cyberdata/staging/elassandra/log:/var/log/cassandra
+    environment:
+      CASSANDRA_DC: DEVELOPMENT
+      CASSANDRA_CLUSTER_NAME: CYBER_SEARCH
+    ports:
+      - "9042:9042"
+      - "9200:9200"
+      - "9300:9300"
+    healthcheck:
+      test: cqlsh --cqlversion=3.4.4 -e "SHOW HOST"
+      interval: 5s
+      timeout: 10s
+      retries: 30
+      
+  elassandra2:
+    container_name: elassandra2
+    image: strapdata/elassandra:5.5.0.8
+    restart: always
+    volumes:
+      - /cyberdata/staging/elassandra2/lib:/var/lib/cassandra
+      - /cyberdata/staging/elassandra2/log:/var/log/cassandra
+    environment:
+      CASSANDRA_DC: DEVELOPMENT
+      CASSANDRA_CLUSTER_NAME: CYBER_MARKETS
+    ports:
+      - "9043:9042"
+      - "9201:9200"
+      - "9301:9300"
+
+networks:
+    default:
+        external:
+            name: staging_default
