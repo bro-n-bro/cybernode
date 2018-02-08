@@ -40,3 +40,8 @@ services:
     command: "bitcoind -server -rest -txindex -rpcallowip=0.0.0.0/0"
     volumes:
       - /cyberdata/abc:/home/bitcoin/.bitcoin
+
+networks:
+    default:
+        external:
+            name: staging_default
