@@ -9,7 +9,7 @@ services:
       - "8545:8545"
     command: "--base-path /cyberdata --jsonrpc-hosts all --jsonrpc-interface all --jsonrpc-threads 4"
     volumes:
-      - /cyberdata/eth:/cyberdata
+      - /cyberdata/ssd05tb/eth:/cyberdata
 
   parity_etc:
     container_name: parity_etc
@@ -19,7 +19,7 @@ services:
       - "18545:8545"
     command: "--chain classic --db-path /cyberdata --jsonrpc-hosts all --jsonrpc-interface all --jsonrpc-threads 4"
     volumes:
-      - /cyberdata/eth_c:/cyberdata
+      - /cyberdata/ssd05tb/eth_c:/cyberdata
 
   bitcoind:
     container_name: bitcoind
@@ -29,7 +29,7 @@ services:
       - "8332:8332"
     command: "-server -rest -txindex -rpcpassword=cyber -rpcuser=cyber -rpcallowip=0.0.0.0/0"
     volumes:
-      - /cyberdata/bitcoind:/home/bitcoin/.bitcoin
+      - /cyberdata/ssd05tb/bitcoind:/home/bitcoin/.bitcoin
 
   abc:
     container_name: abc
