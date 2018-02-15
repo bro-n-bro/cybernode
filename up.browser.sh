@@ -4,6 +4,6 @@ set -x
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-export COMPOSE_FILE="$DIR/chains/docker-compose.yml"
+export COMPOSE_FILE="$DIR/browser/docker-compose.yml"
 docker-compose pull
 docker-compose up -d
