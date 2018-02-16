@@ -5,8 +5,6 @@ services:
     image: cybernode/cm-stream-api:latest
     ports:
       - "32801:18080"
-    labels:
-      kompose.service.type: loadbalancer
     restart: always
     environment:
       KAFKA_CONNECTION: kafka:9092
@@ -15,11 +13,9 @@ services:
     image: cybernode/cm-rest-api:latest
     ports:
       - "32800:8085"
-    labels:
-      kompose.service.type: loadbalancer
     restart: always
     environment:
-      CASSANDRA_HOSTS: elassandra2
+      CASSANDRA_HOSTS: elassandra-markets
       CASSANDRA_PORT: 9042
       CYBER_CHAINGEAR_API: http://93.125.26.210:32600
       CORS_ALLOWED_ORIGINS: "*"
@@ -30,7 +26,7 @@ services:
     restart: always
     environment:
       KAFKA_CONNECTION: kafka:9092
-      CASSANDRA_HOSTS: elassandra2
+      CASSANDRA_HOSTS: elassandra-markets
       CASSANDRA_PORT: 9042
       CM_LOG_LEVEL: INFO
 
@@ -65,13 +61,6 @@ services:
   cm-connectors-gdax:
     container_name: cm-connectors-gdax
     image: cybernode/cm-connectors-gdax:latest
-    restart: always
-    environment:
-      KAFKA_CONNECTION: kafka:9092
-
-  cm-connectors-etherdelta:
-    container_name: cm-connectors-etherdelta
-    image: cybernode/cm-connectors-etherdelta:latest
     restart: always
     environment:
       KAFKA_CONNECTION: kafka:9092
