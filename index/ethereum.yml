@@ -11,7 +11,7 @@ services:
       CASSANDRA_HOSTS: elassandra-search
       KAFKA_BROKERS: kafka:9092
       CHAIN: ETHEREUM
-      CHAIN_NODE: http://parity_eth:8545
+      CHAIN_NODE_URL: http://parity_eth:8545
 
   dump-eth:
     container_name: dump-eth
