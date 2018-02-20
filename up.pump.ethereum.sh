@@ -19,3 +19,5 @@ docker-compose up -d
 docker-compose stop dump-eth
 docker build -t local-build/dump-ethereum -f "$SEARCH_REPOSITORY/dumps/ethereum/Dockerfile" "$SEARCH_REPOSITORY"
 docker-compose up -d
+
+docker system prune
