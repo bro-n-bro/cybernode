@@ -7,6 +7,7 @@ SEARCH_REPOSITORY="/cyberdata/repositories/cyber-search"
 
 cd "$SEARCH_REPOSITORY"
 git pull
+git reset --hard
 cd "$CYBERNODE_REPOSITORY"
 
 export COMPOSE_FILE="$CYBERNODE_REPOSITORY/index/ethereum.yml"
