@@ -35,6 +35,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
     volumes:
       - /cyberdata/staging/kafka:/var/lib/kafka
+      - /cyberdata/staging/kafka/data:/var/lib/kafka/data
     ports:
       - "9092:9092"
       - "1099:1099"

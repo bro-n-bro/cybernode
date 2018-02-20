@@ -7,7 +7,8 @@ services:
     image: prom/prometheus:v2.1.0
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - /cyberdata/prometeus:/prometheus-data
+      - /cyberdata/prometeus/data:/prometheus-data
+      - /cyberdata/prometeus:/prometheus
     ports:
       - "9090:9090"
 
