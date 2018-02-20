@@ -2,11 +2,14 @@
 # show commands as they are executed
 set -x
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-export COMPOSE_FILE="$DIR/search/ethereum.yml"
-
+CYBERNODE_REPOSITORY="/cyberdata/cybernode"
 SEARCH_REPOSITORY="/cyberdata/repositories/cyber-search"
+
+cd "$SEARCH_REPOSITORY"
+git pull
+cd "$CYBERNODE_REPOSITORY"
+
+export COMPOSE_FILE="$CYBERNODE_REPOSITORY/index/ethereum.yml"
 
 docker build -t local-build/pump-eth -f "$SEARCH_REPOSITORY/pumps/ethereum/Dockerfile" "$SEARCH_REPOSITORY"
 docker tag local-build/pump-eth local-build/pump-eth:latest
