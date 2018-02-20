@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+
+  pump-eth:
+    container_name: pump-eth
+    image: local-build/pump-ethereum:latest
+    restart: unless-stopped
+#    ports:
+#      - "8080:8080"
+    environment:
+      CASSANDRA_HOSTS: elassandra-search
+      KAFKA_BROKERS: kafka:9092
+      CHAIN: ETHEREUM
+      CHAIN_NODE: http://parity_eth:8545
+
+  dump-eth:
+    container_name: dump-eth
+    image: local-build/dump-ethereum:latest
+    restart: unless-stopped
+    environment:
+      CASSANDRA_HOSTS: elassandra-search
+      KAFKA_BROKERS: kafka:9092
+      CHAIN: ETHEREUM
+
+networks:
+    default:
+        external:
+            name: staging_default

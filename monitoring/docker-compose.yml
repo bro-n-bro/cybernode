@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+
+  prometheus:
+    container_name: prometheus
+    restart: always
+    image: prom/prometheus:v2.1.0
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - /cyberdata/prometeus:/prometheus-data
+    ports:
+      - "9090:9090"
+
+  grafana:
+    container_name: grafana
+    restart: always
+    image: grafana/grafana:5.0.0-beta4
+    ports:
+      - "32002:3000"
+
+networks:
+    default:
+        external:
+            name: staging_default
