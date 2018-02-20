@@ -3,7 +3,7 @@ services:
 
   pump-eth:
     container_name: pump-eth
-    image: local-build/pump-ethereum:latest
+    image: local-build/pump-ethereum
     restart: unless-stopped
 #    ports:
 #      - "8080:8080"
@@ -15,7 +15,7 @@ services:
 
   dump-eth:
     container_name: dump-eth
-    image: local-build/dump-ethereum:latest
+    image: local-build/dump-ethereum
     restart: unless-stopped
     environment:
       CASSANDRA_HOSTS: elassandra-search
