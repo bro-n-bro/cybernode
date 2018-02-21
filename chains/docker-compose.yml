@@ -4,7 +4,7 @@ services:
   parity_eth:
     container_name: parity_eth
     restart: always
-    image: parity/parity:stable
+    image: parity/parity:v1.8.10
     ports:
       - "8545:8545"
     command: "--base-path /cyberdata --jsonrpc-hosts all --jsonrpc-interface all --jsonrpc-threads 5"
@@ -14,7 +14,7 @@ services:
   parity_etc:
     container_name: parity_etc
     restart: always
-    image: parity/parity:stable
+    image: parity/parity:v1.8.10
     ports:
       - "18545:8545"
     command: "--chain classic --db-path /cyberdata --jsonrpc-hosts all --jsonrpc-interface all --jsonrpc-threads 5"
