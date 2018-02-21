@@ -10,6 +10,7 @@ services:
     environment:
       CASSANDRA_HOSTS: elassandra-search
       KAFKA_BROKERS: kafka:9092
+      KAFKA_TRANSACTION_BATCH: 1000
       CHAIN: ETHEREUM
       CHAIN_NODE_URL: http://parity_eth:8545
 
