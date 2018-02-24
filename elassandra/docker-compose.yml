@@ -3,7 +3,7 @@ services:
 
   elassandra-search:
     container_name: elassandra-search
-    image: strapdata/elassandra:5.5.0.9
+    image: strapdata/elassandra:5.5.0.12
     restart: always
     volumes:
       - /cyberdata/ssd1tb/elassandra-search/search/lib:/var/lib/cassandra
