@@ -6,8 +6,8 @@ services:
     image: strapdata/elassandra:5.5.0.9
     restart: always
     volumes:
-      - /cyberdata/elassandra-search/search/lib:/var/lib/cassandra
-      - /cyberdata/elassandra-search/search/log/log:/var/log/cassandra
+      - /cyberdata/ssd1tb/elassandra-search/search/lib:/var/lib/cassandra
+      - /cyberdata/ssd1tb/elassandra-search/search/log/log:/var/log/cassandra
     environment:
       CASSANDRA_DC: DEVELOPMENT
       CASSANDRA_CLUSTER_NAME: CYBER_SEARCH
