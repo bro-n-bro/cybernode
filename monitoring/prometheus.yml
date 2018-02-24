@@ -6,4 +6,12 @@ scrape_configs:
   - job_name: 'indexation-monitoring'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['pump-eth:8080','pump-btc:8080']
+      - targets:
+          - pump-eth:8080
+          - dump-eth:8080
+          - address-summary-eth:8080
+          - pump-etc:8080
+          - dump-etc:8080
+          - address-summary-etc:8080
+          - search-api-1:8080
+          - search-api-2:8080

@@ -18,6 +18,19 @@ services:
     container_name: dump-eth
     image: local-build/dump-ethereum
     restart: unless-stopped
+#    ports:
+#      - "8080:8080"
+    environment:
+      CASSANDRA_HOSTS: elassandra-search
+      KAFKA_BROKERS: kafka:9092
+      CHAIN: ETHEREUM
+
+  address-summary-eth:
+    container_name: address-summary-eth
+    image: local-build/address-summary-eth
+    restart: unless-stopped
+#    ports:
+#      - "8080:8080"
     environment:
       CASSANDRA_HOSTS: elassandra-search
       KAFKA_BROKERS: kafka:9092
