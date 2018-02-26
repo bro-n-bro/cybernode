@@ -9,7 +9,7 @@ scrape_configs:
       - targets:
           - pump-eth:8080
           - dump-eth:8080
-          - address-summary-eth:8080
+          - address-summary-eth:8081
           - pump-etc:8080
           - dump-etc:8080
           - address-summary-etc:8080
