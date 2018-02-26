@@ -14,14 +14,12 @@ export COMPOSE_FILE="$CYBERNODE_REPOSITORY/index/ethereum.yml"
 
 docker-compose stop pump-eth
 docker build -t local-build/pump-ethereum -f "$SEARCH_REPOSITORY/pumps/ethereum/Dockerfile" "$SEARCH_REPOSITORY"
-docker-compose up -d
 
 docker-compose stop dump-eth
 docker build -t local-build/dump-ethereum -f "$SEARCH_REPOSITORY/dumps/ethereum/Dockerfile" "$SEARCH_REPOSITORY"
-docker-compose up -d
 
 docker-compose stop address-summary-eth
 docker build -t local-build/address-summary-eth -f "$SEARCH_REPOSITORY/address-summary/ethereum/Dockerfile" "$SEARCH_REPOSITORY"
-docker-compose up -d
 
+docker-compose up -d
 docker system prune | -yes
