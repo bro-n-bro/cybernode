@@ -9,17 +9,6 @@ services:
     environment:
       KAFKA_CONNECTION: kafka:9092
 
-  cm-rest-api:
-    image: cybernode/cm-rest-api:latest
-    ports:
-      - "32800:8085"
-    restart: always
-    environment:
-      CASSANDRA_HOSTS: elassandra-markets
-      CASSANDRA_PORT: 9042
-      CYBER_CHAINGEAR_API: http://93.125.26.210:32600
-      CORS_ALLOWED_ORIGINS: "*"
-
   cm-tickers:
     container_name: cm-tickers
     image: cybernode/cm-tickers:latest
