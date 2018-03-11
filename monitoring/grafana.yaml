@@ -1,0 +1,91 @@
+# Datasource ConfigMap for Grafana Watcher
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: monitoring
+data:
+  prometheus.yaml: |+
+    apiVersion: 1
+    datasources:
+     - name: PROMETHEUS
+       type: prometheus
+       access: proxy
+       org_id: 1
+       url: http://prometheus.monitoring.svc:9090
+       version: 1
+---
+# Dashboard Provider ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-providers
+  namespace: monitoring
+data:
+  dashboards.yaml: |+
+    - name: 'default'
+      org_id: 1
+      folder: ''
+      type: file
+      options:
+        path: /grafana-dashboards
+---
+# Grafana
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: grafana
+      namespace: monitoring
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:5.0.1
+        volumeMounts:
+        - name: grafana-datasources
+          mountPath: /etc/grafana/provisioning/datasources
+        - name: grafana-dashboards-providers
+          mountPath: /etc/grafana/provisioning/dashboards
+        - name: grafana-dashboards
+          mountPath: /grafana-dashboards
+        ports:
+        - name: web
+          containerPort: 3000
+        resources:
+          requests:
+            memory: 100Mi
+            cpu: 100m
+          limits:
+            memory: 200Mi
+            cpu: 200m
+      volumes:
+      - name: grafana-datasources
+        configMap:
+          name: grafana-datasources
+      - name: grafana-dashboards-providers
+        configMap:
+          name: grafana-dashboards-providers
+      - name: grafana-dashboards
+        configMap:
+          name: grafana-dashboards
+---
+# Grafana Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "web"
+    port: 80
+    targetPort: 3000
+  selector:
+    app: grafana

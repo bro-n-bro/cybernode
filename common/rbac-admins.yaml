@@ -1,0 +1,13 @@
+# Define admins for cluster
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: admin-bindings
+subjects:
+  - kind: User
+    name: h.albau@cyberfund.io
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
