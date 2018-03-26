@@ -1,13 +1,13 @@
 version: '3.3'
 services:
 
-  chaingear:
-    image: cybernode/chaingear:latest
+  chaingear-api:
+    image: cybernode/chaingear-api:latest
     restart: unless-stopped
     ports:
-      - 32004:80
+      - 32600:8090
     environment:
-      ADV_HOST: chaingear
+      ADV_HOST: chaingear-api
 
 networks:
     default:
