@@ -23,7 +23,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 12,
@@ -109,7 +109,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 12,
@@ -193,7 +193,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -277,7 +277,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 9,

@@ -16,3 +16,8 @@ items:
   kind: Namespace
   metadata:
     name: markets
+
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    name: search

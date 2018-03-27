@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: grafana-datasources
+    name: grafana-datasources
   namespace: monitoring
 data:
   prometheus.yaml: |+
@@ -14,6 +14,7 @@ data:
        org_id: 1
        url: http://prometheus.monitoring.svc:9090
        version: 1
+       editable: true
 ---
 # Dashboard Provider ConfigMap
 apiVersion: v1
@@ -46,7 +47,7 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: grafana/grafana:5.0.1
+        image: grafana/grafana:5.0.3
         volumeMounts:
         - name: grafana-datasources
           mountPath: /etc/grafana/provisioning/datasources

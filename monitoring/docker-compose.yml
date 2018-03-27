@@ -15,7 +15,7 @@ services:
   grafana:
     container_name: grafana
     restart: always
-    image: grafana/grafana:5.0.0
+    image: grafana/grafana:5.0.3
     ports:
       - "32002:3000"
 
