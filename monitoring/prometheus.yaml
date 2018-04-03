@@ -1,29 +1,73 @@
+# Service Account
 apiVersion: v1
-kind: List
-items:
+kind: ServiceAccount
+metadata:
+  name: prometheus
+  namespace: monitoring
+---
+
+# Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: prometheus
+rules:
+- apiGroups: [""]
+  resources:
+  - nodes
+  - services
+  - endpoints
+  - pods
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources:
+  - configmaps
+  verbs: ["get"]
+- nonResourceURLs: ["/metrics"]
+  verbs: ["get"]
+---
+
+# Role Binding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: prometheus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prometheus
+subjects:
+- kind: ServiceAccount
+  name: prometheus
+  namespace: monitoring
+---
 
 # Service
-- apiVersion: v1
-  kind: Service
-  metadata:
-    name: prometheus
-    namespace: monitoring
-  spec:
-    ports:
-    - name: "http"
-      port: 9090
-      targetPort: 9090
-    selector:
-      app: prometheus
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  ports:
+  - name: "http"
+    port: 9090
+    targetPort: 9090
+  selector:
+    app: prometheus
 
 # Prometheus
-- apiVersion: monitoring.coreos.com/v1
-  kind: Prometheus
-  metadata:
-    labels:
-      app: prometheus
-    name: prometheus
-    namespace: monitoring
-  spec:
-    replicas: 1
-    version: v2.1.0
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  labels:
+    app: prometheus
+  name: prometheus
+  namespace: monitoring
+spec:
+  replicas: 1
+  version: v2.1.0
+  serviceAccountName: prometheus
+  serviceMonitorSelector:
+    matchLabels:
+      monitor: default

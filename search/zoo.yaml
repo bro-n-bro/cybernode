@@ -1,9 +1,22 @@
 
-# Zookeeper Volume Claim
+# Zookeeper Log Volume Claim
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: zoo-claim0
+  namespace: search
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+---
+
+# Zookeeper Data Volume Claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zoo-claim1
   namespace: search
 spec:
   accessModes: ["ReadWriteOnce"]
@@ -56,10 +69,15 @@ spec:
         ports:
         - containerPort: 2181
         volumeMounts:
-        - mountPath: /var/lib/zookeeper
+        - mountPath: /var/lib/zookeeper/log
           name: zoo-claim0
+        - mountPath: /var/lib/zookeeper/data
+          name: zoo-claim1
       restartPolicy: Always
       volumes:
       - name: zoo-claim0
         persistentVolumeClaim:
           claimName: zoo-claim0
+      - name: zoo-claim1
+        persistentVolumeClaim:
+          claimName: zoo-claim1

@@ -1,0 +1,19 @@
+# Default Monitoring
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  namespace: monitoring
+  name: default-monitor
+  labels:
+    monitor: default
+spec:
+  selector:
+    matchLabels:
+      monitoring: default-monitor
+  namespaceSelector:
+    matchNames:
+    - search
+  endpoints:
+  - targetPort: 8080
+    path: "/actuator/prometheus"
+    interval: 15s

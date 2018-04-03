@@ -1,0 +1,49 @@
+# Dump Service (should expose metrics)
+apiVersion: v1
+kind: Service
+metadata:
+  name: dump-cassandra-eth
+  namespace: search
+  labels:
+    monitoring: default-monitor
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: dump-cassandra-eth
+---
+
+# Dump Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: search
+  name: dump-cassandra-eth
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: search
+      labels:
+        app: dump-cassandra-eth
+    spec:
+      containers:
+      - env:
+        - name: CHAIN
+          value: ETHEREUM
+        - name: CASSANDRA_HOSTS
+          value: elassandra
+        - name: CS_LOG_LEVEL
+          value: INFO
+        - name: KAFKA_BROKERS
+          value: kafka-broker:9092
+        image: cybernode/chain-dump-cassandra-ethereum:0.1.4
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        name: dump-cassandra-eth
+      restartPolicy: Always

@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: grafana-datasources
+  name: grafana-datasources
   namespace: monitoring
 data:
   prometheus.yaml: |+
@@ -47,7 +47,7 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: grafana/grafana:5.0.3
+        image: grafana/grafana:5.0.4
         volumeMounts:
         - name: grafana-datasources
           mountPath: /etc/grafana/provisioning/datasources

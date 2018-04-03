@@ -1,5 +1,5 @@
 
-# Kafka Volume Claim
+# Kafka Data Volume Claim
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -50,9 +50,9 @@ spec:
       containers:
       - env:
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://kafka-broker.search.svc:9092
+          value: PLAINTEXT://kafka-broker:9092
         - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
-          value: "false"
+          value: "true"
         - name: KAFKA_BROKER_ID
           value: "1"
         - name: KAFKA_DEFAULT_REPLICATION_FACTOR
@@ -78,8 +78,9 @@ spec:
         - containerPort: 1099
         resources: {}
         volumeMounts:
-        - mountPath: /var/lib/kafka
+        - mountPath: /var/lib/kafka/data
           name: kafka-broker-claim0
+          subPath: data
       restartPolicy: Always
       volumes:
       - name: kafka-broker-claim0

@@ -1,0 +1,26 @@
+# Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: search
+  name: kafka-manager
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: search
+      labels:
+        app: kafka-manager
+    spec:
+      containers:
+      - env:
+        - name: ZK_HOSTS
+          value: zoo:2181
+        image: hlebalbau/kafka-manager:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9000
+        name: kafka-manager
+      restartPolicy: Always
