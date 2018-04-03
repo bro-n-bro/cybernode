@@ -1,0 +1,44 @@
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: search-api-docs
+  namespace: search
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "web"
+    port: 80
+    targetPort: 8080
+  selector:
+    app: search-api-docs
+---
+
+# Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: search
+  name: search-api-docs
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: search
+      labels:
+        app: search-api-docs
+    spec:
+      containers:
+      - env:
+        - name: CASSANDRA_HOSTS
+          value: elassandra
+        - name: CS_LOG_LEVEL
+          value: INFO
+        image: cybernode/search-api-docs:0.1.4
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        name: search-api-docs
+      restartPolicy: Always
