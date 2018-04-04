@@ -45,8 +45,8 @@ items:
           name: parity-eth-pod
           resources:
             limits:
-              cpu: "2"
-              memory: "8Gi"
+              cpu: "3"
+              memory: "12Gi"
             requests:
               cpu: "2"
               memory: "8Gi"
