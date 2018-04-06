@@ -16,4 +16,4 @@ docker-compose stop
 docker build -t local-build/search-api -f "$SEARCH_REPOSITORY/search-api/Dockerfile" "$SEARCH_REPOSITORY"
 docker-compose up -d
 
-docker system prune | -yes
+docker system prune -f

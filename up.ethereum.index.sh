@@ -22,4 +22,4 @@ docker-compose stop address-summary-eth
 docker build -t local-build/address-summary-eth -f "$SEARCH_REPOSITORY/address-summary/ethereum/Dockerfile" "$SEARCH_REPOSITORY"
 
 docker-compose up -d
-docker system prune | -yes
+docker system prune -f

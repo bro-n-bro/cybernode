@@ -8,4 +8,4 @@ export COMPOSE_FILE="$DIR/browser/docker-compose.yml"
 docker-compose pull
 docker-compose up -d
 
-docker system prune | -yes
+docker system prune -f
