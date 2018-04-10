@@ -41,7 +41,7 @@ spec:
           value: INFO
         - name: KAFKA_BROKERS
           value: kafka-broker:9092
-        image: cybernode/chain-contract-summary-ethereum:0.1.4
+        image: cybernode/chain-contract-summary-ethereum:0.2.1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

@@ -38,7 +38,7 @@ spec:
           value: elassandra
         - name: CS_LOG_LEVEL
           value: INFO
-        image: cybernode/search-api:0.1.4
+        image: cybernode/search-api:0.2.1
         ports:
         - containerPort: 8080
         name: search-api
