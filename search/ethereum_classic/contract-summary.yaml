@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: contract-summary-etс
+  name: contract-summary-etc
   namespace: search
   labels:
     monitoring: default-monitor
@@ -12,7 +12,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
-    app: contract-summary-etс
+    app: contract-summary-etc
 ---
 
 # Deployment
@@ -20,7 +20,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   namespace: search
-  name: contract-summary-etс
+  name: contract-summary-etc
 spec:
   replicas: 1
   strategy:
@@ -29,7 +29,7 @@ spec:
     metadata:
       namespace: search
       labels:
-        app: contract-summary-etс
+        app: contract-summary-etc
     spec:
       containers:
       - env:
@@ -41,9 +41,9 @@ spec:
           value: INFO
         - name: KAFKA_BROKERS
           value: kafka-broker:9092
-        image: cybernode/chain-contract-summary-ethereum:0.2.1
+        image: cybernode/chain-contract-summary-ethereum:0.2.3
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        name: contract-summary-etс
+        name: contract-summary-etc
       restartPolicy: Always
