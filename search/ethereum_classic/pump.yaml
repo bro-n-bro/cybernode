@@ -1,0 +1,49 @@
+# Pump Service (should expose metrics)
+apiVersion: v1
+kind: Service
+metadata:
+  name: pump-etс
+  namespace: search
+  labels:
+    monitoring: default-monitor
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: pump-etс
+---
+
+# Pump Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: search
+  name: pump-etс
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: search
+      labels:
+        app: pump-etс
+    spec:
+      containers:
+      - env:
+        - name: CHAIN
+          value: ETHEREUM_CLASSIC
+        - name: CHAIN_NODE_URL
+          value: http://parity-eth.chains.svc:8545
+        - name: CS_LOG_LEVEL
+          value: INFO
+        - name: KAFKA_BROKERS
+          value: kafka-broker:9092
+        image: cybernode/chain-pump-ethereum:0.2.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        name: pump-etс
+      restartPolicy: Always

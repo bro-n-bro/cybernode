@@ -24,12 +24,27 @@ metadata:
   namespace: monitoring
 data:
   dashboards.yaml: |+
+    apiVersion: 1
+
+    providers:
     - name: 'default'
-      org_id: 1
+      orgId: 1
       folder: ''
       type: file
       options:
-        path: /grafana-dashboards
+        path: /grafana-dashboards-common
+    - name: 'ethereum'
+      orgId: 1
+      folder: 'Ethereum'
+      type: file
+      options:
+        path: /grafana-dashboards-eth
+    - name: 'ethereum_classic'
+      orgId: 1
+      folder: 'Ethereum Classic'
+      type: file
+      options:
+        path: /grafana-dashboards-etc
 ---
 
 # Grafana Data Volume Claim
@@ -68,8 +83,12 @@ spec:
           mountPath: /etc/grafana/provisioning/datasources
         - name: grafana-dashboards-providers
           mountPath: /etc/grafana/provisioning/dashboards
-        - name: grafana-dashboards
-          mountPath: /grafana-dashboards
+        - name: grafana-dashboards-common
+          mountPath: /grafana-dashboards-common
+        - name: grafana-dashboards-eth
+          mountPath: /grafana-dashboards-eth
+        - name: grafana-dashboards-etc
+          mountPath: /grafana-dashboards-etc
         - name: grafana-data
           mountPath: /var/lib/grafana
         ports:
@@ -89,9 +108,15 @@ spec:
       - name: grafana-dashboards-providers
         configMap:
           name: grafana-dashboards-providers
-      - name: grafana-dashboards
+      - name: grafana-dashboards-common
         configMap:
-          name: grafana-dashboards
+          name: grafana-dashboards-common
+      - name: grafana-dashboards-eth
+        configMap:
+          name: grafana-dashboards-eth
+      - name: grafana-dashboards-etc
+        configMap:
+          name: grafana-dashboards-etc
       - name: grafana-data
         persistentVolumeClaim:
           claimName: grafana-data

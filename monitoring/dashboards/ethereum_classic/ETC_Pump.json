@@ -1,40 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "PROMETHEUS",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "5.0.3"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph",
-      "version": "5.0.0"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "5.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "singlestat",
-      "name": "Singlestat",
-      "version": "5.0.0"
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -63,7 +27,7 @@
         "#7eb26d",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "decimals": null,
       "format": "locale",
       "gauge": {
@@ -116,7 +80,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pump_last_processed_block{chain=\"ETHEREUM\"})",
+          "expr": "sum(pump_last_processed_block{chain=\"ETHEREUM_CLASSIC\"})",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -147,7 +111,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "format": "Bps",
       "gauge": {
         "maxValue": 100,
@@ -199,7 +163,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(rate(pump_block_size_bytes_sum{chain=\"ETHEREUM\"}[1m]))",
+          "expr": "sum(rate(pump_block_size_bytes_sum{chain=\"ETHEREUM_CLASSIC\"}[1m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -227,7 +191,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#299c46"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "format": "s",
       "gauge": {
         "maxValue": 100,
@@ -279,7 +243,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "(sum(pump_last_network_block{chain=\"ETHEREUM\"}) - sum(pump_last_processed_block{chain=\"ETHEREUM\"})) / sum(rate(pump_last_processed_block{chain=\"ETHEREUM\"}[10m]))",
+          "expr": "(sum(pump_last_network_block{chain=\"ETHEREUM_CLASSIC\"}) - sum(pump_last_processed_block{chain=\"ETHEREUM_CLASSIC\"})) / sum(rate(pump_last_processed_block{chain=\"ETHEREUM_CLASSIC\"}[10m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -303,7 +267,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "decimals": null,
       "fill": 1,
       "gridPos": {
@@ -336,7 +300,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(sum_over_time(pump_bundle_download_seconds_sum{chain=\"ETHEREUM\"}[1m])/sum_over_time(pump_bundle_download_seconds_count{chain=\"ETHEREUM\"}[1m]))",
+          "expr": "sum(sum_over_time(pump_bundle_download_seconds_sum{chain=\"ETHEREUM_CLASSIC\"}[1m])/sum_over_time(pump_bundle_download_seconds_count{chain=\"ETHEREUM_CLASSIC\"}[1m]))",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -345,7 +309,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum(sum_over_time(pump_bundle_kafka_store_seconds_sum{chain=\"ETHEREUM\"}[1m])/sum_over_time(pump_bundle_kafka_store_seconds_count{chain=\"ETHEREUM\"}[1m]))",
+          "expr": "sum(sum_over_time(pump_bundle_kafka_store_seconds_sum{chain=\"ETHEREUM_CLASSIC\"}[1m])/sum_over_time(pump_bundle_kafka_store_seconds_count{chain=\"ETHEREUM_CLASSIC\"}[1m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Kafka Transaction Batch Store Time",
@@ -390,44 +354,11 @@
       ]
     },
     {
-      "alert": {
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                5
-              ],
-              "type": "lt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "C",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "max"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "frequency": "300s",
-        "handler": 1,
-        "name": "Ethereum Pump Alive",
-        "noDataState": "alerting",
-        "notifications": []
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "decimals": null,
       "fill": 1,
       "gridPos": {
@@ -464,7 +395,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(pump_last_processed_block{chain=\"ETHEREUM\"})",
+          "expr": "sum(pump_last_processed_block{chain=\"ETHEREUM_CLASSIC\"})",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -473,14 +404,14 @@
           "refId": "A"
         },
         {
-          "expr": "sum(pump_last_network_block{chain=\"ETHEREUM\"})",
+          "expr": "sum(pump_last_network_block{chain=\"ETHEREUM_CLASSIC\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Network Block",
           "refId": "B"
         },
         {
-          "expr": "sum(delta(pump_last_processed_block{chain=\"ETHEREUM\"}[5m]))",
+          "expr": "sum(delta(pump_last_processed_block{chain=\"ETHEREUM_CLASSIC\"}[5m]))",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -538,7 +469,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 7,
@@ -572,7 +503,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(pump_last_processed_block{chain=\"ETHEREUM\"}[10m]))",
+          "expr": "sum(rate(pump_last_processed_block{chain=\"ETHEREUM_CLASSIC\"}[10m]))",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -648,7 +579,6 @@
     ]
   },
   "timezone": "",
-  "title": "Ethereum Pump",
-  "uid": "J0p4xxqzz",
+  "title": "Ethereum Classic Pump",
   "version": 18
 }
