@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: dump-cassandra-etс
+  name: dump-cassandra-etc
   namespace: search
   labels:
     monitoring: default-monitor
@@ -12,7 +12,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
-    app: dump-cassandra-etс
+    app: dump-cassandra-etc
 ---
 
 # Dump Deployment
@@ -20,7 +20,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   namespace: search
-  name: dump-cassandra-etс
+  name: dump-cassandra-etc
 spec:
   replicas: 1
   strategy:
@@ -29,7 +29,7 @@ spec:
     metadata:
       namespace: search
       labels:
-        app: dump-cassandra-etс
+        app: dump-cassandra-etc
     spec:
       containers:
       - env:
@@ -41,9 +41,9 @@ spec:
           value: INFO
         - name: KAFKA_BROKERS
           value: kafka-broker:9092
-        image: cybernode/chain-dump-cassandra-ethereum:0.2.1
+        image: cybernode/chain-dump-cassandra-ethereum:0.2.3
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        name: dump-cassandra-etс
+        name: dump-cassandra-etc
       restartPolicy: Always
