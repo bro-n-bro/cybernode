@@ -1,40 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "PROMETHEUS",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "5.0.3"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph",
-      "version": "5.0.0"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "5.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "singlestat",
-      "name": "Singlestat",
-      "version": "5.0.0"
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -55,44 +19,11 @@
   "links": [],
   "panels": [
     {
-      "alert": {
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                1000
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "C",
-                "10s",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "frequency": "300s",
-        "handler": 1,
-        "name": "Ethereum Cassandra Dump Tx Queue Size",
-        "noDataState": "alerting",
-        "notifications": []
-      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -124,21 +55,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(dump_topic_current_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_TX_PUMP\"})",
+          "expr": "sum(dump_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Current Dump Tx Offset",
           "refId": "A"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_TX_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Last Dump Tx Offset",
           "refId": "B"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_TX_PUMP\"}) - sum(dump_topic_current_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_TX_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"}) - sum(dump_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -198,7 +129,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "format": "short",
       "gauge": {
         "maxValue": 100,
@@ -250,7 +181,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_TX_PUMP\"}) - sum(dump_topic_current_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_TX_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"}) - sum(dump_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Tx Offsets To Dump Remaining",
@@ -279,7 +210,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "format": "short",
       "gauge": {
         "maxValue": 100,
@@ -331,7 +262,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_BLOCK_PUMP\"}) - sum(dump_topic_current_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_BLOCK_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"}) - sum(dump_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Block Offsets To Dump Remaining",
@@ -360,7 +291,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -412,7 +343,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_UNCLE_PUMP\"}) - sum(dump_topic_current_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_UNCLE_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"}) - sum(dump_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Uncle Offsets To Dump Remaining",
@@ -438,7 +369,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -470,14 +401,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(dump_topic_current_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_UNCLE_PUMP\"})",
+          "expr": "sum(dump_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Current Dump Uncle Offset",
           "refId": "A"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_UNCLE_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Last Uncle Offset",
@@ -525,7 +456,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -557,14 +488,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(dump_topic_current_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_BLOCK_PUMP\"})",
+          "expr": "sum(dump_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Current Dump Block Offset",
           "refId": "A"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_BLOCK_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Last Block Offset",
@@ -645,7 +576,6 @@
     ]
   },
   "timezone": "",
-  "title": "Ethereum Dump",
-  "uid": "VnPYhm6kz",
+  "title": "Ethereum Classic Dump",
   "version": 17
 }
