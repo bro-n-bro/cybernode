@@ -45,6 +45,12 @@ data:
       type: file
       options:
         path: /grafana-dashboards-etc
+    - name: 'exchanges'
+      orgId: 1
+      folder: 'Exchanges'
+      type: file
+      options:
+        path: /grafana-dashboards-exchanges
 ---
 
 # Grafana Data Volume Claim
@@ -77,6 +83,13 @@ spec:
     spec:
       containers:
       - name: grafana
+        env:
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: "true"
+        - name: GF_AUTH_ANONYMOUS_NAME
+          value: "Main Org."
+        - name: GF_AUTH_ANONYMOUS_ROLE
+          value: "Viewer"
         image: grafana/grafana:5.0.4
         volumeMounts:
         - name: grafana-datasources
@@ -89,6 +102,8 @@ spec:
           mountPath: /grafana-dashboards-eth
         - name: grafana-dashboards-etc
           mountPath: /grafana-dashboards-etc
+        - name: grafana-dashboards-exchanges
+          mountPath: /grafana-dashboards-exchanges
         - name: grafana-data
           mountPath: /var/lib/grafana
         ports:
@@ -117,6 +132,9 @@ spec:
       - name: grafana-dashboards-etc
         configMap:
           name: grafana-dashboards-etc
+      - name: grafana-dashboards-exchanges
+        configMap:
+          name: grafana-dashboards-exchanges
       - name: grafana-data
         persistentVolumeClaim:
           claimName: grafana-data

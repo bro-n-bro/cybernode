@@ -1,0 +1,47 @@
+# Exchanges Connector CEX Service (should expose metrics)
+apiVersion: v1
+kind: Service
+metadata:
+  name: exchanges-connector-cex
+  namespace: markets
+  labels:
+    monitoring: default-monitor
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: exchanges-connector-cex
+---
+
+# Exchanges Connector CEX Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: markets
+  name: exchanges-connector-cex
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: markets
+      labels:
+        app: exchanges-connector-cex
+    spec:
+      containers:
+      - env:
+        - name: CM_LOG_LEVEL
+          value: INFO
+        - name: KAFKA_BROKERS
+          value: kafka-broker:9092
+        - name: EXCHANGES
+          value: bitfinex,bitstamp,gdax,hitbtc,poloniex,binance
+        image: cybernode/cm-exchanges-connector:0.2.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        name: exchanges-connector-cex
+      restartPolicy: Always

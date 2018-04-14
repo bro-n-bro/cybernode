@@ -1,0 +1,49 @@
+# Exchanges Connector DEX (should expose metrics)
+apiVersion: v1
+kind: Service
+metadata:
+  name: exchanges-connector-dex
+  namespace: markets
+  labels:
+    monitoring: default-monitor
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: exchanges-connector-dex
+---
+
+# Exchanges Connector DEX Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: markets
+  name: exchanges-connector-dex
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: markets
+      labels:
+        app: exchanges-connector-dex
+    spec:
+      containers:
+      - env:
+        - name: PARITY_URL
+          value: http://parity-eth.chains.svc:8545
+        - name: CM_LOG_LEVEL
+          value: INFO
+        - name: KAFKA_BROKERS
+          value: kafka-broker:9092
+        - name: EXCHANGES
+          value: etherdelta
+        image: cybernode/cm-exchanges-connector:0.2.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        name: exchanges-connector-dex
+      restartPolicy: Always
