@@ -1,0 +1,87 @@
+# Elassandra Service
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: elassandra
+  name: elassandra
+  namespace: markets
+spec:
+  clusterIP: None
+  ports:
+  - port: 9042
+  selector:
+    app: elassandra
+---
+# Elassandra StatefulSet
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: elassandra
+  namespace: markets
+spec:
+  serviceName: elassandra
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elassandra
+  template:
+    metadata:
+      namespace: markets
+      labels:
+        app: elassandra
+    spec:
+      containers:
+      - name: elassandra
+        image: strapdata/elassandra:5.5.0.13
+        ports:
+        - containerPort: 7000
+          name: intra-node
+        - containerPort: 7001
+          name: tls-intra-node
+        - containerPort: 7199
+          name: jmx
+        - containerPort: 9042
+          name: cql
+        - containerPort: 9200
+          name: elastic-http
+        - containerPort: 9300
+          name: elastic-intra
+        resources:
+          requests:
+           memory: 10Gi
+        securityContext:
+          capabilities:
+            add:
+              - IPC_LOCK
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "PID=$(pidof java) && kill $PID && while ps -p $PID > /dev/null; do sleep 1; done"]
+        env:
+          - name: CASSANDRA_NUM_TOKENS
+            value: "16"
+          - name: CASSANDRA_SEEDS
+            value: "elassandra-0.elassandra.markets.svc.cluster.local"
+          - name: CASSANDRA_CLUSTER_NAME
+            value: "CYBER_MARKETS"
+          - name: CASSANDRA_DC
+            value: "PRODUCTION"
+          - name: CASSANDRA_AUTO_BOOTSTRAP
+            value: "true"
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+        volumeMounts:
+        - name: elassandra-data
+          mountPath: /var/lib/cassandra
+  volumeClaimTemplates:
+  - metadata:
+      name: elassandra-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 300Gi
+      storageClassName: fast

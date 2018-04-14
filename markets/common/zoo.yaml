@@ -1,0 +1,83 @@
+
+# Zookeeper Log Volume Claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zoo-claim0
+  namespace: markets
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+---
+
+# Zookeeper Data Volume Claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zoo-claim1
+  namespace: markets
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+---
+
+# Zookeeper Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: zoo
+  namespace: markets
+spec:
+  ports:
+  - name: "2181"
+    port: 2181
+    targetPort: 2181
+  selector:
+    app: zoo
+---
+
+# Zookeeper Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: zoo
+  namespace: markets
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: markets
+      labels:
+        app: zoo
+    spec:
+      containers:
+      - env:
+        - name: KAFKA_LOG4J_ROOT_LOGLEVEL
+          value: ERROR
+        - name: ZOOKEEPER_CLIENT_PORT
+          value: "2181"
+        - name: ZOOKEEPER_TICK_TIME
+          value: "2000"
+        image: confluentinc/cp-zookeeper:4.0.0-3
+        name: zoo
+        ports:
+        - containerPort: 2181
+        volumeMounts:
+        - mountPath: /var/lib/zookeeper/log
+          name: zoo-claim0
+        - mountPath: /var/lib/zookeeper/data
+          name: zoo-claim1
+      restartPolicy: Always
+      volumes:
+      - name: zoo-claim0
+        persistentVolumeClaim:
+          claimName: zoo-claim0
+      - name: zoo-claim1
+        persistentVolumeClaim:
+          claimName: zoo-claim1

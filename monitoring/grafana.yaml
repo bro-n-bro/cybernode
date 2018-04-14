@@ -45,6 +45,12 @@ data:
       type: file
       options:
         path: /grafana-dashboards-etc
+    - name: 'exchanges'
+      orgId: 1
+      folder: 'Exchanges'
+      type: file
+      options:
+        path: /grafana-dashboards-exchanges
 ---
 
 # Grafana Data Volume Claim
@@ -89,6 +95,8 @@ spec:
           mountPath: /grafana-dashboards-eth
         - name: grafana-dashboards-etc
           mountPath: /grafana-dashboards-etc
+        - name: grafana-dashboards-exchanges
+          mountPath: /grafana-dashboards-exchanges
         - name: grafana-data
           mountPath: /var/lib/grafana
         ports:
@@ -117,6 +125,9 @@ spec:
       - name: grafana-dashboards-etc
         configMap:
           name: grafana-dashboards-etc
+      - name: grafana-dashboards-exchanges
+        configMap:
+          name: grafana-dashboards-exchanges
       - name: grafana-data
         persistentVolumeClaim:
           claimName: grafana-data
