@@ -8,3 +8,6 @@ kubectl create configmap grafana-dashboards-etc --from-file=dashboards/ethereum_
 
 kubectl delete configmap grafana-dashboards-exchanges --namespace=monitoring
 kubectl create configmap grafana-dashboards-exchanges --from-file=dashboards/markets --namespace=monitoring
+
+kubectl delete configmap grafana-dashboards-btc --namespace=monitoring
+kubectl create configmap grafana-dashboards-btc --from-file=dashboards/bitcoin --namespace=monitoring

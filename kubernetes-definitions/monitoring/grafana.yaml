@@ -45,6 +45,12 @@ data:
       type: file
       options:
         path: /grafana-dashboards-etc
+    - name: 'bitcoin'
+      orgId: 1
+      folder: 'Bitcoin'
+      type: file
+      options:
+        path: /grafana-dashboards-btc
     - name: 'exchanges'
       orgId: 1
       folder: 'Exchanges'
@@ -102,6 +108,8 @@ spec:
           mountPath: /grafana-dashboards-eth
         - name: grafana-dashboards-etc
           mountPath: /grafana-dashboards-etc
+        - name: grafana-dashboards-btc
+          mountPath: /grafana-dashboards-btc
         - name: grafana-dashboards-exchanges
           mountPath: /grafana-dashboards-exchanges
         - name: grafana-data
@@ -132,6 +140,9 @@ spec:
       - name: grafana-dashboards-etc
         configMap:
           name: grafana-dashboards-etc
+      - name: grafana-dashboards-btc
+        configMap:
+          name: grafana-dashboards-btc
       - name: grafana-dashboards-exchanges
         configMap:
           name: grafana-dashboards-exchanges
