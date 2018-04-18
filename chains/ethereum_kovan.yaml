@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: List
+items:
+
+# Service
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: parity-eth-kovan
+    namespace: chains
+  spec:
+    ports:
+    - name: "8545"
+      port: 8545
+      targetPort: 8545
+    selector:
+      chain: parity-eth-kovan
+
+# Deployment
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    name: parity-eth-kovan-deployment
+    namespace: chains
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    template:
+      metadata:
+        labels:
+          chain: parity-eth-kovan
+      spec:
+        containers:
+        - args:
+          - --db-path
+          - /cyberdata
+          - --jsonrpc-hosts
+          - all
+          - --jsonrpc-interface
+          - all
+          - --jsonrpc-threads
+          - "16"
+          - --chain
+          - "kovan"
+          image: parity/parity:stable-release
+          name: parity-eth-kovan-pod
+          resources:
+            limits:
+              cpu: "3"
+              memory: "12Gi"
+          ports:
+          - containerPort: 8545
+          volumeMounts:
+          - mountPath: /cyberdata
+            name: parity-eth-kovan-claim0
+        restartPolicy: Always
+        volumes:
+        - name: parity-eth-kovan-claim0
+          persistentVolumeClaim:
+            claimName: parity-eth-kovan-claim0
+
+# Volume Claim
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: parity-eth-kovan-claim0
+    namespace: chains
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 20Gi
+    storageClassName: fast

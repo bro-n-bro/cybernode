@@ -21,3 +21,9 @@ items:
   kind: Namespace
   metadata:
     name: search
+
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    name: browser
+
