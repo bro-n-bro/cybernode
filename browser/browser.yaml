@@ -1,0 +1,46 @@
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: browser
+  namespace: browser
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "web"
+    port: 80
+    targetPort: 80
+  selector:
+    app: browser
+---
+
+# Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: browser
+  name: browser
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: browser
+      labels:
+        app: browser
+    spec:
+      containers:
+      - env:
+        - name: CYBER_CHAINGEAR_API
+          value: http://staging.cyber.fund:32600
+        - name: CYBER_SEARCH_API
+          value: http://api.cybersearch.io
+        - name: CYBER_MARKETS_API
+          value: http://staging.cyber.fund:32801
+        image: cybernode/cui-browser:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        name: browser
+      restartPolicy: Always
