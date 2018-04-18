@@ -1,2 +1,29 @@
-#IntelliJ
+# IntelliJ
 .idea/
+out/
+*.iws
+*.iml
+*.ipr
+*.ips
+
+# Eclipse
+.settings/
+.metadata/
+.classpath
+.project
+
+# Generated
+target/
+javadoc/
+bin/
+log/
+classes/
+
+# Misc.
+.DS_Store
+*.swp
+*.swo
+
+# Gradle
+.gradle/
+build
