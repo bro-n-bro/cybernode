@@ -83,6 +83,13 @@ spec:
     spec:
       containers:
       - name: grafana
+        env:
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: "true"
+        - name: GF_AUTH_ANONYMOUS_NAME
+          value: "Main Org."
+        - name: GF_AUTH_ANONYMOUS_ROLE
+          value: "Viewer"
         image: grafana/grafana:5.0.4
         volumeMounts:
         - name: grafana-datasources
