@@ -6,21 +6,21 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    name: parity-etc
+    name: bitcoind-btc
     namespace: chains
   spec:
     ports:
-    - name: "8545"
-      port: 8545
-      targetPort: 8545
+    - name: "8332"
+      port: 8332
+      targetPort: 8332
     selector:
-      chain: parity-etc
+      chain: bitcoind-btc
 
 # Deployment
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    name: parity-etc-deployment
+    name: bitcoind-btc-deployment
     namespace: chains
   spec:
     replicas: 1
@@ -29,22 +29,18 @@ items:
     template:
       metadata:
         labels:
-          chain: parity-etc
+          chain: bitcoind-btc
       spec:
         containers:
         - args:
-          - --db-path
-          - /cyberdata
-          - --jsonrpc-hosts
-          - all
-          - --jsonrpc-interface
-          - all
-          - --jsonrpc-threads
-          - "16"
-          - --chain
-          - classic
-          image: parity/parity:stable
-          name: parity-etc-pod
+          - -server
+          - -rest
+          - -txindex
+          - -rpcpassword=cyber
+          - -rpcuser=cyber
+          - -rpcallowip=0.0.0.0/0
+          image: ruimarinho/bitcoin-core:0.16.0
+          name: bitcoind-btc-pod
           resources:
             limits:
               cpu: "2"
@@ -53,26 +49,26 @@ items:
               cpu: "0.5"
               memory: "1Gi"
           ports:
-          - containerPort: 8545
+          - containerPort: 8332
           volumeMounts:
-          - mountPath: /cyberdata
-            name: parity-etc-claim0
+          - mountPath: /home/bitcoin/.bitcoin
+            name: bitcoind-btc-claim0
         restartPolicy: Always
         volumes:
-        - name: parity-etc-claim0
+        - name: bitcoind-btc-claim0
           persistentVolumeClaim:
-            claimName: parity-etc-claim0
+            claimName: bitcoind-btc-claim0
 
 # Volume Claim
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    name: parity-etc-claim0
+    name: bitcoind-btc-claim0
     namespace: chains
   spec:
     accessModes:
     - ReadWriteOnce
     resources:
       requests:
-        storage: 20Gi
+        storage: 600Gi
     storageClassName: fast

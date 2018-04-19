@@ -21,7 +21,7 @@ metadata:
   namespace: search
 spec:
   serviceName: elassandra
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: elassandra
