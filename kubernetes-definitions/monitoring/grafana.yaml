@@ -57,6 +57,12 @@ data:
       type: file
       options:
         path: /grafana-dashboards-exchanges
+    - name: 'cluster'
+      orgId: 1
+      folder: 'Cluster Overall'
+      type: file
+      options:
+        path: /grafana-dashboards-cluster
 ---
 
 # Grafana Data Volume Claim
@@ -112,6 +118,8 @@ spec:
           mountPath: /grafana-dashboards-btc
         - name: grafana-dashboards-exchanges
           mountPath: /grafana-dashboards-exchanges
+        - name: grafana-dashboards-cluster
+          mountPath: /grafana-dashboards-cluster
         - name: grafana-data
           mountPath: /var/lib/grafana
         ports:
@@ -146,6 +154,9 @@ spec:
       - name: grafana-dashboards-exchanges
         configMap:
           name: grafana-dashboards-exchanges
+      - name: grafana-dashboards-cluster
+        configMap:
+          name: grafana-dashboards-cluster
       - name: grafana-data
         persistentVolumeClaim:
           claimName: grafana-data

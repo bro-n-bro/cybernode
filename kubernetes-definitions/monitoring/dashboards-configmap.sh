@@ -11,3 +11,6 @@ kubectl create configmap grafana-dashboards-exchanges --from-file=dashboards/mar
 
 kubectl delete configmap grafana-dashboards-btc --namespace=monitoring
 kubectl create configmap grafana-dashboards-btc --from-file=dashboards/bitcoin --namespace=monitoring
+
+kubectl delete configmap grafana-dashboards-cluster --namespace=monitoring
+kubectl create configmap grafana-dashboards-cluster --from-file=dashboards/cluster --namespace=monitoring

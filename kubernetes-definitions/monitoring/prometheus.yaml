@@ -55,6 +55,7 @@ spec:
     targetPort: 9090
   selector:
     app: prometheus
+---
 
 # Prometheus
 apiVersion: monitoring.coreos.com/v1
@@ -66,8 +67,9 @@ metadata:
   namespace: monitoring
 spec:
   replicas: 1
-  version: v2.1.0
+  version: v2.2.1
   serviceAccountName: prometheus
   serviceMonitorSelector:
-    matchLabels:
-      monitor: default
+    matchExpressions:
+    - key: monitor
+      operator: Exists
