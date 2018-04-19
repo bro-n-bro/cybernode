@@ -1,8 +1,8 @@
-# Pump Service (should expose metrics)
+# Dump Service (should expose metrics)
 apiVersion: v1
 kind: Service
 metadata:
-  name: pump-etc
+  name: dump-cassandra-btc
   namespace: search
   labels:
     monitoring: default-monitor
@@ -12,15 +12,15 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
-    app: pump-etc
+    app: dump-cassandra-btc
 ---
 
-# Pump Deployment
+# Dump Deployment
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   namespace: search
-  name: pump-etc
+  name: dump-cassandra-btc
 spec:
   replicas: 1
   strategy:
@@ -29,21 +29,21 @@ spec:
     metadata:
       namespace: search
       labels:
-        app: pump-etc
+        app: dump-cassandra-btc
     spec:
       containers:
       - env:
         - name: CHAIN
-          value: ETHEREUM_CLASSIC
-        - name: CHAIN_NODE_URL
-          value: http://parity-etc.chains.svc:8545
+          value: BITCOIN
+        - name: CASSANDRA_HOSTS
+          value: elassandra
         - name: CS_LOG_LEVEL
           value: INFO
         - name: KAFKA_BROKERS
           value: kafka-broker:9092
-        image: cybernode/chain-pump-ethereum:0.2.7
+        image: cybernode/chain-dump-cassandra-bitcoin:0.2.7
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        name: pump-etc
+        name: dump-cassandra-btc
       restartPolicy: Always
