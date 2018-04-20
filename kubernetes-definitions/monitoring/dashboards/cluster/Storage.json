@@ -16,7 +16,6 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1524168010919,
   "links": [],
   "panels": [
     {
@@ -33,6 +32,39 @@
       "type": "row"
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                57621951220
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "min"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "frequency": "600s",
+        "handler": 1,
+        "name": "Elassandra Available Space",
+        "noDataState": "alerting",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -75,14 +107,22 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "kubelet_volume_stats_available_bytes{exported_namespace=~\"^$Namespace$\",persistentvolumeclaim=~\"elassandra.*\"}",
+          "expr": "kubelet_volume_stats_available_bytes{persistentvolumeclaim=~\"elassandra.*\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "[{{exported_namespace}}] {{persistentvolumeclaim}}",
           "refId": "A"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 57621951220
+        }
+      ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Elassandra Available Space",
@@ -114,7 +154,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ]
     },
@@ -124,6 +164,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "PROMETHEUS",
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
         "h": 6,
@@ -158,7 +199,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\", namespace=~\"^$Namespace$\", pod_name=~\"elassandra.*\"}[1m])) by (pod_name, namespace)",
+          "expr": "sum (rate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\", pod_name=~\"elassandra.*\"}[1m])) by (pod_name, namespace)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "[{{namespace}}] {{pod_name}}",
@@ -241,11 +282,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate (container_memory_working_set_bytes{image!=\"\",name=~\"^k8s_.*\", namespace=~\"^$Namespace$\", pod_name=~\"elassandra.*\"}[1m])) by (pod_name, namespace)",
+          "expr": "sum (container_memory_working_set_bytes{image!=\"\", pod_name=~\"elassandra.*\"}) by (pod_name, namespace)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "[{{namespace}}] {{pod_name}}",
-          "refId": "A"
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -312,6 +353,7 @@
       },
       "lines": true,
       "linewidth": 1,
+      "links": [],
       "nullPointMode": "null",
       "percentage": false,
       "pointradius": 5,
@@ -323,14 +365,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate (container_network_receive_bytes_total{image!=\"\",name=~\"^k8s_.*\",namespace=~\"^$Namespace$\", pod_name=~\"elassandra.*\"}[1m])) by (pod_name, namespace)",
+          "expr": "sum (rate (container_network_receive_bytes_total{image!=\"\",name=~\"^k8s_.*\", pod_name=~\"elassandra.*\"}[1m])) by (pod_name, namespace)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "IN [{{namespace}}] {{pod_name}}",
           "refId": "A"
         },
         {
-          "expr": "- sum (rate (container_network_transmit_bytes_total{image!=\"\",name=~\"^k8s_.*\",namespace=~\"^$Namespace$\", pod_name=~\"elassandra.*\"}[1m])) by (pod_name, namespace)",
+          "expr": "- sum (rate (container_network_transmit_bytes_total{image!=\"\",name=~\"^k8s_.*\", pod_name=~\"elassandra.*\"}[1m])) by (pod_name, namespace)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "OUT [{{namespace}}] {{pod_name}}",
@@ -340,7 +382,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Panel Title",
+      "title": "Elassandra Network IO Usage",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -374,7 +416,7 @@
       ]
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -382,93 +424,92 @@
         "y": 26
       },
       "id": 8,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "PROMETHEUS",
-          "fill": 1,
-          "gridPos": {
-            "h": 7,
-            "w": 16,
-            "x": 0,
-            "y": 27
-          },
-          "id": 4,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "sideWidth": 300,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 0.5,
-          "points": true,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "kubelet_volume_stats_available_bytes{exported_namespace=~\"search|markets\",persistentvolumeclaim=~\"kafka.*\"}",
-              "format": "time_series",
-              "intervalFactor": 1,
-              "legendFormat": "[{{exported_namespace}}] {{persistentvolumeclaim}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Kafka Available Space",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "bytes",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": "0",
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        }
-      ],
+      "panels": [],
       "title": "Kafka",
       "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "PROMETHEUS",
+      "fill": 1,
+      "gridPos": {
+        "h": 7,
+        "w": 16,
+        "x": 0,
+        "y": 27
+      },
+      "id": 4,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sideWidth": 300,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 0.5,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(kubelet_volume_stats_available_bytes{persistentvolumeclaim=~\"kafka.*\"}) by (persistentvolumeclaim, exported_namespace)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "[{{exported_namespace}}] {{persistentvolumeclaim}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Kafka Available Space",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ]
     }
   ],
   "refresh": "15s",
@@ -476,28 +517,7 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": [
-      {
-        "allValue": null,
-        "current": {},
-        "datasource": "PROMETHEUS",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": false,
-        "name": "Namespace",
-        "options": [],
-        "query": "label_values(namespace)",
-        "refresh": 1,
-        "regex": "",
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      }
-    ]
+    "list": []
   },
   "time": {
     "from": "now-3h",
@@ -530,5 +550,5 @@
   "timezone": "",
   "title": "Storage Monitoring",
   "uid": "-hNtDxZmk",
-  "version": 28
+  "version": 3
 }
