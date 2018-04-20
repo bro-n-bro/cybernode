@@ -354,6 +354,39 @@
       ]
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                5
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "C",
+                "1s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "frequency": "600s",
+        "handler": 1,
+        "name": "ETH Pump",
+        "noDataState": "alerting",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -411,7 +444,7 @@
           "refId": "B"
         },
         {
-          "expr": "sum(delta(pump_last_processed_block{chain=\"ETHEREUM\"}[5m]))",
+          "expr": "sum(delta(pump_last_processed_block{chain=\"ETHEREUM\"}[10m]))",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -580,6 +613,5 @@
   },
   "timezone": "",
   "title": "Ethereum Pump",
-  "uid": "J0p4xxqzz",
-  "version": 18
+  "version": 16
 }

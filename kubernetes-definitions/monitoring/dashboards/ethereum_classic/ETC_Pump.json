@@ -354,6 +354,39 @@
       ]
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                5
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "C",
+                "1s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "frequency": "600s",
+        "handler": 1,
+        "name": "ETC Pump",
+        "noDataState": "alerting",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -411,7 +444,7 @@
           "refId": "B"
         },
         {
-          "expr": "sum(delta(pump_last_processed_block{chain=\"ETHEREUM_CLASSIC\"}[5m]))",
+          "expr": "sum(delta(pump_last_processed_block{chain=\"ETHEREUM_CLASSIC\"}[10m]))",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -580,5 +613,5 @@
   },
   "timezone": "",
   "title": "Ethereum Classic Pump",
-  "version": 18
+  "version": 16
 }

@@ -19,6 +19,39 @@
   "links": [],
   "panels": [
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                10000
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "C",
+                "1s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "frequency": "600s",
+        "handler": 1,
+        "name": "ETH Cassandra Dump Tx Processing",
+        "noDataState": "alerting",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -82,7 +115,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 1000
+          "value": 10000
         }
       ],
       "timeFrom": null,
@@ -365,6 +398,39 @@
       "valueName": "current"
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                20
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "C",
+                "1s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "frequency": "600s",
+        "handler": 1,
+        "name": "ETH Cassandra Dump Uncle Processing",
+        "noDataState": "alerting",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -379,13 +445,14 @@
       },
       "id": 2,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
+        "current": true,
         "max": false,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -413,9 +480,24 @@
           "intervalFactor": 1,
           "legendFormat": "Last Uncle Offset",
           "refId": "B"
+        },
+        {
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_UNCLE_PUMP\"}) - sum(dump_topic_current_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_UNCLE_PUMP\"})",
+          "format": "time_series",
+          "hide": true,
+          "intervalFactor": 1,
+          "refId": "C"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 20
+        }
+      ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Last Dumped Uncle Offset",
@@ -434,8 +516,9 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": null,
+          "decimals": 0,
+          "format": "none",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -447,11 +530,44 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ]
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                10
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "C",
+                "1s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "frequency": "600s",
+        "handler": 1,
+        "name": "ETH Cassandra Dump Block Processing",
+        "noDataState": "alerting",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -466,13 +582,14 @@
       },
       "id": 4,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
+        "current": true,
         "max": false,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -500,9 +617,24 @@
           "intervalFactor": 1,
           "legendFormat": "Last Block Offset",
           "refId": "B"
+        },
+        {
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_BLOCK_PUMP\"}) - sum(dump_topic_current_offset{chain=\"ETHEREUM\",topic=\"ETHEREUM_BLOCK_PUMP\"})",
+          "format": "time_series",
+          "hide": true,
+          "intervalFactor": 1,
+          "refId": "C"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 10
+        }
+      ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Last Dumped Block Offset",
@@ -521,7 +653,8 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": null,
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -529,12 +662,13 @@
           "show": true
         },
         {
+          "decimals": 3,
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ]
     }
@@ -577,6 +711,5 @@
   },
   "timezone": "",
   "title": "Ethereum Dump",
-  "uid": "VnPYhm6kz",
-  "version": 17
+  "version": 26
 }

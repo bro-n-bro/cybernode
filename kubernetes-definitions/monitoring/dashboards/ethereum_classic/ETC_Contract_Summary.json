@@ -1,5 +1,4 @@
 {
-
   "annotations": {
     "list": [
       {
@@ -100,6 +99,39 @@
       ]
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                10000
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "C",
+                "1s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "frequency": "600s",
+        "handler": 1,
+        "name": "ETC Contract Summary Tx Processing",
+        "noDataState": "alerting",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -165,7 +197,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 1000
+          "value": 10000
         }
       ],
       "timeFrom": null,
@@ -204,6 +236,39 @@
       ]
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                15
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "C",
+                "1s",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "frequency": "600s",
+        "handler": 1,
+        "name": "ETC Contract Summary  Block Processing",
+        "noDataState": "alerting",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -218,13 +283,14 @@
       },
       "id": 4,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
+        "current": true,
         "max": false,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -252,9 +318,24 @@
           "intervalFactor": 1,
           "legendFormat": "Last Contract Summary Ethereum Classic Block Offset",
           "refId": "B"
+        },
+        {
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
+          "format": "time_series",
+          "hide": true,
+          "intervalFactor": 1,
+          "refId": "C"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 15
+        }
+      ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Last Applied Block Offset",
@@ -273,7 +354,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -286,11 +367,44 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ]
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                30
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "C",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "frequency": "600s",
+        "handler": 1,
+        "name": "ETC Contract Summary  Uncle Processing",
+        "noDataState": "alerting",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -305,13 +419,14 @@
       },
       "id": 6,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
+        "current": true,
         "max": false,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -339,9 +454,24 @@
           "intervalFactor": 1,
           "legendFormat": "Last Contract Summary Uncle Offset",
           "refId": "B"
+        },
+        {
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
+          "format": "time_series",
+          "hide": true,
+          "intervalFactor": 1,
+          "refId": "C"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 30
+        }
+      ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Last Applied Uncle Offset",
@@ -360,7 +490,8 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": null,
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -373,7 +504,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ]
     },
@@ -1200,8 +1331,7 @@
   },
   "timepicker": {
     "refresh_intervals": [
-      "5s",
-      "10s",
+      "15s",
       "30s",
       "1m",
       "5m",
