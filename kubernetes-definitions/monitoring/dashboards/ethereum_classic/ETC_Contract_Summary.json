@@ -56,7 +56,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "500 * rate(address_summary_commit_kafka_seconds_count[10s])",
+          "expr": "500 * rate(contract_summary_commit_kafka_seconds_count[10s])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{topic}}",
@@ -136,7 +136,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(address_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
+          "expr": "sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "interval": "20s",
           "intervalFactor": 1,
@@ -152,7 +152,7 @@
           "refId": "B"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"}) - sum(address_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -240,7 +240,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(address_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
+          "expr": "sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Current Contract Summary Block Offset",
@@ -327,7 +327,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(address_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
+          "expr": "sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Current Contract Summary Uncle Offset",
@@ -438,7 +438,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(address_summary_apply_lock_counter_total{chain=\"ETHEREUM_CLASSIC\", topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
+          "expr": "sum(contract_summary_apply_lock_counter_total{chain=\"ETHEREUM_CLASSIC\", topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -519,7 +519,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(address_summary_apply_lock_counter_total{chain=\"ETHEREUM_CLASSIC\", topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
+          "expr": "sum(contract_summary_apply_lock_counter_total{chain=\"ETHEREUM_CLASSIC\", topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -599,7 +599,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(address_summary_apply_lock_counter_total{chain=\"ETHEREUM_CLASSIC\", topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
+          "expr": "sum(contract_summary_apply_lock_counter_total{chain=\"ETHEREUM_CLASSIC\", topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -680,7 +680,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"}) - sum(address_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Tx Offsets To Apply Remaining",
@@ -761,7 +761,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"}) - sum(address_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Block Offsets To Apply Remaining",
@@ -842,7 +842,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"}) - sum(address_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
+          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Uncle Offsets To Apply Remaining",
@@ -899,17 +899,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(sum_over_time(address_summary_download_cassandra_seconds_sum{chain=\"ETHEREUM_CLASSIC\"}[1m])/sum_over_time(address_summary_download_cassandra_seconds_count{chain=\"ETHEREUM_CLASSIC\"}[1m])) by (topic)",
+          "expr": "sum(sum_over_time(contract_summary_download_cassandra_seconds_sum{chain=\"ETHEREUM_CLASSIC\"}[1m])/sum_over_time(contract_summary_download_cassandra_seconds_count{chain=\"ETHEREUM_CLASSIC\"}[1m])) by (topic)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Address Summary Download Cassandra Time {{topic}}",
+          "legendFormat": "Contract Summary Download Cassandra Time {{topic}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Address Summary Download Cassandra Speed",
+      "title": "Contract Summary Download Cassandra Speed",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -980,17 +980,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(sum_over_time(address_summary_commit_kafka_seconds_sum{chain=\"ETHEREUM_CLASSIC\"}[1m])/sum_over_time(address_summary_commit_kafka_seconds_count{chain=\"ETHEREUM_CLASSIC\"}[1m])) by (topic)",
+          "expr": "sum(sum_over_time(contract_summary_commit_kafka_seconds_sum{chain=\"ETHEREUM_CLASSIC\"}[1m])/sum_over_time(contract_summary_commit_kafka_seconds_count{chain=\"ETHEREUM_CLASSIC\"}[1m])) by (topic)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Address Summary Commit Kafka Time {{topic}}",
+          "legendFormat": "Contract Summary Commit Kafka Time {{topic}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Address Summary Commit Kafka Speed",
+      "title": "Contract Summary Commit Kafka Speed",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1061,17 +1061,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(sum_over_time(address_summary_delta_store_seconds_sum{chain=\"ETHEREUM_CLASSIC\"}[1m])/sum_over_time(address_summary_delta_store_seconds_count{chain=\"ETHEREUM_CLASSIC\"}[1m])) by (topic)",
+          "expr": "sum(sum_over_time(contract_summary_delta_store_seconds_sum{chain=\"ETHEREUM_CLASSIC\"}[1m])/sum_over_time(contract_summary_delta_store_seconds_count{chain=\"ETHEREUM_CLASSIC\"}[1m])) by (topic)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Address Delta Store TIme {{topic}}",
+          "legendFormat": "Contract Delta Store TIme {{topic}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Address Delta Store Speed",
+      "title": "Contract Delta Store Speed",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1142,17 +1142,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(sum_over_time(address_summary_commit_cassandra_seconds_sum{chain=\"ETHEREUM_CLASSIC\"}[1m])/sum_over_time(address_summary_commit_cassandra_seconds_count{chain=\"ETHEREUM_CLASSIC\"}[1m])) by (topic)",
+          "expr": "sum(sum_over_time(contract_summary_commit_cassandra_seconds_sum{chain=\"ETHEREUM_CLASSIC\"}[1m])/sum_over_time(contract_summary_commit_cassandra_seconds_count{chain=\"ETHEREUM_CLASSIC\"}[1m])) by (topic)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Address Summary Commit Cassandra Time {{topic}}",
+          "legendFormat": "Contract Summary Commit Cassandra Time {{topic}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Address Summary Commit Cassandra Speed",
+      "title": "Contract Summary Commit Cassandra Speed",
       "tooltip": {
         "shared": true,
         "sort": 0,

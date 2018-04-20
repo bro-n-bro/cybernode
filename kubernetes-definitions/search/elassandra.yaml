@@ -66,7 +66,7 @@ spec:
           - name: CASSANDRA_CLUSTER_NAME
             value: "CYBER_SEARCH"
           - name: CASSANDRA_DC
-            value: "PRODUCTION"
+            value: "WITHOUT_REPLICATION"
           - name: CASSANDRA_AUTO_BOOTSTRAP
             value: "true"
           - name: POD_IP
