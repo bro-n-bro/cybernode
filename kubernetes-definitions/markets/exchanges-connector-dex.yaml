@@ -41,7 +41,7 @@ spec:
           value: kafka-broker:9092
         - name: EXCHANGES
           value: etherdelta
-        image: cybernode/cm-exchanges-connector:0.2.0
+        image: cybernode/cm-exchanges-connector:0.2.3
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
