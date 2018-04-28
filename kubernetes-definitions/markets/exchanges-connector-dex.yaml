@@ -38,10 +38,10 @@ spec:
         - name: CM_LOG_LEVEL
           value: INFO
         - name: KAFKA_BROKERS
-          value: kafka-broker:9092
+          value: kafka-broker.markets:9092
         - name: EXCHANGES
           value: etherdelta
-        image: cybernode/cm-exchanges-connector:0.2.3
+        image: cybernode/cm-exchanges-connector:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
