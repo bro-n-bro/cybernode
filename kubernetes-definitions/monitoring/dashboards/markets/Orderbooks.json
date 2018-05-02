@@ -1,4 +1,46 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "PROMETHEUS",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "5.0.4"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": "5.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "5.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": "5.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": "5.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -37,12 +79,12 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
+        "h": 4,
+        "w": 4,
         "x": 10,
         "y": 0
       },
-      "id": 2,
+      "id": 8,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -79,14 +121,14 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(increase(trade_count_total[24h]))",
+          "expr": "sum(increase(orderbook_size[24h]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
         }
       ],
       "thresholds": "",
-      "title": "Trades count (24h)",
+      "title": "Orders count(24h)",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -104,15 +146,14 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "PROMETHEUS",
-      "decimals": 2,
       "fill": 1,
       "gridPos": {
-        "h": 7,
+        "h": 10,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 4
       },
-      "id": 4,
+      "id": 6,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -121,6 +162,8 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
         "values": true
       },
@@ -138,27 +181,20 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(trade_count_total[1m])) by (exchange)",
+          "expr": "sum(orderbook_size) by (exchange)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{exchange}}",
           "refId": "A"
-        },
-        {
-          "expr": "sum(rate(trade_count_total[1m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "ALL",
-          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Trades per second",
+      "title": "Orders count by Exchange",
       "tooltip": {
         "shared": true,
-        "sort": 2,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
@@ -194,15 +230,14 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "PROMETHEUS",
-      "decimals": 2,
       "fill": 1,
       "gridPos": {
-        "h": 7,
+        "h": 9,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 14
       },
-      "id": 6,
+      "id": 4,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -211,6 +246,9 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sideWidth": 150,
+        "sort": "current",
+        "sortDesc": true,
         "total": false,
         "values": true
       },
@@ -228,20 +266,20 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(trade_latency_seconds)  by (exchange)",
+          "expr": "sum(orderbook_size) by (tokens_pair)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{exchange}}",
+          "legendFormat": "{{tokens_pair}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Trade latency",
+      "title": "OrderBook size by tokens pair",
       "tooltip": {
         "shared": true,
-        "sort": 2,
+        "sort": 0,
         "value_type": "individual"
       },
       "type": "graph",
@@ -254,7 +292,7 @@
       },
       "yaxes": [
         {
-          "format": "s",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -270,9 +308,69 @@
           "show": true
         }
       ]
+    },
+    {
+      "columns": [
+        {
+          "text": "Current",
+          "value": "current"
+        }
+      ],
+      "datasource": "PROMETHEUS",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 9,
+        "w": 11,
+        "x": 6,
+        "y": 23
+      },
+      "id": 2,
+      "links": [],
+      "pageSize": 150,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 1,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "expr": "sum(orderbook_size) by (exchange, tokens_pair, order_type)",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 1,
+          "legendFormat": "Exchange: {{exchange}}; Pair: {{tokens_pair}}; Type: {{order_type}}",
+          "refId": "A"
+        }
+      ],
+      "title": "OrderBook size",
+      "transform": "timeseries_aggregations",
+      "type": "table"
     }
   ],
-  "refresh": "15s",
+  "refresh": "5s",
   "schemaVersion": 16,
   "style": "dark",
   "tags": [],
@@ -280,12 +378,13 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
-      "15s",
+      "5s",
+      "10s",
       "30s",
       "1m",
       "5m",
@@ -308,7 +407,7 @@
     ]
   },
   "timezone": "",
-  "title": "Trades dashboard",
-  "uid": "DnZ4J0imk",
-  "version": 11
+  "title": "Orderbooks",
+  "uid": "cEeAp-Mmz",
+  "version": 13
 }
