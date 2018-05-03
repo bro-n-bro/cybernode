@@ -1,0 +1,47 @@
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-exporter
+  namespace: search
+  labels:
+    monitoring: default-monitor
+spec:
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: kafka-exporter
+---
+
+# Kafka Exporter
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: kafka-exporter
+  name: kafka-exporter
+  namespace: search
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      namespace: search
+      labels:
+        app: kafka-exporter
+    spec:
+      containers:
+      - image: danielqsj/kafka-exporter:latest
+        name: kafka-exporter
+        ports:
+          - containerPort: 8080
+        args:
+          - --kafka.server=kafka-broker.search:9092
+          - --web.telemetry-path=/actuator/prometheus
+          - --web.listen-address=:8080
+          #- --topic.filter= todo: add topic filter
+        imagePullPolicy: Always
+      restartPolicy: Always
