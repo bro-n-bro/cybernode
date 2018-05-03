@@ -41,8 +41,17 @@ spec:
           value: INFO
         - name: KAFKA_BROKERS
           value: kafka-broker:9092
+        - name: JAVA_OPTS
+          value: -Xms8g -Xmx8g
         image: cybernode/chain-pump-bitcoin:latest
         imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1.5"
+            memory: "8.5Gi"
+          limits:
+            cpu: "2"
+            memory: "10Gi"
         ports:
         - containerPort: 8080
         name: pump-btc
