@@ -36,6 +36,10 @@ items:
           - -server
           - -rest
           - -txindex
+          - -printtoconsole
+          - -debug=rpc,http
+          - -rpcclienttimeout=220
+          - -rpcthreads=128
           - -rpcpassword=cyber
           - -rpcuser=cyber
           - -rpcallowip=0.0.0.0/0
@@ -43,11 +47,11 @@ items:
           name: bitcoind-btc-pod
           resources:
             limits:
-              cpu: "2"
+              cpu: "1.5"
               memory: "10Gi"
             requests:
               cpu: "0.5"
-              memory: "1Gi"
+              memory: "6Gi"
           ports:
           - containerPort: 8332
           volumeMounts:
