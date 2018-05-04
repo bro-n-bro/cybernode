@@ -69,7 +69,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "PROMETHEUS",
+      "datasource": "DS_PROMETHEUS",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -80,8 +80,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 10,
+        "w": 6,
+        "x": 9,
         "y": 0
       },
       "id": 8,
@@ -145,7 +145,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+      "datasource": "DS_PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 10,
@@ -229,7 +229,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "PROMETHEUS",
+      "datasource": "DS_PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -266,7 +266,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(orderbook_size) by (tokens_pair)",
+          "expr": "sum(rate(orderbook_size[3m])) by (tokens_pair)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{tokens_pair}}",
@@ -316,7 +316,7 @@
           "value": "current"
         }
       ],
-      "datasource": "PROMETHEUS",
+      "datasource": "DS_PROMETHEUS",
       "fontSize": "100%",
       "gridPos": {
         "h": 9,
@@ -409,5 +409,5 @@
   "timezone": "",
   "title": "Orderbooks",
   "uid": "cEeAp-Mmz",
-  "version": 13
+  "version": 14
 }
