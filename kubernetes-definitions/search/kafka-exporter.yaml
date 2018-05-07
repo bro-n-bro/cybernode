@@ -42,6 +42,6 @@ spec:
           - --kafka.server=kafka-broker.search:9092
           - --web.telemetry-path=/actuator/prometheus
           - --web.listen-address=:8080
-          #- --topic.filter= todo: add topic filter
+          - --topic.filter=.PUMP
         imagePullPolicy: Always
       restartPolicy: Always
