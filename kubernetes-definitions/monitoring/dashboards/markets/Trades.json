@@ -63,7 +63,7 @@
         "#c15c17",
         "#badff4"
       ],
-      "datasource": "DS_PROMETHEUS",
+      "datasource": "PROMETHEUS",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -139,7 +139,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "DS_PROMETHEUS",
+      "datasource": "PROMETHEUS",
       "decimals": 2,
       "fill": 1,
       "gridPos": {
@@ -223,7 +223,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "DS_PROMETHEUS",
+      "datasource": "PROMETHEUS",
       "decimals": 2,
       "fill": 1,
       "gridPos": {
@@ -307,10 +307,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "DS_PROMETHEUS",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 24,
         "x": 0,
         "y": 18
@@ -344,7 +344,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(trade_count_by_token_total[3m])) by (token)",
+          "expr": "sum(rate(trade_count_by_token_total[5m])) by (token)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{token}}",
@@ -392,13 +392,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "DS_PROMETHEUS",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 26
       },
       "id": 8,
       "legend": {
@@ -511,5 +511,5 @@
   "timezone": "",
   "title": "Trades",
   "uid": "DnZ4J0imk",
-  "version": 9
+  "version": 11
 }

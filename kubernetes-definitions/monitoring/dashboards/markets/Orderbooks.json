@@ -69,7 +69,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "DS_PROMETHEUS",
+      "datasource": "PROMETHEUS",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -82,7 +82,7 @@
         "h": 4,
         "w": 6,
         "x": 9,
-        "y": 0
+        "y": 9
       },
       "id": 8,
       "interval": null,
@@ -145,13 +145,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "DS_PROMETHEUS",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
-        "h": 10,
+        "h": 9,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 13
       },
       "id": 6,
       "legend": {
@@ -162,6 +162,7 @@
         "min": false,
         "rightSide": true,
         "show": true,
+        "sideWidth": 200,
         "sort": "current",
         "sortDesc": true,
         "total": false,
@@ -229,13 +230,13 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "DS_PROMETHEUS",
+      "datasource": "PROMETHEUS",
       "fill": 1,
       "gridPos": {
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 14
+        "y": 22
       },
       "id": 4,
       "legend": {
@@ -246,7 +247,7 @@
         "min": false,
         "rightSide": true,
         "show": true,
-        "sideWidth": 150,
+        "sideWidth": 200,
         "sort": "current",
         "sortDesc": true,
         "total": false,
@@ -266,7 +267,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(orderbook_size[3m])) by (tokens_pair)",
+          "expr": "sum(orderbook_size) by (tokens_pair)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{tokens_pair}}",
@@ -312,17 +313,17 @@
     {
       "columns": [
         {
-          "text": "Current",
-          "value": "current"
+          "text": "Avg",
+          "value": "avg"
         }
       ],
-      "datasource": "DS_PROMETHEUS",
+      "datasource": "PROMETHEUS",
       "fontSize": "100%",
       "gridPos": {
         "h": 9,
         "w": 11,
         "x": 6,
-        "y": 23
+        "y": 31
       },
       "id": 2,
       "links": [],
@@ -409,5 +410,5 @@
   "timezone": "",
   "title": "Orderbooks",
   "uid": "cEeAp-Mmz",
-  "version": 14
+  "version": 15
 }
