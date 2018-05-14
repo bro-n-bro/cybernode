@@ -168,7 +168,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
+          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"ethereum-contract-summary-update-process\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "interval": "20s",
           "intervalFactor": 1,
@@ -176,7 +176,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "interval": "20s",
           "intervalFactor": 1,
@@ -184,7 +184,7 @@
           "refId": "B"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"ETHEREUM_CLASSIC_TX_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"ethereum-contract-summary-update-process\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -306,21 +306,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
+          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"ethereum-contract-summary-update-process\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Current Contract Summary Block Offset",
           "refId": "A"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Last Contract Summary Ethereum Classic Block Offset",
           "refId": "B"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"ethereum-contract-summary-update-process\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -442,21 +442,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
+          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"ethereum-contract-summary-update-process\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Current Contract Summary Uncle Offset",
           "refId": "A"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Last Contract Summary Uncle Offset",
           "refId": "B"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"ethereum-contract-summary-update-process\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -811,7 +811,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"ETHEREUM_CLASSIC_TX_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"ethereum-contract-summary-update-process\",topic=\"ETHEREUM_CLASSIC_TX_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Tx Offsets To Apply Remaining",
@@ -892,7 +892,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"ethereum-contract-summary-update-process\",topic=\"ETHEREUM_CLASSIC_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Block Offsets To Apply Remaining",
@@ -973,7 +973,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"}) - sum(contract_summary_topic_current_offset{chain=\"ETHEREUM_CLASSIC\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"ethereum-contract-summary-update-process\",topic=\"ETHEREUM_CLASSIC_UNCLE_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Uncle Offsets To Apply Remaining",

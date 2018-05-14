@@ -19,6 +19,328 @@
   "links": [],
   "panels": [
     {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "PROMETHEUS",
+      "format": "short",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      },
+      "id": 8,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "Remaining",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"BITCOIN_TX_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-txs-dump-process\",topic=\"BITCOIN_TX_PUMP\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Tx Offsets To Dump Remaining",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "100,1000",
+      "title": "Tx Offsets To Dump Remaining",
+      "type": "singlestat",
+      "valueFontSize": "50%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "PROMETHEUS",
+      "format": "s",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 8,
+        "y": 0
+      },
+      "id": 12,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "(sum(kafka_topic_partition_current_offset{topic=\"BITCOIN_TX_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-txs-dump-process\", topic=\"BITCOIN_TX_PUMP\"})) / sum(rate(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-txs-dump-process\", topic=\"BITCOIN_TX_PUMP\"}[10m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "thresholds": "",
+      "title": "Tx Dump Remaining Time",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "PROMETHEUS",
+      "format": "short",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      },
+      "id": 10,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "Remaining",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"BITCOIN_BLOCK_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-blocks-dump-process\",topic=\"BITCOIN_BLOCK_PUMP\"})",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Block Offsets To Dump Remaining",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "1,5",
+      "title": "Block Offsets To Dump Remaining",
+      "type": "singlestat",
+      "valueFontSize": "50%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "PROMETHEUS",
+      "format": "s",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 16,
+        "y": 0
+      },
+      "id": 14,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "(sum(kafka_topic_partition_current_offset{topic=\"BITCOIN_BLOCK_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-blocks-dump-process\", topic=\"BITCOIN_BLOCK_PUMP\"})) / sum(rate(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-blocks-dump-process\", topic=\"BITCOIN_BLOCK_PUMP\"}[10m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "thresholds": "",
+      "title": "Block Dump Remaining Time",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -29,7 +351,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 3
       },
       "id": 6,
       "legend": {
@@ -55,25 +377,18 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(dump_topic_current_offset{chain=\"BITCOIN\",topic=\"BITCOIN_TX_PUMP\"})",
+          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-txs-dump-process\",topic=\"BITCOIN_TX_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Current Dump Tx Offset",
           "refId": "A"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"BITCOIN\",topic=\"BITCOIN_TX_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"BITCOIN_TX_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Last Dump Tx Offset",
           "refId": "B"
-        },
-        {
-          "expr": "sum(pump_topic_last_offset{chain=\"BITCOIN\",topic=\"BITCOIN_TX_PUMP\"}) - sum(dump_topic_current_offset{chain=\"BITCOIN\",topic=\"BITCOIN_TX_PUMP\"})",
-          "format": "time_series",
-          "hide": true,
-          "intervalFactor": 1,
-          "refId": "C"
         }
       ],
       "thresholds": [
@@ -121,250 +436,6 @@
       ]
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "PROMETHEUS",
-      "format": "short",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 12,
-        "y": 0
-      },
-      "id": 8,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "Remaining",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "sum(pump_topic_last_offset{chain=\"BITCOIN\",topic=\"BITCOIN_TX_PUMP\"}) - sum(dump_topic_current_offset{chain=\"BITCOIN\",topic=\"BITCOIN_TX_PUMP\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "Tx Offsets To Dump Remaining",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "100,1000",
-      "title": "Tx Offsets To Dump Remaining",
-      "type": "singlestat",
-      "valueFontSize": "50%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "PROMETHEUS",
-      "format": "short",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 16,
-        "y": 0
-      },
-      "id": 10,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "Remaining",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "sum(pump_topic_last_offset{chain=\"BITCOIN\",topic=\"BITCOIN_BLOCK_PUMP\"}) - sum(dump_topic_current_offset{chain=\"BITCOIN\",topic=\"BITCOIN_BLOCK_PUMP\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "Block Offsets To Dump Remaining",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "1,5",
-      "title": "Block Offsets To Dump Remaining",
-      "type": "singlestat",
-      "valueFontSize": "50%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": true,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
-      "datasource": "PROMETHEUS",
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 4,
-        "x": 20,
-        "y": 0
-      },
-      "id": 12,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "Remaining",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "sum(pump_topic_last_offset{chain=\"BITCOIN\",topic=\"BITCOIN_UNCLE_PUMP\"}) - sum(dump_topic_current_offset{chain=\"BITCOIN\",topic=\"BITCOIN_UNCLE_PUMP\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "Uncle Offsets To Dump Remaining",
-          "refId": "A"
-        }
-      ],
-      "thresholds": "1,5",
-      "timeShift": null,
-      "title": "Uncle Offsets To Dump Remaining",
-      "type": "singlestat",
-      "valueFontSize": "50%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -377,7 +448,7 @@
         "x": 12,
         "y": 3
       },
-      "id": 2,
+      "id": 4,
       "legend": {
         "avg": false,
         "current": false,
@@ -401,24 +472,24 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(dump_topic_current_offset{chain=\"BITCOIN\",topic=\"BITCOIN_UNCLE_PUMP\"})",
+          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-blocks-dump-process\",topic=\"BITCOIN_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Current Dump Uncle Offset",
+          "legendFormat": "Current Dump Block Offset",
           "refId": "A"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"BITCOIN\",topic=\"BITCOIN_UNCLE_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"BITCOIN_BLOCK_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Last Uncle Offset",
+          "legendFormat": "Last Block Offset",
           "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Last Dumped Uncle Offset",
+      "title": "Last Dumped Block Offset",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -461,10 +532,10 @@
       "gridPos": {
         "h": 9,
         "w": 12,
-        "x": 0,
-        "y": 9
+        "x": 6,
+        "y": 12
       },
-      "id": 4,
+      "id": 2,
       "legend": {
         "avg": false,
         "current": false,
@@ -488,24 +559,24 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(dump_topic_current_offset{chain=\"BITCOIN\",topic=\"BITCOIN_BLOCK_PUMP\"})",
+          "expr": "rate(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-txs-dump-process\", topic=\"BITCOIN_TX_PUMP\"}[1h])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Current Dump Block Offset",
+          "legendFormat": "Tx Records",
           "refId": "A"
         },
         {
-          "expr": "sum(pump_topic_last_offset{chain=\"BITCOIN\",topic=\"BITCOIN_BLOCK_PUMP\"})",
+          "expr": "rate(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-blocks-dump-process\", topic=\"BITCOIN_BLOCK_PUMP\"}[1h])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Last Block Offset",
+          "legendFormat": "Block Records",
           "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Last Dumped Block Offset",
+      "title": "Dump Records Per Second",
       "tooltip": {
         "shared": true,
         "sort": 0,
