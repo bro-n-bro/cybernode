@@ -1,27 +1,9 @@
-# Service
-apiVersion: v1
-kind: Service
-metadata:
-  name: markets-api
-  namespace: markets
-  labels:
-    monitoring: default-monitor
-spec:
-  type: LoadBalancer
-  ports:
-  - name: "web"
-    port: 80
-    targetPort: 8085
-  selector:
-    app: markets-api
----
-
-# Deployment
+# Storer Deployment
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   namespace: markets
-  name: markets-api
+  name: storer
 spec:
   replicas: 1
   strategy:
@@ -30,19 +12,19 @@ spec:
     metadata:
       namespace: markets
       labels:
-        app: markets-api
+        app: storer
     spec:
       containers:
       - env:
+        - name: KAFKA_BROKERS
+          value: kafka-broker.markets:9092
         - name: CASSANDRA_HOSTS
           value: elassandra
         - name: CM_LOG_LEVEL
           value: INFO
         - name: EXCHANGES_CONNECTOR_API_URLS
           value: http://exchanges-connector-cex.markets:8080,http://exchanges-connector-dex.markets:8080
-        image: cybernode/cm-rest-api:latest
+        image: cybernode/cm-storer:latest
+        name: storer
         imagePullPolicy: Always
-        ports:
-        - containerPort: 8085
-        name: markets-api
       restartPolicy: Always
