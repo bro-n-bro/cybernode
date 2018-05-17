@@ -80,7 +80,13 @@ spec:
         ports:
         - containerPort: 9092
         - containerPort: 1099
-        resources: {}
+        resources:
+          requests:
+            cpu: "1.5"
+            memory: "15Gi"
+          limits:
+            cpu: "2"
+            memory: "20Gi"
         volumeMounts:
         - mountPath: /var/lib/kafka/data
           name: kafka-broker-claim0

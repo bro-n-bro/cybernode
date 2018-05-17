@@ -22,5 +22,12 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 9000
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: "1Gi"
+          limits:
+            cpu: "0.2"
+            memory: "2Gi"
         name: kafka-manager
       restartPolicy: Always

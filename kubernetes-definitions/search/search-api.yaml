@@ -42,6 +42,13 @@ spec:
           value: "*"
         image: cybernode/search-api:latest
         imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "0.5"
+            memory: "1.5Gi"
+          limits:
+            cpu: "1"
+            memory: "2Gi"
         ports:
         - containerPort: 8080
         name: search-api

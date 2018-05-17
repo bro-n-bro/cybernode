@@ -68,6 +68,13 @@ spec:
         name: zoo
         ports:
         - containerPort: 2181
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: "2Gi"
+          limits:
+            cpu: "0.2"
+            memory: "4Gi"
         volumeMounts:
         - mountPath: /var/lib/zookeeper/log
           name: zoo-claim0

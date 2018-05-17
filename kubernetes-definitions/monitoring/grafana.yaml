@@ -127,11 +127,11 @@ spec:
           containerPort: 3000
         resources:
           requests:
-            memory: 100Mi
-            cpu: 100m
+            memory: "100Mi"
+            cpu: "0.1"
           limits:
-            memory: 200Mi
-            cpu: 200m
+            memory: "200Mi"
+            cpu: "0.2"
       volumes:
       - name: grafana-datasources
         configMap:
