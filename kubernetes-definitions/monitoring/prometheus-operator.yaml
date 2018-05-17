@@ -100,12 +100,12 @@ spec:
         - containerPort: 8080
           name: http
         resources:
-          limits:
-            cpu: 200m
-            memory: 100Mi
           requests:
-            cpu: 100m
-            memory: 50Mi
+            cpu: "0.1"
+            memory: "100Mi"
+          limits:
+            cpu: "0.2"
+            memory: "200Mi"
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534

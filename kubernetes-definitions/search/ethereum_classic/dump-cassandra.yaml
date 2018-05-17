@@ -43,6 +43,13 @@ spec:
           value: kafka-broker:9092
         image: cybernode/chain-dump-cassandra-ethereum:latest
         imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1.5"
+            memory: "2.5Gi"
+          limits:
+            cpu: "2"
+            memory: "3Gi"
         ports:
         - containerPort: 8080
         name: dump-cassandra-etc

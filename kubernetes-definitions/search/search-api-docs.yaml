@@ -38,6 +38,13 @@ spec:
           value: INFO
         image: cybernode/search-api-docs:latest
         imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: "100Mi"
+          limits:
+            cpu: "0.2"
+            memory: "200Mi"
         ports:
         - containerPort: 8080
         name: search-api-docs
