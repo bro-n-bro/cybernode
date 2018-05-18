@@ -1,4 +1,4 @@
-#Components requirements
+# Components requirements
 
 Resources requirements to run components in gcloud cluster
 
