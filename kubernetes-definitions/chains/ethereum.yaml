@@ -41,6 +41,8 @@ items:
           - all
           - --jsonrpc-threads
           - "16"
+          - --tracing
+          - "on"
           image: parity/parity:stable
           name: parity-eth-pod
           resources:

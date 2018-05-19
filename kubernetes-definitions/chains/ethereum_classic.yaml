@@ -43,6 +43,8 @@ items:
           - "16"
           - --chain
           - classic
+          - --tracing
+          - "on"
           image: parity/parity:stable
           name: parity-etc-pod
           resources:

@@ -43,6 +43,8 @@ items:
           - "16"
           - --chain
           - "kovan"
+          - --tracing
+          - "on"
           image: parity/parity:stable
           name: parity-eth-kovan-pod
           resources:
