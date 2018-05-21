@@ -75,7 +75,9 @@ spec:
           value: "15728640"
         - name: KAFKA_REPLICA_FETCH_MAX_BYTES
           value: "15728640"
-        image: confluentinc/cp-kafka:4.0.0-3
+        - name: KAFKA_OPTS
+          value: -Xms6g -Xmx6g -XX:MetaspaceSize=96m -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:G1HeapRegionSize=16M -XX:MinMetaspaceFreeRatio=50 -XX:MaxMetaspaceFreeRatio=80
+        image: confluentinc/cp-kafka:4.1.1-1
         name: kafka-broker
         ports:
         - containerPort: 9092
@@ -83,10 +85,10 @@ spec:
         resources:
           requests:
             cpu: "1.5"
-            memory: "15Gi"
+            memory: "10Gi"
           limits:
             cpu: "2"
-            memory: "20Gi"
+            memory: "10Gi"
         volumeMounts:
         - mountPath: /var/lib/kafka/data
           name: kafka-broker-claim0

@@ -40,15 +40,17 @@ spec:
           value: INFO
         - name: CORS_ALLOWED_ORIGINS
           value: "*"
+        - name: JAVA_OPTS
+          value: -Xms2g -Xmx2g
         image: cybernode/search-api:latest
         imagePullPolicy: Always
         resources:
           requests:
             cpu: "0.5"
-            memory: "1.5Gi"
+            memory: "2.5Gi"
           limits:
             cpu: "1"
-            memory: "2Gi"
+            memory: "2.5Gi"
         ports:
         - containerPort: 8080
         name: search-api

@@ -64,17 +64,19 @@ spec:
           value: "2181"
         - name: ZOOKEEPER_TICK_TIME
           value: "2000"
-        image: confluentinc/cp-zookeeper:4.0.0-3
+        - name: JAVA_OPTS
+          value: -Xms1g -Xmx1g
+        image: confluentinc/cp-zookeeper:4.1.1-1
         name: zoo
         ports:
         - containerPort: 2181
         resources:
           requests:
             cpu: "0.1"
-            memory: "2Gi"
+            memory: "1.25Gi"
           limits:
             cpu: "0.2"
-            memory: "4Gi"
+            memory: "1.25Gi"
         volumeMounts:
         - mountPath: /var/lib/zookeeper/log
           name: zoo-claim0
