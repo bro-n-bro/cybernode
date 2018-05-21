@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - env:
-        - name: CHAIN
+        - name: CHAIN_FAMILY
           value: ETHEREUM
         - name: CHAIN_NODE_URL
           value: http://parity-eth.chains.svc:8545
@@ -41,15 +41,19 @@ spec:
           value: INFO
         - name: KAFKA_BROKERS
           value: kafka-broker:9092
+        - name: WITH_MEMPOOL
+          value: "true"
+        - name: JAVA_OPTS
+          value: -Xms3g -Xmx3g
         image: cybernode/chain-pump-ethereum:latest
         imagePullPolicy: Always
         resources:
           requests:
             cpu: "1.5"
-            memory: "2.5Gi"
+            memory: "3.75Gi"
           limits:
             cpu: "2"
-            memory: "3Gi"
+            memory: "3.75Gi"
         ports:
         - containerPort: 8080
         name: pump-eth
