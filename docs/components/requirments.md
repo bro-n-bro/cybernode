@@ -10,9 +10,9 @@ Resources requirements to run components in gcloud cluster
 | Zoo Keeper                 | 0.1     | 0.2      | 1.25GB    | 1.25GB  |
 | Elassandra                 | 2       | 2.5      | 20GB      | 25GB    |
 | Grafana                    | 0.1     | 0.2      | 100MB     | 200MB   |
-| Prometheus                 | 0.25    | 0.5      | 500MB     | 1000MB  |
+| Prometheus                 | 0.25    | 1        | 3GB       | 3GB     |
 | Prometheus Operator        | 0.1     | 0.2      | 100MB     | 200MB   |
-| Parity ETH                 | 1.5     | 2        | 15GB      | 20GB    |
+| Parity ETH                 | 3       | 3        | 15GB      | 20GB    |
 | Parity ETC                 | 1       | 1.5      | 10GB      | 15GB    |
 | ETH Pump                   | 1.5     | 3        | 3.75GB    | 3.75GB  |
 | ETH Cassandra Dump         | 1.5     | 3        | 3.75GB    | 3.75GB  |
