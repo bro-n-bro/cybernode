@@ -47,10 +47,10 @@ items:
           name: parity-eth-pod
           resources:
             requests:
-              cpu: "1.5"
+              cpu: "3"
               memory: "15Gi"
             limits:
-              cpu: "2"
+              cpu: "3"
               memory: "20Gi"
           ports:
           - containerPort: 8545
