@@ -44,16 +44,16 @@ spec:
         - name: WITH_MEMPOOL
           value: "true"
         - name: JAVA_OPTS
-          value: -Xms3g -Xmx3g
+          value: -Xms4g -Xmx4g
         image: cybernode/chain-pump-ethereum:latest
         imagePullPolicy: Always
         resources:
           requests:
             cpu: "1.5"
-            memory: "3.75Gi"
+            memory: "5Gi"
           limits:
             cpu: "2"
-            memory: "3.75Gi"
+            memory: "6Gi"
         ports:
         - containerPort: 8080
         name: pump-eth
