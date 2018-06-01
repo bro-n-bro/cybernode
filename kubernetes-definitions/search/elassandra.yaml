@@ -49,10 +49,10 @@ spec:
           name: elastic-intra
         resources:
           requests:
-            cpu: "2"
+            cpu: "3"
             memory: "20Gi"
           limits:
-            cpu: "2.5"
+            cpu: "3.5"
             memory: "25Gi"
         securityContext:
           capabilities:
