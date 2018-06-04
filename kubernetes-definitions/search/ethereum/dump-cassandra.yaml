@@ -41,8 +41,17 @@ spec:
           value: INFO
         - name: KAFKA_BROKERS
           value: kafka-broker:9092
+        - name: JAVA_OPTS
+          value: -Xms3g -Xmx3g
         image: cybernode/chain-dump-cassandra-ethereum:latest
         imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "1.5"
+            memory: "3.75Gi"
+          limits:
+            cpu: "3"
+            memory: "3.75Gi"
         ports:
         - containerPort: 8080
         name: dump-cassandra-eth

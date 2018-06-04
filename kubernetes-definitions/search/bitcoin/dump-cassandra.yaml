@@ -41,8 +41,23 @@ spec:
           value: INFO
         - name: KAFKA_BROKERS
           value: kafka-broker:9092
+        - name: JAVA_OPTS
+          value: -Xms3g -Xmx3g
+        - name: KAFKA_LISTENER_MAX_POLL_RECORDS
+          value: "100"
+        - name: CASSANDRA_MAX_CONNECTIONS_LOCAL
+          value: "32768"
+        - name: CASSANDRA_MAX_CONNECTIONS_REMOTE
+          value: "32768"
         image: cybernode/chain-dump-cassandra-bitcoin:latest
         imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "3"
+            memory: "3.75Gi"
+          limits:
+            cpu: "3"
+            memory: "3.75Gi"
         ports:
         - containerPort: 8080
         name: dump-cassandra-btc

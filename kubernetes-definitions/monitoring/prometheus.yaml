@@ -68,8 +68,26 @@ metadata:
 spec:
   replicas: 1
   version: v2.2.1
+  retention: 30d
   serviceAccountName: prometheus
   serviceMonitorSelector:
     matchExpressions:
     - key: monitor
       operator: Exists
+  resources:
+    requests:
+      cpu: "0.5"
+      memory: "3Gi"
+    limits:
+      cpu: "1"
+      memory: "3Gi"
+  storage:
+    volumeClaimTemplate:
+      metadata:
+        name: prometheus
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 100Gi
+        storageClassName: fast

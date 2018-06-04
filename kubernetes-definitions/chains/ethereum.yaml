@@ -41,15 +41,17 @@ items:
           - all
           - --jsonrpc-threads
           - "16"
+          - --tracing
+          - "on"
           image: parity/parity:stable
           name: parity-eth-pod
           resources:
-            limits:
-              cpu: "2"
-              memory: "10Gi"
             requests:
-              cpu: "0.5"
-              memory: "1Gi"
+              cpu: "3"
+              memory: "15Gi"
+            limits:
+              cpu: "3"
+              memory: "20Gi"
           ports:
           - containerPort: 8545
           volumeMounts:

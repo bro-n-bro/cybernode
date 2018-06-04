@@ -46,12 +46,12 @@ items:
           image: ruimarinho/bitcoin-core:0.16.0
           name: bitcoind-btc-pod
           resources:
-            limits:
-              cpu: "1.5"
-              memory: "10Gi"
             requests:
-              cpu: "0.5"
-              memory: "6Gi"
+              cpu: "2"
+              memory: "20Gi"
+            limits:
+              cpu: "3"
+              memory: "30Gi"
           ports:
           - containerPort: 8332
           volumeMounts:
