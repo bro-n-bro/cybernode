@@ -41,11 +41,20 @@ spec:
           value: kafka-broker.markets:9092
         - name: EXCHANGES
           value: etherdelta
+        - name: JAVA_OPTS
+          value: -Xms2g -Xmx2g
         image: cybernode/cm-exchanges-connector:latest
         name: exchanges-connector-dex
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        resources:
+          requests:
+            cpu: "1"
+            memory: "3Gi"
+          limits:
+            cpu: "1.5"
+            memory: "3Gi"
         livenessProbe:
           httpGet:
             path: /liveness

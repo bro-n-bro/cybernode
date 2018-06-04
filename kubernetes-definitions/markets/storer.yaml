@@ -24,7 +24,16 @@ spec:
           value: INFO
         - name: EXCHANGES_CONNECTOR_API_URLS
           value: http://exchanges-connector-cex.markets:8080,http://exchanges-connector-dex.markets:8080
+        - name: JAVA_OPTS
+          value: -Xms1500m -Xmx1500m
         image: cybernode/cm-storer:latest
         name: storer
+        resources:
+          requests:
+            cpu: "0.5"
+            memory: "2Gi"
+          limits:
+            cpu: "1.5"
+            memory: "2Gi"
         imagePullPolicy: Always
       restartPolicy: Always
