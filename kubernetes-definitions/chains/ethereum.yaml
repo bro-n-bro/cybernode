@@ -1,78 +1,69 @@
-apiVersion: v1
-kind: List
-items:
 
 # Service
-- apiVersion: v1
-  kind: Service
-  metadata:
-    name: parity-eth
-    namespace: chains
-  spec:
-    ports:
-    - name: "8545"
-      port: 8545
-      targetPort: 8545
-    selector:
-      chain: parity-eth
+apiVersion: v1
+kind: Service
+metadata:
+  name: parity-eth
+  namespace: chains
+spec:
+  ports:
+  - name: "8545"
+    port: 8545
+    targetPort: 8545
+  selector:
+    chain: parity-eth
+---
 
 # Deployment
-- apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-    name: parity-eth-deployment
-    namespace: chains
-  spec:
-    replicas: 1
-    strategy:
-      type: Recreate
-    template:
-      metadata:
-        labels:
-          chain: parity-eth
-      spec:
-        containers:
-        - args:
-          - --db-path
-          - /cyberdata
-          - --jsonrpc-hosts
-          - all
-          - --jsonrpc-interface
-          - all
-          - --jsonrpc-threads
-          - "16"
-          - --tracing
-          - "on"
-          image: parity/parity:stable
-          name: parity-eth-pod
-          resources:
-            requests:
-              cpu: "3"
-              memory: "15Gi"
-            limits:
-              cpu: "3"
-              memory: "20Gi"
-          ports:
-          - containerPort: 8545
-          volumeMounts:
-          - mountPath: /cyberdata
-            name: parity-eth-claim0
-        restartPolicy: Always
-        volumes:
-        - name: parity-eth-claim0
-          persistentVolumeClaim:
-            claimName: parity-eth-claim0
-
-# Volume Claim
-- apiVersion: v1
-  kind: PersistentVolumeClaim
-  metadata:
-    name: parity-eth-claim0
-    namespace: chains
-  spec:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 200Gi
-    storageClassName: fast
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: parity-eth-deployment
+  namespace: chains
+spec:
+  serviceName: parity-eth
+  replicas: 1
+  selector:
+    matchLabels:
+      chain: parity-eth
+  template:
+    metadata:
+      labels:
+        chain: parity-eth
+    spec:
+      restartPolicy: Always
+      containers:
+      - args:
+        - --db-path
+        - /cyberdata
+        - --jsonrpc-hosts
+        - all
+        - --jsonrpc-interface
+        - all
+        - --jsonrpc-threads
+        - "16"
+        - --tracing
+        - "on"
+        image: parity/parity:stable
+        name: parity-eth-pod
+        resources:
+          requests:
+            cpu: "3"
+            memory: "15Gi"
+          limits:
+            cpu: "3"
+            memory: "20Gi"
+        ports:
+        - containerPort: 8545
+        volumeMounts:
+        - mountPath: /cyberdata
+          name: parity-eth-data
+  volumeClaimTemplates:
+  - metadata:
+      name: parity-eth-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage:  200Gi
+      storageClassName: fast
