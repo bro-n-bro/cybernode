@@ -38,6 +38,13 @@ spec:
         name: kafka-exporter
         ports:
           - containerPort: 8080
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: "1Gi"
+          limits:
+            cpu: "0.2"
+            memory: "2Gi"
         args:
           - --kafka.server=kafka-broker.markets:9092
           - --web.telemetry-path=/actuator/prometheus

@@ -49,7 +49,11 @@ spec:
           name: elastic-intra
         resources:
           requests:
-           memory: 10Gi
+            cpu: "3"
+            memory: "20Gi"
+          limits:
+            cpu: "3.5"
+            memory: "25Gi"
         securityContext:
           capabilities:
             add:
@@ -83,5 +87,5 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 300Gi
+          storage: 1000Gi
       storageClassName: fast

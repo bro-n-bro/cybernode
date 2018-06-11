@@ -40,9 +40,18 @@ spec:
           value: INFO
         - name: EXCHANGES_CONNECTOR_API_URLS
           value: http://exchanges-connector-cex.markets:8080,http://exchanges-connector-dex.markets:8080
+        - name: JAVA_OPTS
+          value: -Xms2g -Xmx2g
         image: cybernode/cm-rest-api:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8085
+        resources:
+          requests:
+            cpu: "0.5"
+            memory: "2.5Gi"
+          limits:
+            cpu: "1"
+            memory: "2.5Gi"
         name: markets-api
       restartPolicy: Always
