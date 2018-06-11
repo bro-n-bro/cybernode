@@ -212,7 +212,7 @@
       "title": "Elassandra CPU Usage",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
@@ -282,11 +282,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (container_memory_working_set_bytes{image!=\"\", pod_name=~\"elassandra.*\"}) by (pod_name, namespace)",
+          "expr": "sum(container_memory_usage_bytes{pod_name=~\"elassandra.*\"}) by (namespace, pod_name)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "[{{namespace}}] {{pod_name}}",
-          "refId": "B"
+          "refId": "A"
         }
       ],
       "thresholds": [],
@@ -295,7 +295,7 @@
       "title": "Elassandra RAM Usage",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
