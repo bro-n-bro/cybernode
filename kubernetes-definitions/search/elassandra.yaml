@@ -2,26 +2,31 @@
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: elassandra
   name: elassandra
   namespace: search
+  labels:
+    monitoring: elassandra-monitor
 spec:
   clusterIP: None
   ports:
-  - port: 9042
+  - name: cql
+    port: 9042
+  - name: metrics
+    port: 8080
+    targetPort: 8080
   selector:
     app: elassandra
 ---
+
 # Elassandra StatefulSet
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: elassandra
   namespace: search
 spec:
   serviceName: elassandra
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: elassandra
@@ -80,6 +85,18 @@ spec:
         volumeMounts:
         - name: elassandra-data
           mountPath: /var/lib/cassandra
+      - name: cassandra-exporter
+        image: criteord/cassandra_exporter:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8080
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: "300Mi"
+          limits:
+            cpu: "0.1"
+            memory: "300Mi"
   volumeClaimTemplates:
   - metadata:
       name: elassandra-data

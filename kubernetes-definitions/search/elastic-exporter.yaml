@@ -1,0 +1,54 @@
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: elastic-exporter
+  namespace: search
+  labels:
+    monitoring: elassandra-monitor
+spec:
+  ports:
+  - name: metrics
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: elastic-exporter
+---
+
+# Kafka Exporter
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elastic-exporter
+  namespace: search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elastic-exporter
+  template:
+    metadata:
+      namespace: search
+      labels:
+        app: elastic-exporter
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: elastic-exporter
+        image: justwatch/elasticsearch_exporter:1.0.2
+        imagePullPolicy: Always
+        command:
+        - "/bin/elasticsearch_exporter"
+        - "-es.uri=http://elassandra:9200"
+        - "-es.all=true"
+        - "-es.indices=true"
+        - "-web.listen-address=:8080"
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: "1Gi"
+          limits:
+            cpu: "0.2"
+            memory: "1Gi"

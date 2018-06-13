@@ -78,3 +78,25 @@ spec:
   selector:
     matchLabels:
       k8s-app: kubelet
+---
+
+# Elassandra Monitoring
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  namespace: monitoring
+  name: elassandra-monitor
+  labels:
+    monitor: elassandra
+spec:
+  selector:
+    matchLabels:
+      monitoring: elassandra-monitor
+  namespaceSelector:
+    matchNames:
+    - search
+    - markets
+  endpoints:
+  - targetPort: 8080
+    interval: 60s
+---
