@@ -19,497 +19,121 @@
   "links": [],
   "panels": [
     {
-      "collapsed": false,
+      "columns": [],
+      "datasource": "PROMETHEUS",
+      "fontSize": "120%",
       "gridPos": {
-        "h": 1,
+        "h": 26,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 4
       },
-      "id": 6,
-      "panels": [],
-      "title": "Elassandra",
-      "type": "row"
-    },
-    {
-      "alert": {
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                57621951220
-              ],
-              "type": "lt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1s",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "min"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "frequency": "600s",
-        "handler": 1,
-        "name": "Elassandra Available Space",
-        "noDataState": "alerting",
-        "notifications": []
-      },
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "PROMETHEUS",
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 16,
-        "x": 0,
-        "y": 1
-      },
-      "id": 2,
-      "interval": "15s",
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sideWidth": 300,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 0.5,
-      "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "kubelet_volume_stats_available_bytes{persistentvolumeclaim=~\"elassandra.*\"}",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "[{{exported_namespace}}] {{persistentvolumeclaim}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [
-        {
-          "colorMode": "critical",
-          "fill": true,
-          "line": true,
-          "op": "lt",
-          "value": 57621951220
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Elassandra Available Space",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "PROMETHEUS",
-      "decimals": 2,
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 16,
-        "x": 0,
-        "y": 7
-      },
-      "id": 10,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sideWidth": 300,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum (rate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\", pod_name=~\"elassandra.*\"}[1m])) by (pod_name, namespace)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "[{{namespace}}] {{pod_name}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Elassandra CPU Usage",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "none",
-          "label": "cores",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "PROMETHEUS",
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 16,
-        "x": 0,
-        "y": 13
-      },
-      "id": 12,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sideWidth": 300,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(container_memory_usage_bytes{pod_name=~\"elassandra.*\"}) by (namespace, pod_name)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "[{{namespace}}] {{pod_name}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Elassandra RAM Usage",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "PROMETHEUS",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 16,
-        "x": 0,
-        "y": 19
-      },
-      "id": 14,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sideWidth": 300,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum (rate (container_network_receive_bytes_total{image!=\"\",name=~\"^k8s_.*\", pod_name=~\"elassandra.*\"}[1m])) by (pod_name, namespace)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "IN [{{namespace}}] {{pod_name}}",
-          "refId": "A"
-        },
-        {
-          "expr": "- sum (rate (container_network_transmit_bytes_total{image!=\"\",name=~\"^k8s_.*\", pod_name=~\"elassandra.*\"}[1m])) by (pod_name, namespace)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "OUT [{{namespace}}] {{pod_name}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Elassandra Network IO Usage",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "Bps",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ]
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 26
-      },
+      "hideTimeOverride": false,
       "id": 8,
-      "panels": [],
-      "title": "Kafka",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "PROMETHEUS",
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 16,
-        "x": 0,
-        "y": 27
-      },
-      "id": 4,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sideWidth": 300,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 0.5,
-      "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(kubelet_volume_stats_available_bytes{persistentvolumeclaim=~\"kafka.*\"}) by (persistentvolumeclaim, exported_namespace)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "[{{exported_namespace}}] {{persistentvolumeclaim}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Kafka Available Space",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 5,
+        "desc": true
       },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
+      "styles": [
         {
-          "format": "bytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
+          "alias": "Used",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "Value #A",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
         },
         {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "alias": "Capacity",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value #B",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "Usage %",
+          "colorMode": "cell",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value #C",
+          "thresholds": [
+            "0.75",
+            "0.9"
+          ],
+          "type": "number",
+          "unit": "percentunit"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Time",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
         }
-      ]
+      ],
+      "targets": [
+        {
+          "expr": "sum(kubelet_volume_stats_capacity_bytes{persistentvolumeclaim=~\".*\"}) by (persistentvolumeclaim,exported_namespace) - sum(kubelet_volume_stats_available_bytes{persistentvolumeclaim=~\".*\"}) by (persistentvolumeclaim,exported_namespace)",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(kubelet_volume_stats_capacity_bytes{persistentvolumeclaim=~\".*\"}) by (persistentvolumeclaim,exported_namespace)",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "B"
+        },
+        {
+          "expr": "1 - sum(kubelet_volume_stats_available_bytes{persistentvolumeclaim=~\".*\"}) by (persistentvolumeclaim,exported_namespace) / sum(kubelet_volume_stats_capacity_bytes{persistentvolumeclaim=~\".*\"}) by (persistentvolumeclaim,exported_namespace)",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "C"
+        }
+      ],
+      "title": "Volumes Usage",
+      "transform": "table",
+      "type": "table"
     }
   ],
   "refresh": "15s",
@@ -520,7 +144,7 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -549,6 +173,6 @@
   },
   "timezone": "",
   "title": "Storage Monitoring",
-  "uid": "-hNtDxZmk",
-  "version": 3
+  "uid": "OIfzY6Iiz",
+  "version": 10
 }

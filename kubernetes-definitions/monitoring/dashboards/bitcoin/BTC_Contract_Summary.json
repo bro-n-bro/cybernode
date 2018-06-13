@@ -27,7 +27,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -108,7 +108,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "PROMETHEUS",
       "decimals": null,
       "format": "short",
       "gauge": {
@@ -187,6 +187,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "PROMETHEUS",
+      "decimals": 3,
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -196,21 +197,25 @@
       },
       "id": 31,
       "legend": {
-        "avg": false,
-        "current": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
         "max": false,
         "min": false,
+        "rightSide": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "null as zero",
       "percentage": false,
-      "pointradius": 5,
-      "points": false,
+      "pointradius": 0.5,
+      "points": true,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
@@ -218,11 +223,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "500 * rate(contract_summary_commit_kafka_seconds_count[10s])",
+          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-contract-summary-update-process\", topic=\"BITCOIN_TX_PUMP\"}[1m])) by (topic)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{topic}}",
+          "legendFormat": "[1m] {{topic}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"bitcoin-contract-summary-update-process\", topic=\"BITCOIN_TX_PUMP\"}[1h])) by (topic)",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 1,
+          "legendFormat": "[1h] {{topic}}",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -244,8 +257,9 @@
       },
       "yaxes": [
         {
+          "decimals": 2,
           "format": "wps",
-          "label": null,
+          "label": "Offsets/sec",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -257,9 +271,13 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -356,7 +374,11 @@
           "min": null,
           "show": true
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -437,7 +459,11 @@
           "min": null,
           "show": false
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -518,7 +544,11 @@
           "min": null,
           "show": false
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -526,6 +556,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "PROMETHEUS",
+      "decimals": 2,
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -535,13 +566,14 @@
       },
       "id": 26,
       "legend": {
-        "avg": false,
-        "current": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
         "max": false,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -560,7 +592,7 @@
           "expr": "sum(sum_over_time(contract_summary_delta_store_seconds_sum{chain=\"BITCOIN\"}[1m])/sum_over_time(contract_summary_delta_store_seconds_count{chain=\"BITCOIN\"}[1m])) by (topic)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Contract Delta Store TIme {{topic}}",
+          "legendFormat": "{{topic}}",
           "refId": "A"
         }
       ],
@@ -599,7 +631,11 @@
           "min": null,
           "show": false
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -680,7 +716,11 @@
           "min": null,
           "show": false
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
   "refresh": "10s",
@@ -691,7 +731,7 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -721,5 +761,6 @@
   },
   "timezone": "",
   "title": "Bitcoin Contract Summary",
-  "version": 28
+  "uid": "jrfGrXSik",
+  "version": 11
 }
