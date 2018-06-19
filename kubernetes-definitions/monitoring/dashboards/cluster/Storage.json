@@ -16,7 +16,15 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "links": [],
+  "links": [
+    {
+      "icon": "external link",
+      "tags": [
+        "cluster"
+      ],
+      "type": "dashboards"
+    }
+  ],
   "panels": [
     {
       "columns": [],
@@ -26,7 +34,7 @@
         "h": 26,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 0
       },
       "hideTimeOverride": false,
       "id": 8,
@@ -103,11 +111,43 @@
           "thresholds": [],
           "type": "hidden",
           "unit": "short"
+        },
+        {
+          "alias": "Daily Delta%",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value #E",
+          "thresholds": [],
+          "type": "number",
+          "unit": "percentunit"
+        },
+        {
+          "alias": "Daily Delta",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value #D",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
         }
       ],
       "targets": [
         {
-          "expr": "sum(kubelet_volume_stats_capacity_bytes{persistentvolumeclaim=~\".*\"}) by (persistentvolumeclaim,exported_namespace) - sum(kubelet_volume_stats_available_bytes{persistentvolumeclaim=~\".*\"}) by (persistentvolumeclaim,exported_namespace)",
+          "expr": "sum(kubelet_volume_stats_capacity_bytes) by (persistentvolumeclaim,exported_namespace) - sum(kubelet_volume_stats_available_bytes) by (persistentvolumeclaim,exported_namespace)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -115,7 +155,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum(kubelet_volume_stats_capacity_bytes{persistentvolumeclaim=~\".*\"}) by (persistentvolumeclaim,exported_namespace)",
+          "expr": "sum(kubelet_volume_stats_capacity_bytes) by (persistentvolumeclaim,exported_namespace)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -123,12 +163,26 @@
           "refId": "B"
         },
         {
-          "expr": "1 - sum(kubelet_volume_stats_available_bytes{persistentvolumeclaim=~\".*\"}) by (persistentvolumeclaim,exported_namespace) / sum(kubelet_volume_stats_capacity_bytes{persistentvolumeclaim=~\".*\"}) by (persistentvolumeclaim,exported_namespace)",
+          "expr": "1 - sum(kubelet_volume_stats_available_bytes) by (persistentvolumeclaim,exported_namespace) / sum(kubelet_volume_stats_capacity_bytes) by (persistentvolumeclaim,exported_namespace)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
           "legendFormat": "",
           "refId": "C"
+        },
+        {
+          "expr": "sum(delta(kubelet_volume_stats_available_bytes[24h])) by (persistentvolumeclaim,exported_namespace)",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "refId": "D"
+        },
+        {
+          "expr": "sum(delta(kubelet_volume_stats_available_bytes[24h])) by (persistentvolumeclaim,exported_namespace) / sum(kubelet_volume_stats_capacity_bytes) by (persistentvolumeclaim,exported_namespace)",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "refId": "E"
         }
       ],
       "title": "Volumes Usage",
@@ -139,7 +193,9 @@
   "refresh": "15s",
   "schemaVersion": 16,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "cluster"
+  ],
   "templating": {
     "list": []
   },
@@ -173,6 +229,6 @@
   },
   "timezone": "",
   "title": "Storage Monitoring",
-  "uid": "OIfzY6Iiz",
-  "version": 10
+  "uid": "YaOqYhHmz",
+  "version": 8
 }

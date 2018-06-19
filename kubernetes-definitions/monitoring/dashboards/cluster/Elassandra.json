@@ -16,8 +16,16 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1528900929651,
-  "links": [],
+  "iteration": 1529409745530,
+  "links": [
+    {
+      "icon": "external link",
+      "tags": [
+        "cluster"
+      ],
+      "type": "dashboards"
+    }
+  ],
   "panels": [
     {
       "cacheTimeout": null,
@@ -81,7 +89,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "elasticsearch_cluster_health_number_of_nodes{cluster=\"$cluster\", namespace=\"$service\"}",
+          "expr": "sum(elasticsearch_cluster_health_number_of_nodes{cluster=\"$cluster\", namespace=\"$service\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -1013,6 +1021,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "PROMETHEUS",
+      "decimals": 1,
       "editable": true,
       "error": false,
       "fill": 1,
@@ -2202,7 +2211,8 @@
   "schemaVersion": 16,
   "style": "dark",
   "tags": [
-    "elassandra"
+    "elassandra",
+    "cluster"
   ],
   "templating": {
     "list": [
@@ -2256,7 +2266,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {
@@ -2282,6 +2292,6 @@
   },
   "timezone": "",
   "title": "Elassandra Monitoring",
-  "uid": "NdfYu_Siz",
-  "version": 101
+  "uid": "94l_L2Nmz",
+  "version": 4
 }

@@ -71,7 +71,6 @@ spec:
     scheme: http
     tlsConfig:
       insecureSkipVerify: true
-  jobLabel: k8s-app
   namespaceSelector:
     matchNames:
     - kube-system
@@ -100,3 +99,26 @@ spec:
   - targetPort: 8080
     interval: 60s
 ---
+
+# Node Exporter Monitoring
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  namespace: monitoring
+  name: node-exporter
+  labels:
+    monitor: node-exporter
+spec:
+  selector:
+    matchLabels:
+      monitor: node-exporter-monitor
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  endpoints:
+  - port: http
+    scheme: http
+    interval: 30s
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    tlsConfig:
+      insecureSkipVerify: true
