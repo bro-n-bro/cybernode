@@ -20,7 +20,7 @@ items:
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    name: bitcoind-btc-deployment
+    name: bitcoind-btc
     namespace: chains
   spec:
     replicas: 1

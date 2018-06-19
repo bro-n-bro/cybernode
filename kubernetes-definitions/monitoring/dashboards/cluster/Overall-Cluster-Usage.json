@@ -17,8 +17,16 @@
   "gnetId": 315,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1524168718527,
-  "links": [],
+  "iteration": 1529410239824,
+  "links": [
+    {
+      "icon": "external link",
+      "tags": [
+        "cluster"
+      ],
+      "type": "dashboards"
+    }
+  ],
   "panels": [
     {
       "collapsed": false,
@@ -81,7 +89,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate (container_network_receive_bytes_total[1m]))",
+          "expr": "sum (rate (container_network_receive_bytes_total{namespace=~\"$namespace\"}[1m]))",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -91,7 +99,7 @@
           "step": 10
         },
         {
-          "expr": "- sum (rate (container_network_transmit_bytes_total[1m]))",
+          "expr": "- sum (rate (container_network_transmit_bytes_total{namespace=~\"$namespace\"}[1m]))",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -137,7 +145,11 @@
           "min": null,
           "show": false
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "collapsed": false,
@@ -217,7 +229,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name!=\"\"}) / sum (machine_memory_bytes) * 100",
+          "expr": "sum (container_memory_usage_bytes{name!=\"\", namespace=~\"$namespace\"}) / sum (machine_memory_bytes) * 100",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -305,18 +317,12 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum (rate (container_cpu_usage_seconds_total{id=\"/\"}[1m])) / sum (machine_cpu_cores) * 100",
+          "expr": "sum (rate (container_cpu_usage_seconds_total{name!=\"\", namespace=~\"$namespace\"}[1m])) / sum (machine_cpu_cores) * 100",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
           "refId": "A",
           "step": 10
-        },
-        {
-          "expr": "",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "refId": "B"
         }
       ],
       "thresholds": "65, 90",
@@ -487,7 +493,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(container_memory_usage_bytes{name!=\"\"})",
+          "expr": "sum (container_memory_usage_bytes{name!=\"\", namespace=~\"$namespace\"})",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -661,7 +667,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum (rate (container_cpu_usage_seconds_total{id=\"/\"}[1m]))",
+          "expr": "sum (rate (container_cpu_usage_seconds_total{name!=\"\", namespace=~\"$namespace\"}[1m]))",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -980,6 +986,8 @@
         "alignAsTable": true,
         "avg": true,
         "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
         "max": false,
         "min": false,
         "rightSide": true,
@@ -993,7 +1001,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "connected",
+      "nullPointMode": "null",
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1004,12 +1012,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\", namespace=~\"^$Namespace$\", pod_name!~\"kube.*|fluentd.*|l7.*.*|heapster.*\"}[1m])) by (pod_name)",
+          "expr": "sum (rate (container_cpu_usage_seconds_total{image!=\"\",name=~\"^k8s_.*\", namespace=~\"^$namespace$\", pod_name!~\"kube.*|fluentd.*|l7.*.*|heapster.*|.*exporter.*\"}[1m])) by (pod_name, namespace)",
           "format": "time_series",
           "instant": false,
           "interval": "15s",
           "intervalFactor": 1,
-          "legendFormat": "{{ pod_name }}",
+          "legendFormat": "{{namespace}} : {{ pod_name }}",
           "metric": "container_cpu",
           "refId": "A",
           "step": 10
@@ -1051,7 +1059,11 @@
           "min": null,
           "show": false
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "collapsed": false,
@@ -1089,6 +1101,8 @@
         "alignAsTable": true,
         "avg": true,
         "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
         "max": false,
         "min": false,
         "rightSide": true,
@@ -1102,7 +1116,7 @@
       "lines": true,
       "linewidth": 2,
       "links": [],
-      "nullPointMode": "connected",
+      "nullPointMode": "null",
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1113,11 +1127,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (container_memory_usage_bytes{name=~\"^k8s_.*\",namespace=~\"^$Namespace$\", pod_name!~\"kube.*|fluentd.*|l7.*.*|heapster.*\"}) by (pod_name, namespace)",
+          "expr": "sum (container_memory_usage_bytes{name!=\"\",namespace=~\"^$namespace$\", pod_name!~\"kube.*|fluentd.*|l7.*.*|heapster.*|.*-exporter.*\"}) by (pod_name, namespace)",
           "format": "time_series",
+          "instant": false,
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "[{{ namespace }}] {{ pod_name }}",
+          "legendFormat": "{{namespace}} : {{ pod_name }}",
           "metric": "container_memory_usage:sort_desc",
           "refId": "A",
           "step": 10
@@ -1158,7 +1173,11 @@
           "min": null,
           "show": false
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "collapsed": false,
@@ -1196,6 +1215,8 @@
         "alignAsTable": true,
         "avg": true,
         "current": true,
+        "hideEmpty": true,
+        "hideZero": false,
         "max": false,
         "min": false,
         "rightSide": true,
@@ -1209,7 +1230,7 @@
       "lines": true,
       "linewidth": 2,
       "links": [],
-      "nullPointMode": "connected",
+      "nullPointMode": "null",
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -1220,21 +1241,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate (container_network_receive_bytes_total{image!=\"\",name=~\"^k8s_.*\",namespace=~\"^$Namespace$\", pod_name!~\"kube.*|fluentd.*|l7.*.*|heapster.*\"}[1m])) by (pod_name)",
+          "expr": "sum (rate (container_network_receive_bytes_total{image!=\"\",name=~\"^k8s_.*\",namespace=~\"^$namespace$\", pod_name!~\"kube.*|fluentd.*|l7.*.*|heapster.*|.*exporter.*\"}[1m])) by (pod_name, namespace)",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "-> {{ pod_name }}",
+          "legendFormat": "-> {{namespace}} : {{ pod_name }}",
           "metric": "network",
           "refId": "A",
           "step": 10
         },
         {
-          "expr": "- sum (rate (container_network_transmit_bytes_total{image!=\"\",name=~\"^k8s_.*\",namespace=~\"^$Namespace$\", pod_name!~\"kube.*\",pod_name!~\"kube.*|fluentd.*|l7.*.*|heapster.*\"}[1m])) by (pod_name)",
+          "expr": "- sum (rate (container_network_transmit_bytes_total{image!=\"\",name=~\"^k8s_.*\",namespace=~\"^$namespace$\", pod_name!~\"kube.*\",pod_name!~\"kube.*|fluentd.*|l7.*.*|heapster.*|.*exporter.*\"}[1m])) by (pod_name, namespace)",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
-          "legendFormat": "<- {{ pod_name }}",
+          "legendFormat": "<-  {{namespace}} : {{ pod_name }}",
           "metric": "network",
           "refId": "B",
           "step": 10
@@ -1275,26 +1296,30 @@
           "min": null,
           "show": false
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
   "refresh": "15s",
   "schemaVersion": 16,
   "style": "dark",
   "tags": [
-    "kubernetes"
+    "cluster"
   ],
   "templating": {
     "list": [
       {
-        "allValue": ".*",
+        "allValue": "",
         "current": {},
         "datasource": "PROMETHEUS",
         "hide": 0,
         "includeAll": true,
-        "label": null,
+        "label": "Namespace",
         "multi": false,
-        "name": "Namespace",
+        "name": "namespace",
         "options": [],
         "query": "label_values(namespace)",
         "refresh": 1,
@@ -1309,7 +1334,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1338,6 +1363,6 @@
   },
   "timezone": "browser",
   "title": "Overall Cluster Usage",
-  "uid": "unMcObWmk",
-  "version": 42
+  "uid": "B7LKIcHmz",
+  "version": 29
 }
