@@ -1,102 +1,118 @@
-
-# Kafka Data Volume Claim
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: kafka-broker-claim0
-  namespace: search
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2000Gi
----
+# https://www.christopherbiscardi.com/post/confluent-kafka-gke/
 
 # Kafka Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: kafka-broker
+  name: kafka
   namespace: search
+  labels:
+    app: kafka
 spec:
+  clusterIP: None
   ports:
-  - name: "transport"
+  - name: transport
     port: 9092
-    targetPort: 9092
-  - name: "jmx"
+  - name: jmx
     port: 1099
-    targetPort: 1099
   selector:
-    app: kafka-broker
+    app: kafka
 ---
 
 # Kafka Deployment
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   namespace: search
-  name: kafka-broker
+  name: kafka
 spec:
-  replicas: 1
-  strategy:
-    type: Recreate
+  serviceName: kafka
+  replicas: 5
+  selector:
+    matchLabels:
+      app: kafka
   template:
     metadata:
       namespace: search
       labels:
-        app: kafka-broker
+        app: kafka
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                - kafka
+            topologyKey: "kubernetes.io/hostname"
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: "app"
+                  operator: In
+                  values:
+                  - zoo
+              topologyKey: "kubernetes.io/hostname"
       containers:
       - env:
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://kafka-broker:9092
+          value: "PLAINTEXT://kafka-0.kafka.search.svc.cluster.local:9092"
         - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
-          value: "true"
-        - name: KAFKA_BROKER_ID
-          value: "1"
-        - name: KAFKA_DEFAULT_REPLICATION_FACTOR
-          value: "1"
-        - name: KAFKA_DELETE_TOPIC_ENABLE
-          value: "true"
+          value: "false"
+        - name: KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE
+          value: "false"
         - name: KAFKA_JMX_PORT
           value: "1099"
         - name: KAFKA_LOG4J_ROOT_LOGLEVEL
           value: WARN
-        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
-          value: "1"
         - name: KAFKA_OFFSETS_RETENTION_MINUTES
           value: "44640"
-        - name: KAFKA_TRANSACTION_STATE_LOG_MIN_ISR
-          value: "1"
-        - name: KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
-          value: "1"
         - name: KAFKA_ZOOKEEPER_CONNECT
-          value: zoo:2181
+          value: "zoo-0.zoo-hs.search.svc.cluster.local:2181,zoo-1.zoo-hs.search.svc.cluster.local:2181,zoo-2.zoo-hs.search.svc.cluster.local:2181"
         - name: KAFKA_MESSAGE_MAX_BYTES
           value: "15728640"
         - name: KAFKA_REPLICA_FETCH_MAX_BYTES
           value: "15728640"
         - name: KAFKA_OPTS
-          value: -Xms6g -Xmx6g -XX:MetaspaceSize=96m -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:G1HeapRegionSize=16M -XX:MinMetaspaceFreeRatio=50 -XX:MaxMetaspaceFreeRatio=80
+          value: -Xms5g -Xmx5g -XX:MetaspaceSize=96m -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:G1HeapRegionSize=16M -XX:MinMetaspaceFreeRatio=50 -XX:MaxMetaspaceFreeRatio=80
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
         image: confluentinc/cp-kafka:4.1.1-1
-        name: kafka-broker
+        command:
+        - sh
+        - -c
+        - "KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka-${HOSTNAME##*-}.kafka.search.svc.cluster.local:9092 KAFKA_BROKER_ID=${HOSTNAME##*-} /etc/confluent/docker/run"
+        name: kafka
         ports:
         - containerPort: 9092
         - containerPort: 1099
         resources:
           requests:
             cpu: "1.5"
-            memory: "10Gi"
+            memory: "6Gi"
           limits:
-            cpu: "2"
-            memory: "10Gi"
+            cpu: "1.5"
+            memory: "6Gi"
         volumeMounts:
         - mountPath: /var/lib/kafka/data
-          name: kafka-broker-claim0
+          name: kafka-data
           subPath: data
-      restartPolicy: Always
-      volumes:
-      - name: kafka-broker-claim0
-        persistentVolumeClaim:
-          claimName: kafka-broker-claim0
+  volumeClaimTemplates:
+  - metadata:
+      name: kafka-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1000Gi

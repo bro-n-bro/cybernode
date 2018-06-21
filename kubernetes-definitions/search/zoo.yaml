@@ -1,92 +1,104 @@
+# https://www.christopherbiscardi.com/post/confluent-kafka-gke/
 
-# Zookeeper Log Volume Claim
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: zoo-claim0
-  namespace: search
-spec:
-  accessModes: ["ReadWriteOnce"]
-  resources:
-    requests:
-      storage: 1Gi
----
-
-# Zookeeper Data Volume Claim
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: zoo-claim1
-  namespace: search
-spec:
-  accessModes: ["ReadWriteOnce"]
-  resources:
-    requests:
-      storage: 1Gi
----
-
-# Zookeeper Service
+# Zookeeper Host Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: zoo
+  name: zoo-hs
   namespace: search
+  labels:
+    app: zoo
 spec:
   ports:
-  - name: "2181"
-    port: 2181
-    targetPort: 2181
+  - port: 2888
+    name: server
+  - port: 3888
+    name: leader-election
+  clusterIP: None
   selector:
     app: zoo
 ---
 
 # Zookeeper Deployment
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   name: zoo
   namespace: search
 spec:
-  replicas: 1
-  strategy:
-    type: Recreate
+  serviceName: zoo-hs
+  replicas: 3
+  selector:
+    matchLabels:
+      app: zoo
+  podManagementPolicy: Parallel
   template:
     metadata:
       namespace: search
       labels:
         app: zoo
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                - zoo
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - env:
         - name: KAFKA_LOG4J_ROOT_LOGLEVEL
           value: ERROR
         - name: ZOOKEEPER_CLIENT_PORT
           value: "2181"
+          # SERVER_ID is required but not used as this value
+        - name: ZOOKEEPER_SERVER_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         - name: ZOOKEEPER_TICK_TIME
           value: "2000"
+        - name: ZOOKEEPER_INIT_LIMIT
+          value: "30"
+        - name: ZOOKEEPER_SYNC_LIMIT
+          value: "20"
+        - name : ZOOKEEPER_SERVERS
+          value: "zoo-0.zoo-hs.search.svc.cluster.local:2888:3888;zoo-1.zoo-hs.search.svc.cluster.local:2888:3888;zoo-2.zoo-hs.search.svc.cluster.local:2888:3888"
+        - name: ZOOKEEPER_DATA_DIR
+          value: "/var/lib/zookeeper/"
         - name: JAVA_OPTS
           value: -Xms1g -Xmx1g
         image: confluentinc/cp-zookeeper:4.1.1-1
+        command:
+        - "bash"
+        - "-c"
+        - "ZOOKEEPER_SERVER_ID=$((${HOSTNAME:4}+1)) && /etc/confluent/docker/run"
         name: zoo
         ports:
         - containerPort: 2181
+          name: client
+        - containerPort: 2888
+          name: server
+        - containerPort: 3888
+          name: leader-election
         resources:
           requests:
             cpu: "0.1"
-            memory: "1.25Gi"
+            memory: "500Mi"
           limits:
             cpu: "0.2"
-            memory: "1.25Gi"
+            memory: "500Mi"
         volumeMounts:
-        - mountPath: /var/lib/zookeeper/log
-          name: zoo-claim0
-        - mountPath: /var/lib/zookeeper/data
-          name: zoo-claim1
-      restartPolicy: Always
-      volumes:
-      - name: zoo-claim0
-        persistentVolumeClaim:
-          claimName: zoo-claim0
-      - name: zoo-claim1
-        persistentVolumeClaim:
-          claimName: zoo-claim1
+        - mountPath: /var/lib/zookeeper
+          name: zoo-data
+  volumeClaimTemplates:
+  - metadata:
+      name: zoo-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Gi

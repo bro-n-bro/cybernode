@@ -17,7 +17,7 @@ spec:
       containers:
       - env:
         - name: ZK_HOSTS
-          value: zoo:2181
+          value: "zoo-0.zoo-hs.search.svc.cluster.local:2181,zoo-1.zoo-hs.search.svc.cluster.local:2181,zoo-2.zoo-hs.search.svc.cluster.local:2181"
         image: hlebalbau/kafka-manager:latest
         imagePullPolicy: Always
         ports:
