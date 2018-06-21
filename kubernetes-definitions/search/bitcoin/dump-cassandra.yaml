@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - env:
-        - name: CHAIN
+        - name: CHAIN_FAMILY
           value: BITCOIN
         - name: CASSANDRA_HOSTS
           value: elassandra

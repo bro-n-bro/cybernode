@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - env:
-        - name: CHAIN
+        - name: CHAIN_FAMILY
           value: ETHEREUM
         - name: CASSANDRA_HOSTS
           value: elassandra
