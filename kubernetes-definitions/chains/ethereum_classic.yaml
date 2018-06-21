@@ -1,80 +1,71 @@
-apiVersion: v1
-kind: List
-items:
 
 # Service
-- apiVersion: v1
-  kind: Service
-  metadata:
-    name: parity-etc
-    namespace: chains
-  spec:
-    ports:
-    - name: "8545"
-      port: 8545
-      targetPort: 8545
-    selector:
+apiVersion: v1
+kind: Service
+metadata:
+  name: parity-etc
+  namespace: chains
+spec:
+  ports:
+  - name: "8545"
+    port: 8545
+    targetPort: 8545
+  selector:
+    chain: parity-etc
+---
+
+# StatefulSet
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: parity-etc-deployment
+  namespace: chains
+spec:
+  serviceName: parity-etc
+  replicas: 1
+  selector:
+    matchLabels:
       chain: parity-etc
-
-# Deployment
-- apiVersion: extensions/v1beta1
-  kind: Deployment
-  metadata:
-    name: parity-etc-deployment
-    namespace: chains
-  spec:
-    replicas: 1
-    strategy:
-      type: Recreate
-    template:
-      metadata:
-        labels:
-          chain: parity-etc
-      spec:
-        containers:
-        - args:
-          - --db-path
-          - /cyberdata
-          - --jsonrpc-hosts
-          - all
-          - --jsonrpc-interface
-          - all
-          - --jsonrpc-threads
-          - "16"
-          - --chain
-          - classic
-          - --tracing
-          - "on"
-          image: parity/parity:stable
-          name: parity-etc-pod
-          resources:
-            requests:
-              cpu: "1"
-              memory: "10Gi"
-            limits:
-              cpu: "1.5"
-              memory: "15Gi"
-          ports:
-          - containerPort: 8545
-          volumeMounts:
-          - mountPath: /cyberdata
-            name: parity-etc-claim0
-        restartPolicy: Always
-        volumes:
-        - name: parity-etc-claim0
-          persistentVolumeClaim:
-            claimName: parity-etc-claim0
-
-# Volume Claim
-- apiVersion: v1
-  kind: PersistentVolumeClaim
-  metadata:
-    name: parity-etc-claim0
-    namespace: chains
-  spec:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 20Gi
-    storageClassName: fast
+  template:
+    metadata:
+      labels:
+        chain: parity-etc
+    spec:
+      restartPolicy: Always
+      containers:
+      - args:
+        - --db-path
+        - /cyberdata
+        - --jsonrpc-hosts
+        - all
+        - --jsonrpc-interface
+        - all
+        - --jsonrpc-threads
+        - "16"
+        - --chain
+        - classic
+        - --tracing
+        - "on"
+        image: parity/parity:stable
+        name: parity-etc-pod
+        resources:
+          requests:
+            cpu: "1"
+            memory: "10Gi"
+          limits:
+            cpu: "2"
+            memory: "15Gi"
+        ports:
+        - containerPort: 8545
+        volumeMounts:
+        - mountPath: /cyberdata
+          name: parity-etc-data
+  volumeClaimTemplates:
+  - metadata:
+      name: parity-etc-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage:  50Gi
+      storageClassName: fast

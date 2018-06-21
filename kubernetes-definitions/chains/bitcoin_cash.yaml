@@ -1,51 +1,49 @@
-
 # Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: parity-eth
+  name: abc-bth
   namespace: chains
 spec:
   ports:
-  - name: "8545"
-    port: 8545
-    targetPort: 8545
+  - name: "8332"
+    port: 8332
+    targetPort: 8332
   selector:
-    chain: parity-eth
+    chain: abc-bth
 ---
 
 # StatefulSet
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: parity-eth-deployment
+  name: abc-bth
   namespace: chains
 spec:
-  serviceName: parity-eth
+  serviceName: abc-bth
   replicas: 1
   selector:
     matchLabels:
-      chain: parity-eth
+      chain: abc-bth
   template:
     metadata:
       labels:
-        chain: parity-eth
+        chain: abc-bth
     spec:
       restartPolicy: Always
       containers:
       - args:
-        - --db-path
-        - /cyberdata
-        - --jsonrpc-hosts
-        - all
-        - --jsonrpc-interface
-        - all
-        - --jsonrpc-threads
-        - "16"
-        - --tracing
-        - "on"
-        image: parity/parity:stable
-        name: parity-eth-pod
+        - -server
+        - -rest
+        - -txindex
+        - -printtoconsole
+        - -debug=rpc,http
+        - -rpcclienttimeout=220
+        - -rpcthreads=128
+        - -rpcallowip=0.0.0.0/0
+        image: zquestz/bitcoin-abc
+        name: abc-bth-pod
+        command: ["bitcoind"]
         resources:
           requests:
             cpu: "3"
@@ -54,16 +52,16 @@ spec:
             cpu: "3"
             memory: "20Gi"
         ports:
-        - containerPort: 8545
+        - containerPort: 8332
         volumeMounts:
-        - mountPath: /cyberdata
-          name: parity-eth-data
+        - mountPath: /data
+          name: abc-bth-data
   volumeClaimTemplates:
   - metadata:
-      name: parity-eth-data
+      name: abc-bth-data
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage:  200Gi
+          storage:  500Gi
       storageClassName: fast
