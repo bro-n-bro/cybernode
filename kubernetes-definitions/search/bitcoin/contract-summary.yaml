@@ -1,8 +1,12 @@
+
+# Use 'NAME=btc CHAIN_NAME=BITCOIN envsubst < contract-summary.yaml | kubectl apply -f -' command
+# Use 'NAME=bth CHAIN_NAME=BITCOIN_CASH envsubst < contract-summary.yaml | kubectl apply -f -' command
+
 # Service (should expose metrics)
 apiVersion: v1
 kind: Service
 metadata:
-  name: contract-summary-btc
+  name: contract-summary-${NAME}
   namespace: search
   labels:
     monitoring: default-monitor
@@ -12,7 +16,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
-    app: contract-summary-btc
+    app: contract-summary-${NAME}
 ---
 
 # Deployment
@@ -20,7 +24,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   namespace: search
-  name: contract-summary-btc
+  name: contract-summary-${NAME}
 spec:
   replicas: 1
   strategy:
@@ -29,12 +33,14 @@ spec:
     metadata:
       namespace: search
       labels:
-        app: contract-summary-btc
+        app: contract-summary-${NAME}
     spec:
       containers:
       - env:
         - name: CHAIN_FAMILY
           value: BITCOIN
+        - name: CHAIN_NAME
+          value: ${CHAIN_NAME}
         - name: CASSANDRA_HOSTS
           value: elassandra
         - name: CS_LOG_LEVEL
@@ -54,5 +60,5 @@ spec:
             memory: "3.75Gi"
         ports:
         - containerPort: 8080
-        name: contract-summary-btc
+        name: contract-summary-${NAME}
       restartPolicy: Always
