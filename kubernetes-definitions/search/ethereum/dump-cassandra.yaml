@@ -1,8 +1,12 @@
+
+# Use 'NAME=eth CHAIN_NAME=ETHEREUM envsubst < dump-cassandra.yaml | kubectl apply -f -' command
+# Use 'NAME=etc CHAIN_NAME=ETHEREUM_CLASSIC envsubst < dump-cassandra.yaml | kubectl apply -f -' command
+
 # Dump Service (should expose metrics)
 apiVersion: v1
 kind: Service
 metadata:
-  name: dump-cassandra-eth
+  name: dump-cassandra-${NAME}
   namespace: search
   labels:
     monitoring: default-monitor
@@ -12,7 +16,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
-    app: dump-cassandra-eth
+    app: dump-cassandra-${NAME}
 ---
 
 # Dump Deployment
@@ -20,7 +24,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   namespace: search
-  name: dump-cassandra-eth
+  name: dump-cassandra-${NAME}
 spec:
   replicas: 1
   strategy:
@@ -29,12 +33,14 @@ spec:
     metadata:
       namespace: search
       labels:
-        app: dump-cassandra-eth
+        app: dump-cassandra-${NAME}
     spec:
       containers:
       - env:
         - name: CHAIN
           value: ETHEREUM
+        - name: CHAIN_NAME
+          value: ${CHAIN_NAME}
         - name: CASSANDRA_HOSTS
           value: elassandra
         - name: CS_LOG_LEVEL
@@ -54,5 +60,5 @@ spec:
             memory: "3.75Gi"
         ports:
         - containerPort: 8080
-        name: dump-cassandra-eth
+        name: dump-cassandra-${NAME}
       restartPolicy: Always

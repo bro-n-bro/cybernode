@@ -1,8 +1,12 @@
+
+# Use 'NAME=eth CHAIN_NAME=ETHEREUM envsubst < pump.yaml | kubectl apply -f -' command
+# Use 'NAME=etc CHAIN_NAME=ETHEREUM_CLASSIC envsubst < pump.yaml | kubectl apply -f -' command
+
 # Pump Service (should expose metrics)
 apiVersion: v1
 kind: Service
 metadata:
-  name: pump-eth
+  name: pump-${NAME}
   namespace: search
   labels:
     monitoring: default-monitor
@@ -12,7 +16,7 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
-    app: pump-eth
+    app: pump-${NAME}
 ---
 
 # Pump Deployment
@@ -20,7 +24,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   namespace: search
-  name: pump-eth
+  name: pump-${NAME}
 spec:
   replicas: 1
   strategy:
@@ -29,20 +33,24 @@ spec:
     metadata:
       namespace: search
       labels:
-        app: pump-eth
+        app: pump-${NAME}
     spec:
       containers:
       - env:
         - name: CHAIN_FAMILY
           value: ETHEREUM
+        - name: CHAIN_NAME
+          value: ${CHAIN_NAME}
         - name: CHAIN_NODE_URL
-          value: http://parity-eth.chains.svc:8545
+          value: http://parity-${NAME}.chains.svc:8545
         - name: CS_LOG_LEVEL
           value: INFO
         - name: KAFKA_BROKERS
           value: kafka-broker:9092
         - name: WITH_MEMPOOL
           value: "true"
+        - name: STACK_CACHE_SIZE
+          value: "1000"
         - name: JAVA_OPTS
           value: -Xms4g -Xmx4g
         image: cybernode/chain-pump-ethereum:latest
@@ -56,5 +64,5 @@ spec:
             memory: "6Gi"
         ports:
         - containerPort: 8080
-        name: pump-eth
+        name: pump-${NAME}
       restartPolicy: Always
