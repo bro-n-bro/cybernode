@@ -46,7 +46,7 @@ spec:
             cpu: "0.2"
             memory: "2Gi"
         args:
-          - --kafka.server=kafka-broker.search:9092
+          - --kafka.server=kafka.search:9092
           - --web.telemetry-path=/actuator/prometheus
           - --web.listen-address=:8080
           - --topic.filter=.PUMP
