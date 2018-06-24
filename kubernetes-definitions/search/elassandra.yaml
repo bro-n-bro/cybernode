@@ -26,7 +26,7 @@ metadata:
   namespace: search
 spec:
   serviceName: elassandra
-  replicas: 4
+  replicas: 5
   selector:
     matchLabels:
       app: elassandra
@@ -75,7 +75,7 @@ spec:
           - name: CASSANDRA_CLUSTER_NAME
             value: "CYBER_SEARCH"
           - name: CASSANDRA_DC
-            value: "WITHOUT_REPLICATION"
+            value: "DC1"
           - name: CASSANDRA_AUTO_BOOTSTRAP
             value: "true"
           - name: POD_IP
@@ -104,5 +104,5 @@ spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: 1000Gi
+          storage: 700Gi
       storageClassName: fast

@@ -259,7 +259,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(kafka_topic_partition_current_offset{topic=\"${chainName}_(BLOCK|UNCLE)_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process\",topic=\"${chainName}_(BLOCK|UNCLE)_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=~\"${chainName}_(BLOCK|UNCLE)_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process\",topic=~\"${chainName}_(BLOCK|UNCLE)_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -1394,7 +1394,7 @@
       "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1402,10 +1402,7 @@
         "y": 17
       },
       "id": 42,
-      "panels": [],
-      "title": "Contract Summary",
-      "type": "row"
-    },
+      "panels": [
     {
       "content": "",
       "gridPos": {
@@ -2370,6 +2367,10 @@
         "align": false,
         "alignLevel": null
       }
+    }
+  ],
+      "title": "Contract Summary",
+      "type": "row"
     }
   ],
   "refresh": "30s",

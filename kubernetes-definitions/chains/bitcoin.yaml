@@ -47,11 +47,11 @@ items:
           name: bitcoind-btc-pod
           resources:
             requests:
-              cpu: "2"
+              cpu: "3"
               memory: "20Gi"
             limits:
               cpu: "3"
-              memory: "30Gi"
+              memory: "25Gi"
           ports:
           - containerPort: 8332
           volumeMounts:

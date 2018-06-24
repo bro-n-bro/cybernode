@@ -28,7 +28,7 @@
     {
       "icon": "external link",
       "tags": [
-        "cluster", "chain"
+        "cluster"
       ],
       "type": "dashboards"
     }
@@ -797,7 +797,7 @@
               "refId": "B"
             },
             {
-              "expr": "sum_over_time(linked_outputs_from_cache{chainFamily=\"BITCOIN\", chainName=~\"$chainName\"}[1h]) / sum_over_time(total_linked_outputs{chainFamily=\"BITCOIN\", chainName=~\"$chainName\"}[1h])",
+              "expr": "sum(sum_over_time(linked_outputs_from_cache{chainFamily=\"BITCOIN\", chainName=~\"$chainName\"}[1h]) / sum_over_time(total_linked_outputs{chainFamily=\"BITCOIN\", chainName=~\"$chainName\"}[1h]))",
               "format": "time_series",
               "instant": false,
               "intervalFactor": 1,
@@ -1280,7 +1280,7 @@
       "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1288,10 +1288,7 @@
         "y": 16
       },
       "id": 34,
-      "panels": [],
-      "title": "Dump",
-      "type": "row"
-    },
+      "panels": [
     {
       "aliasColors": {},
       "bars": false,
@@ -1572,9 +1569,13 @@
         "align": false,
         "alignLevel": null
       }
+        }
+      ],
+      "title": "Dump",
+      "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1582,10 +1583,7 @@
         "y": 24
       },
       "id": 42,
-      "panels": [],
-      "title": "Contract Summary",
-      "type": "row"
-    },
+      "panels": [
     {
       "aliasColors": {},
       "bars": false,
@@ -1891,6 +1889,10 @@
         "align": false,
         "alignLevel": null
       }
+    }
+  ],
+      "title": "Contract Summary",
+      "type": "row"
     }
   ],
   "refresh": "30s",

@@ -46,7 +46,7 @@ spec:
         - name: CS_LOG_LEVEL
           value: INFO
         - name: KAFKA_BROKERS
-          value: kafka-broker:9092
+          value: kafka:9092
         - name: WITH_MEMPOOL
           value: "true"
         - name: STACK_CACHE_SIZE
@@ -57,11 +57,11 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: "1.5"
+            cpu: "2"
             memory: "5Gi"
           limits:
             cpu: "2"
-            memory: "6Gi"
+            memory: "5Gi"
         ports:
         - containerPort: 8080
         name: pump-${NAME}

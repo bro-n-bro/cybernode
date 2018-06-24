@@ -21,8 +21,14 @@
     {
       "icon": "external link",
       "tags": [
-        "cluster",
         "chain"
+      ],
+      "type": "dashboards"
+    },
+    {
+      "icon": "external link",
+      "tags": [
+        "cluster"
       ],
       "type": "dashboards"
     }
