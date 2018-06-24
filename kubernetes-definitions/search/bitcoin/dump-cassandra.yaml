@@ -46,9 +46,9 @@ spec:
         - name: CS_LOG_LEVEL
           value: INFO
         - name: KAFKA_BROKERS
-          value: kafka-broker:9092
+          value: kafka:9092
         - name: JAVA_OPTS
-          value: -Xms3g -Xmx3g
+          value: -Xms2000m -Xmx2000m
         - name: KAFKA_LISTENER_MAX_POLL_RECORDS
           value: "100"
         - name: CASSANDRA_MAX_CONNECTIONS_LOCAL
@@ -60,10 +60,10 @@ spec:
         resources:
           requests:
             cpu: "3"
-            memory: "3.75Gi"
+            memory: "2.5Gi"
           limits:
             cpu: "3"
-            memory: "3.75Gi"
+            memory: "2.5Gi"
         ports:
         - containerPort: 8080
         name: dump-cassandra-${NAME}

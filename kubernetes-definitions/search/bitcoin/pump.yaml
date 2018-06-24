@@ -48,11 +48,11 @@ spec:
         - name: KAFKA_BROKERS
           value: kafka-broker:9092
         - name: JAVA_OPTS
-          value: -Xms15g -Xmx15g
+          value: -Xms16g -Xmx16g
         - name: BITCOIN_TX_OUTS_CACHE_HEAP_SIZE
-          value: "10"
+          value: "8"
         - name: BTC_TX_DOWNLOAD_MAX_CONCURRENCY
-          value: "10"
+          value: "8"
         - name: WITH_MEMPOOL
           value: "true"
         image: cybernode/chain-pump-bitcoin:latest
@@ -60,7 +60,7 @@ spec:
         resources:
           requests:
             cpu: "2.5"
-            memory: "20Gi"
+            memory: "22Gi"
           limits:
             cpu: "2.5"
             memory: "20Gi"
