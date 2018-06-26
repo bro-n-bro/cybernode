@@ -1,0 +1,60 @@
+
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: ipfs
+  namespace: chains
+spec:
+  type: LoadBalancer  
+  ports:
+  - name: "read-only-gateway"
+    port: 80
+    targetPort: 8080
+  selector:
+    chain: ipfs
+---
+
+# StatefulSet
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ipfs
+  namespace: chains
+spec:
+  serviceName: ipfs
+  replicas: 1
+  selector:
+    matchLabels:
+      chain: ipfs
+  template:
+    metadata:
+      labels:
+        chain: ipfs
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: ipfs-pod
+        image: ipfs/go-ipfs:latest
+        resources:
+          requests:
+            cpu: "1"
+            memory: "500Mi"
+          limits:
+            cpu: "2"
+            memory: "1Gi"
+        ports:
+        - containerPort: 5001
+        - containerPort: 8080
+        volumeMounts:
+        - mountPath: /data/ipfs
+          name: ipfs-data
+  volumeClaimTemplates:
+  - metadata:
+      name: ipfs-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage:  25Gi
+      storageClassName: fast
