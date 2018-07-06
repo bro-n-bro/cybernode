@@ -42,6 +42,8 @@ spec:
           value: http://exchanges-connector-cex.markets:8080,http://exchanges-connector-dex.markets:8080
         - name: JAVA_OPTS
           value: -Xms2g -Xmx2g
+        - name: CORS_ALLOWED_ORIGINS
+          value: "*"
         image: cybernode/cm-rest-api:latest
         imagePullPolicy: Always
         ports:
