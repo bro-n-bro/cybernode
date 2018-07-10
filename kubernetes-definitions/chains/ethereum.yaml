@@ -10,6 +10,9 @@ spec:
   - name: "8545"
     port: 8545
     targetPort: 8545
+  - name: "8546"
+    port: 8546
+    targetPort: 8546
   selector:
     chain: parity-eth
 ---
@@ -40,6 +43,10 @@ spec:
         - all
         - --jsonrpc-interface
         - all
+        - --ws-hosts
+        - all
+        - --ws-interface
+        - all
         - --jsonrpc-threads
         - "16"
         - --tracing
@@ -55,6 +62,9 @@ spec:
             memory: "25Gi"
         ports:
         - containerPort: 8545
+          name: json-rpc
+        - containerPort: 8546
+          name: ws
         volumeMounts:
         - mountPath: /cyberdata
           name: parity-eth-data

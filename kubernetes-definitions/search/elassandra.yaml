@@ -14,6 +14,10 @@ spec:
   - name: metrics
     port: 8080
     targetPort: 8080
+  - name: elastic-http
+    port: 9200
+  - name: elastic-intra
+    port: 9300
   selector:
     app: elassandra
 ---
@@ -38,7 +42,7 @@ spec:
     spec:
       containers:
       - name: elassandra
-        image: strapdata/elassandra:5.5.0.13
+        image: cybernode/elassandra:5.5.0.19
         ports:
         - containerPort: 7000
           name: intra-node
@@ -50,19 +54,22 @@ spec:
           name: cql
         - containerPort: 9200
           name: elastic-http
+          protocol: TCP
         - containerPort: 9300
           name: elastic-intra
+          protocol: TCP
         resources:
           requests:
-            cpu: "3"
+            cpu: "3.5"
             memory: "20Gi"
           limits:
             cpu: "3.5"
-            memory: "25Gi"
+            memory: "20Gi"
         securityContext:
           capabilities:
             add:
               - IPC_LOCK
+              - SYS_RESOURCE
         lifecycle:
           preStop:
             exec:
@@ -78,6 +85,10 @@ spec:
             value: "DC1"
           - name: CASSANDRA_AUTO_BOOTSTRAP
             value: "true"
+          - name: JVM_OPTS
+            value: -Xmx5g -Xms5g -XX:+ExitOnOutOfMemoryError
+          - name: CASSANDRA_ENDPOINT_SNITCH
+            value: GossipingPropertyFileSnitch
           - name: POD_IP
             valueFrom:
               fieldRef:
