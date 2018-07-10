@@ -25,6 +25,7 @@
 - Add grafana overall clsuter monitoring and storages monitoring  [\#47](https://github.com/cybercongress/cybernode/issues/47)
 - Allow anonymus grafana access [\#41](https://github.com/cybercongress/cybernode/issues/41)
 - Execute up.sh failed [\#40](https://github.com/cybercongress/cybernode/issues/40)
+- Replace deployments from extensions/v1beta1 to apps/v1 apies. [\#39](https://github.com/cybercongress/cybernode/issues/39)
 - Make grafana stateful [\#33](https://github.com/cybercongress/cybernode/issues/33)
 - Use prometheus kafka node exporter, instead manual offset logging [\#32](https://github.com/cybercongress/cybernode/issues/32)
 - Prometheus metrics storage is not statefull. [\#31](https://github.com/cybercongress/cybernode/issues/31)
