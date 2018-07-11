@@ -26,6 +26,9 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: markets-api
   template:
     metadata:
       namespace: markets

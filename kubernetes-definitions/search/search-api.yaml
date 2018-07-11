@@ -26,6 +26,9 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: search-api
   template:
     metadata:
       namespace: search

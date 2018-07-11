@@ -29,6 +29,9 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: dump-cassandra-${NAME}
   template:
     metadata:
       namespace: search

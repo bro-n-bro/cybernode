@@ -41,6 +41,9 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: kafka-broker
   template:
     metadata:
       namespace: markets
