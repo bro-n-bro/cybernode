@@ -40,9 +40,16 @@ spec:
       labels:
         app: elassandra
     spec:
+      initContainers:
+      - name: init-sysctl
+        image: busybox
+        command: ['sysctl', '-w', 'vm.max_map_count=1048575']
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
       containers:
       - name: elassandra
-        image: cybernode/elassandra:5.5.0.19
+        image: cybernode/elassandra:latest
         ports:
         - containerPort: 7000
           name: intra-node
@@ -61,10 +68,10 @@ spec:
         resources:
           requests:
             cpu: "3.5"
-            memory: "20Gi"
+            memory: "55Gi"
           limits:
             cpu: "3.5"
-            memory: "20Gi"
+            memory: "55Gi"
         securityContext:
           capabilities:
             add:
@@ -86,7 +93,7 @@ spec:
           - name: CASSANDRA_AUTO_BOOTSTRAP
             value: "true"
           - name: JVM_OPTS
-            value: -Xmx5g -Xms5g -XX:+ExitOnOutOfMemoryError
+            value: -Xmx25g -Xms25g -XX:+ExitOnOutOfMemoryError
           - name: CASSANDRA_ENDPOINT_SNITCH
             value: GossipingPropertyFileSnitch
           - name: POD_IP
