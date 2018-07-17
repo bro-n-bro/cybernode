@@ -7,20 +7,35 @@ import (
 	"strings"
 	"errors"
 	"github.com/cybercongress/cybernode/common"
+	"github.com/spf13/pflag"
+	"log"
 )
 
 const CYBERNODE_DATA_FOLDER_DEFAULT = "/.cybernode/data"
 
+var cybernodeDataPath string
+
 var SettingsCmd = &cobra.Command{
 	Use:  "settings",
-	Long: "Current settings of cybernode",
+	Short: "Settings of cybernode",
+	Long: "If some flags with settings specified command will set new value to those settings. Otherwise list all settings",
+	Args: cobra.NoArgs,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Settings:")
-		for _, settingPath := range viper.AllKeys() {
-			setting := settings[settingPath]
-			fmt.Println(setting.Path, "-", setting.Description, ":", viper.Get(settingPath))
+
+		cmd.Flags().Visit(parseSettingFlag)
+
+		if cmd.Flags().NFlag() == 0 {
+			fmt.Println("Settings:")
+			for _, settingPath := range viper.AllKeys() {
+				setting := settings[settingPath]
+				fmt.Println(setting.Path, "-", setting.Description, ":", viper.Get(settingPath))
+			}
 		}
 	},
+}
+
+func init() {
+	SettingsCmd.Flags().StringVar(&cybernodeDataPath, "cybernode.data.path", "", "Path to data folder")
 }
 
 var settings = map[string]common.Setting{
@@ -45,7 +60,19 @@ func cybernodeDataPathUserValueHandler(userInput string) (interface{}, error) {
 		return nil, errors.New(err.Error() + "\nOops, seems that you've entered wrong path. Try again.")
 	}
 
-	fmt.Println("Set to ", dataPathDir, ". You could always change settings with cybernode settings command")
+	fmt.Println("cybernode.data.path set to", dataPathDir, ". You could always change settings with cybernode settings command")
 
 	return dataPathDir, nil
+}
+
+func parseSettingFlag(flag *pflag.Flag) {
+	setting, ok := settings[flag.Name]
+	if ok && flag.Value.String() != "" {
+		value, err := setting.UserInputHandler(flag.Value.String())
+		if err != nil {
+			log.Fatal(err)
+		}
+		viper.Set(flag.Name, value)
+		viper.WriteConfigAs(getSettingsFilePath())
+	}
 }

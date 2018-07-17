@@ -13,18 +13,11 @@ import (
 const CONFIG_FILE_NAME = "settings.yaml"
 const CYBERNODE_SETTINGS_FOLDER = "/.cybernode/"
 
-var RootCmd = &cobra.Command{
-	Use: "cybernode",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Please enter some commands")
-		cmd.Help()
-	},
-}
+var RootCmd = &cobra.Command{ Use: "cybernode" }
 
 func init() {
 	cobra.OnInitialize(findDocker, createCybernodeDirectory, initSettings)
-	RootCmd.AddCommand(SettingsCmd)
-	RootCmd.AddCommand(ChainsCmd)
+	RootCmd.AddCommand(SettingsCmd, ChainsCmd)
 }
 
 func findDocker() {
