@@ -13,6 +13,7 @@ type Setting struct {
 	DefaultValue          interface{}
 	AskUserInitOnFirstRun bool
 	UserInputHandler      func(userInput string) (interface{}, error)
+	StringValue                 string
 }
 
 func (s Setting) getValueFromUserInput() interface{} {
@@ -35,7 +36,7 @@ func (s Setting) getValueFromUserInput() interface{} {
 	}
 }
 
-func (s Setting) GetFirstRunValue() interface{} {
+func (s Setting) FirstRunValue() interface{} {
 	if s.AskUserInitOnFirstRun {
 		return s.getValueFromUserInput()
 	} else {
