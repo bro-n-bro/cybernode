@@ -13,8 +13,6 @@ import (
 
 const CYBERNODE_DATA_FOLDER_DEFAULT = "/.cybernode/data"
 
-var cybernodeDataPath string
-
 var SettingsCmd = &cobra.Command{
 	Use:  "settings",
 	Short: "Settings of cybernode",
@@ -35,13 +33,15 @@ var SettingsCmd = &cobra.Command{
 }
 
 func init() {
-	SettingsCmd.Flags().StringVar(&cybernodeDataPath, "cybernode.data.path", "", "Path to data folder")
+	for path, setting := range settings {
+		SettingsCmd.Flags().StringVar(&setting.StringValue, path, "", setting.Description)
+	}
 }
 
 var settings = map[string]common.Setting{
 	"cybernode.data.path": {
 		Path:                  "cybernode.data.path",
-		Description:           "Place where cybernode stores all of its data",
+		Description:           "path to data folder",
 		DefaultValue:          getHomeDir() + CYBERNODE_DATA_FOLDER_DEFAULT,
 		AskUserInitOnFirstRun: true,
 		UserInputHandler:      cybernodeDataPathUserValueHandler,

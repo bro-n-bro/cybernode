@@ -38,7 +38,7 @@ func initSettings() {
 			fmt.Println("Seems that you're running cybernode for the first time. Please, enter some settings")
 
 			for _, setting := range settings {
-				viper.SetDefault(setting.Path, setting.GetFirstRunValue())
+				viper.SetDefault(setting.Path, setting.FirstRunValue())
 			}
 
 			if err := viper.WriteConfigAs(settingsFilePath); err != nil {
