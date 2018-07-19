@@ -401,21 +401,21 @@
           "refId": "D"
         },
         {
-          "expr": "sum(label_replace(kafka_topic_partition_current_offset{topic=~\".*_(BLOCK|UNCLE)_PUMP\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_BLOCK_PUMP\")) by (chainName) - sum(label_replace(kafka_consumergroup_current_offset{topic=~\".*_(BLOCK|UNCLE)_PUMP\",consumergroup=\"dump-process\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_BLOCK_PUMP\")) by (chainName)",
+          "expr": "sum(label_replace(kafka_topic_partition_current_offset{topic=~\".*_(BLOCK|UNCLE)_PUMP\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_BLOCK_PUMP\")) by (chainName) - sum(label_replace(kafka_consumergroup_current_offset{topic=~\".*_(BLOCK|UNCLE)_PUMP\",consumergroup=\"dump-process-group\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_BLOCK_PUMP\")) by (chainName)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
           "refId": "F"
         },
         {
-          "expr": "sum(label_replace(kafka_topic_partition_current_offset{topic=~\".*_TX_PUMP\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_TX_PUMP\")) by (chainName) - sum(label_replace(kafka_consumergroup_current_offset{topic=~\".*_TX_PUMP\",consumergroup=\"dump-process\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_TX_PUMP\")) by (chainName)",
+          "expr": "sum(label_replace(kafka_topic_partition_current_offset{topic=~\".*_TX_PUMP\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_TX_PUMP\")) by (chainName) - sum(label_replace(kafka_consumergroup_current_offset{topic=~\".*_TX_PUMP\",consumergroup=\"dump-process-group\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_TX_PUMP\")) by (chainName)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
           "refId": "E"
         },
         {
-          "expr": "sum(label_replace(kafka_topic_partition_current_offset{topic=~\".*_TX_PUMP\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_TX_PUMP\")) by (chainName) - sum(label_replace(kafka_consumergroup_current_offset{topic=~\".*_TX_PUMP\",consumergroup=\"contract-summary-update-process\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_TX_PUMP\")) by (chainName)",
+          "expr": "sum(label_replace(kafka_topic_partition_current_offset{topic=~\".*_TX_PUMP\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_TX_PUMP\")) by (chainName) - sum(label_replace(kafka_consumergroup_current_offset{topic=~\".*_TX_PUMP\",consumergroup=\"contract-summary-update-process-group\"},\"chainName\", \"$1\", \"topic\", \"(.*?)_TX_PUMP\")) by (chainName)",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,

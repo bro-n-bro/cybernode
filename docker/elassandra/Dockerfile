@@ -1,4 +1,4 @@
-FROM strapdata/elassandra:5.5.0.19
+FROM strapdata/elassandra:5.5.0.20
 
 COPY custom-entrypoint.sh /custom-entrypoint.sh
 

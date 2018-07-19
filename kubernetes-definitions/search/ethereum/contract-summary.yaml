@@ -51,16 +51,16 @@ spec:
         - name: KAFKA_BROKERS
           value: kafka:9092
         - name: JAVA_OPTS
-          value: -Xms1700m -Xmx1700m
+          value: -Xms2000m -Xmx2000m
         image: cybernode/chain-contract-summary-ethereum:latest
         imagePullPolicy: Always
         resources:
           requests:
             cpu: "3"
-            memory: "2Gi"
+            memory: "2.5Gi"
           limits:
             cpu: "3"
-            memory: "2Gi"
+            memory: "2.5Gi"
         ports:
         - containerPort: 8080
         name: contract-summary-${NAME}
