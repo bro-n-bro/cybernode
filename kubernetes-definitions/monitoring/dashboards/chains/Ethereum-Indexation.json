@@ -259,7 +259,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(kafka_topic_partition_current_offset{topic=~\"${chainName}_(BLOCK|UNCLE)_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process\",topic=~\"${chainName}_(BLOCK|UNCLE)_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=~\"${chainName}_(BLOCK|UNCLE)_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process-group\",topic=~\"${chainName}_(BLOCK|UNCLE)_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -340,7 +340,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(kafka_topic_partition_current_offset{topic=\"${chainName}_TX_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process\",topic=\"${chainName}_TX_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"${chainName}_TX_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process-group\",topic=\"${chainName}_TX_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -421,7 +421,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(kafka_topic_partition_current_offset{topic=\"${chainName}_TX_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\",topic=\"${chainName}_TX_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=\"${chainName}_TX_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\",topic=\"${chainName}_TX_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -502,7 +502,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(kafka_topic_partition_current_offset{topic=~\"${chainName}_(BLOCK|UNCLE)_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\",topic=~\"${chainName}_(BLOCK|UNCLE)_PUMP\"})",
+          "expr": "sum(kafka_topic_partition_current_offset{topic=~\"${chainName}_(BLOCK|UNCLE)_PUMP\"}) - sum(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\",topic=~\"${chainName}_(BLOCK|UNCLE)_PUMP\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -1044,21 +1044,21 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"dump-process\", topic=\"${chainName}_TX_PUMP\"}[1h]))",
+              "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"dump-process-group\", topic=\"${chainName}_TX_PUMP\"}[1h]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Tx Records",
               "refId": "A"
             },
             {
-              "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"dump-process\", topic=\"${chainName}_BLOCK_PUMP\"}[1h]))",
+              "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"dump-process-group\", topic=\"${chainName}_BLOCK_PUMP\"}[1h]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Block Records",
               "refId": "B"
             },
             {
-              "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"dump-process\", topic=\"${chainName}_UNCLE_PUMP\"}[1h]))",
+              "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"dump-process-group\", topic=\"${chainName}_UNCLE_PUMP\"}[1h]))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Uncle Records",
@@ -1146,7 +1146,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process\",topic=\"${chainName}_TX_PUMP\"})",
+              "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process-group\",topic=\"${chainName}_TX_PUMP\"})",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Dumped Tx Offset",
@@ -1241,7 +1241,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process\",topic=\"${chainName}_BLOCK_PUMP\"})",
+              "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process-group\",topic=\"${chainName}_BLOCK_PUMP\"})",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Dumped Block Offset",
@@ -1335,7 +1335,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process\",topic=\"${chainName}_UNCLE_PUMP\"})",
+              "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"dump-process-group\",topic=\"${chainName}_UNCLE_PUMP\"})",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Dumped Uncle Offset",
@@ -1456,7 +1456,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\",topic=\"${chainName}_TX_PUMP\"})",
+          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\",topic=\"${chainName}_TX_PUMP\"})",
           "format": "time_series",
           "interval": "20s",
           "intervalFactor": 1,
@@ -1562,14 +1562,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\", topic=\"${chainName}_TX_PUMP\"}[1m])) by (topic)",
+          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\", topic=\"${chainName}_TX_PUMP\"}[1m])) by (topic)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "[1m] {{topic}}",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\", topic=\"${chainName}_TX_PUMP\"}[1h])) by (topic)",
+          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\", topic=\"${chainName}_TX_PUMP\"}[1h])) by (topic)",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -1778,7 +1778,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\",topic=\"${chainName}_BLOCK_PUMP\"})",
+          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\",topic=\"${chainName}_BLOCK_PUMP\"})",
           "format": "time_series",
           "interval": "20s",
           "intervalFactor": 1,
@@ -1884,14 +1884,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\", topic=\"${chainName}_BLOCK_PUMP\"}[1m])) by (topic)",
+          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\", topic=\"${chainName}_BLOCK_PUMP\"}[1m])) by (topic)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "[1m] {{topic}}",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\", topic=\"${chainName}_BLOCK_PUMP\"}[1h])) by (topic)",
+          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\", topic=\"${chainName}_BLOCK_PUMP\"}[1h])) by (topic)",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -2100,7 +2100,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\",topic=\"${chainName}_BLOCK_PUMP\"})",
+          "expr": "sum(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\",topic=\"${chainName}_BLOCK_PUMP\"})",
           "format": "time_series",
           "interval": "20s",
           "intervalFactor": 1,
@@ -2206,14 +2206,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\", topic=\"${chainName}_UNCLE_PUMP\"}[1m])) by (topic)",
+          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\", topic=\"${chainName}_UNCLE_PUMP\"}[1m])) by (topic)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "[1m] {{topic}}",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process\", topic=\"${chainName}_UNCLE_PUMP\"}[1h])) by (topic)",
+          "expr": "sum(rate(kafka_consumergroup_current_offset{consumergroup=\"contract-summary-update-process-group\", topic=\"${chainName}_UNCLE_PUMP\"}[1h])) by (topic)",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,

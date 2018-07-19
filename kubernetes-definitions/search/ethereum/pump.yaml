@@ -51,7 +51,7 @@ spec:
         - name: KAFKA_BROKERS
           value: kafka:9092
         - name: WITH_MEMPOOL
-          value: "true"
+          value: "false"
         - name: STACK_CACHE_SIZE
           value: "1000"
         - name: JAVA_OPTS
