@@ -12,12 +12,13 @@ import (
 )
 
 const CYBERNODE_DATA_FOLDER_DEFAULT = "/.cybernode/data"
+const CYBERNODE_DATA_PATH_PROP_NAME = "cybernode.data.path"
 
 var SettingsCmd = &cobra.Command{
-	Use:  "settings",
+	Use:   "settings",
 	Short: "Settings of cybernode",
-	Long: "If some flags with settings specified command will set new value to those settings. Otherwise list all settings",
-	Args: cobra.NoArgs,
+	Long:  "If some flags with settings specified command will set new value to those settings. Otherwise list all settings",
+	Args:  cobra.NoArgs,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		cmd.Flags().Visit(parseSettingFlag)
@@ -40,7 +41,7 @@ func init() {
 
 var settings = map[string]common.Setting{
 	"cybernode.data.path": {
-		Path:                  "cybernode.data.path",
+		Path:                  CYBERNODE_DATA_PATH_PROP_NAME,
 		Description:           "path to data folder",
 		DefaultValue:          getHomeDir() + CYBERNODE_DATA_FOLDER_DEFAULT,
 		AskUserInitOnFirstRun: true,
