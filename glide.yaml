@@ -1,0 +1,17 @@
+package: github.com/cybercongress/cybernode
+import:
+- package: github.com/docker/docker
+  subpackages:
+  - api/types
+  - api/types/container
+  - client
+- package: github.com/docker/go-connections
+  subpackages:
+  - nat
+- package: github.com/mitchellh/go-homedir
+- package: github.com/spf13/cobra
+- package: github.com/spf13/pflag
+- package: github.com/spf13/viper
+- package: golang.org/x/net
+  subpackages:
+  - context

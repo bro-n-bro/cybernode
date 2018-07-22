@@ -27,3 +27,7 @@ classes/
 # Gradle
 .gradle/
 build
+
+# Glide
+glide.lock
+vendor/
