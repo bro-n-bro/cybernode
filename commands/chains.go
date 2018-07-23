@@ -13,29 +13,26 @@ var chains = []common.Chain{
 	{
 		Name:                "ethereum",
 		DockerImage:         "parity/parity:v1.11.7",
-		DockerContainerName: "cybernode-ethereum", //todo: move to function
 		DataFolderFlagName:  "--db-path",
 		PortsToExpose:       map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
 		CommonFlags:         map[string]string{"--ui-interface": "all", "--jsonrpc-interface": "all"},
-		ModesFlags:          map[string]common.ChainMode{"light": {Flags: []string{"--light"}}},
+		ModesFlags:          map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
 	},
 	{
 		Name:                "ethereum_kovan",
 		DockerImage:         "parity/parity:v1.11.7",
-		DockerContainerName: "cybernode-ethereum-kovan", //todo: move to function
 		DataFolderFlagName:  "--db-path",
 		PortsToExpose:       map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
 		CommonFlags:         map[string]string{"--ui-interface": "all", "--jsonrpc-interface": "all", "--chain": "kovan"},
-		ModesFlags:          map[string]common.ChainMode{"light": {Flags: []string{"--light"}}},
+		ModesFlags:          map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
 	},
 	{
 		Name:                "ethereum_classic",
 		DockerImage:         "parity/parity:v1.11.7",
-		DockerContainerName: "cybernode-ethereum-classic", //todo: move to function
 		DataFolderFlagName:  "--db-path",
 		PortsToExpose:       map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
 		CommonFlags:         map[string]string{"--ui-interface": "all", "--jsonrpc-interface": "all", "--chain": "classic"},
-		ModesFlags:          map[string]common.ChainMode{"light": {Flags: []string{"--light"}}},
+		ModesFlags:          map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
 	},
 }
 

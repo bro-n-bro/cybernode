@@ -16,7 +16,7 @@ var ChainsStatusCmd = &cobra.Command{
 
 		for _, chain := range chains {
 
-			dockerContainer, err := dockerClient.ContainerInspect(ctx, chain.DockerContainerName)
+			dockerContainer, err := dockerClient.ContainerInspect(ctx, chain.DockerContainerName())
 			if err != nil {
 				log.Println(chain.Name, " not running, no container created")
 			} else {
