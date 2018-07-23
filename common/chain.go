@@ -4,15 +4,16 @@ import (
 	"github.com/docker/go-connections/nat"
 	"strconv"
 	"github.com/spf13/viper"
+	"strings"
 )
 
 type Chain struct {
-	Name                string
-	DockerImage         string
-	DataFolderFlagName  string
-	PortsToExpose       map[int][]string
-	CommonFlags         map[string]string
-	ModesFlags          map[string]ChainMode
+	Name             string
+	DockerImage      string
+	DockerDataFolder string
+	PortsToExpose    map[int][]string
+	CommonFlags      map[string]string
+	ModesFlags       map[string]ChainMode
 }
 
 type ChainMode struct {
@@ -33,6 +34,15 @@ func (c Chain) DockerExposedPorts() nat.PortSet {
 	return portSet
 }
 
+func (c Chain) DataFolder() string {
+	return viper.GetString("cybernode.data.path") + "/" + strings.ToLower(c.Name)
+}
+
+func (c Chain) DockerBinds() []string {
+	dataPathBinding := c.DataFolder() + ":" + c.DockerDataFolder
+	return []string{dataPathBinding}
+}
+
 func (c Chain) DockerPortBindings() nat.PortMap {
 	portMap := nat.PortMap{}
 	for portBinding := range c.DockerExposedPorts() {
@@ -47,7 +57,7 @@ func (c Chain) DockerPortBindings() nat.PortMap {
 }
 
 func (c Chain) DockerCmdList(selectedMode *ChainMode) []string {
-	cmds := []string{c.DataFolderFlagName, viper.GetString("cybernode.data.path")} // todo: move to const
+	var cmds []string
 
 	for flag, value := range c.CommonFlags {
 		cmds = appendFlag(cmds, flag, value)
