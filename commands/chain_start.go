@@ -57,6 +57,7 @@ func createContainer(chain common.Chain, ctx context.Context) {
 		ExposedPorts: chain.DockerExposedPorts(),
 	}
 	hostConfig := &container.HostConfig{
+		Binds:        chain.DockerBinds(),
 		PortBindings: chain.DockerPortBindings(),
 	}
 	_, err := dockerClient.ContainerCreate(ctx, config, hostConfig, nil, chain.DockerContainerName())
