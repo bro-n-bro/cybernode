@@ -38,7 +38,7 @@ func startContainer(ctx context.Context, chain common.Chain) {
 	if err := dockerClient.ContainerStart(ctx, chain.DockerContainerName, types.ContainerStartOptions{}); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(strings.Title(chain.Name), " started!")
+	fmt.Println(strings.Title(chain.Name), "started!")
 }
 
 func pullOrUpdateImage(ctx context.Context, chain common.Chain) {

@@ -3,7 +3,7 @@ package commands
 import (
 	"github.com/spf13/cobra"
 	"golang.org/x/net/context"
-		"log"
+	"log"
 )
 
 var ChainsStatusCmd = &cobra.Command{
