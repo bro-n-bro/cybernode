@@ -22,7 +22,7 @@ func startNodeCmd(chain common.Chain) *cobra.Command {
 
 			pullOrUpdateImage(ctx, chain)
 
-			dockerContainer, err := dockerClient.ContainerInspect(ctx, chain.DockerContainerName)
+			dockerContainer, err := dockerClient.ContainerInspect(ctx, chain.DockerContainerName())
 			if err != nil {
 				createContainer(chain, ctx)
 			} else if dockerContainer.State.Running || dockerContainer.State.Restarting {
@@ -35,7 +35,7 @@ func startNodeCmd(chain common.Chain) *cobra.Command {
 }
 
 func startContainer(ctx context.Context, chain common.Chain) {
-	if err := dockerClient.ContainerStart(ctx, chain.DockerContainerName, types.ContainerStartOptions{}); err != nil {
+	if err := dockerClient.ContainerStart(ctx, chain.DockerContainerName(), types.ContainerStartOptions{}); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(strings.Title(chain.Name), "started!")
@@ -59,7 +59,7 @@ func createContainer(chain common.Chain, ctx context.Context) {
 	hostConfig := &container.HostConfig{
 		PortBindings: chain.DockerPortBindings(),
 	}
-	_, err := dockerClient.ContainerCreate(ctx, config, hostConfig, nil, chain.DockerContainerName)
+	_, err := dockerClient.ContainerCreate(ctx, config, hostConfig, nil, chain.DockerContainerName())
 	if err != nil {
 		log.Fatal(err)
 	}

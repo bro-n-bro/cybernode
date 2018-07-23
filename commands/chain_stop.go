@@ -15,7 +15,7 @@ func stopNodeCmd(chain common.Chain) *cobra.Command {
 
 			ctx := context.Background()
 
-			dockContainer, err := dockerClient.ContainerInspect(ctx, chain.DockerContainerName)
+			dockContainer, err := dockerClient.ContainerInspect(ctx, chain.DockerContainerName())
 			if err != nil {
 				log.Fatal(err)
 			}

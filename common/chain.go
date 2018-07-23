@@ -9,7 +9,6 @@ import (
 type Chain struct {
 	Name                string
 	DockerImage         string
-	DockerContainerName string
 	DataFolderFlagName  string
 	PortsToExpose       map[int][]string
 	CommonFlags         map[string]string
@@ -18,6 +17,10 @@ type Chain struct {
 
 type ChainMode struct {
 	Flags map[string]string
+}
+
+func (c Chain) DockerContainerName() string {
+	return "cybernode_" + c.Name
 }
 
 func (c Chain) DockerExposedPorts() nat.PortSet {
