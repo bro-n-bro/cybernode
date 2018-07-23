@@ -17,7 +17,7 @@ type Chain struct {
 }
 
 type ChainMode struct {
-	Flags []string
+	Flags map[string]string
 }
 
 func (c Chain) DockerExposedPorts() nat.PortSet {
@@ -47,14 +47,22 @@ func (c Chain) DockerCmdList(selectedMode *ChainMode) []string {
 	cmds := []string{c.DataFolderFlagName, viper.GetString("cybernode.data.path")} // todo: move to const
 
 	for flag, value := range c.CommonFlags {
-		cmds = append(cmds, flag, value)
+		cmds = appendFlag(cmds, flag, value)
 	}
 
 	if selectedMode != nil {
-		for _, flag := range selectedMode.Flags {
-			cmds = append(cmds, flag)
+		for flag, value := range selectedMode.Flags {
+			cmds = appendFlag(cmds, flag, value)
 		}
 	}
 
+	return cmds
+}
+
+func appendFlag(cmds []string, flag string, value string) []string {
+	cmds = append(cmds, flag)
+	if value != "" {
+		cmds = append(cmds, value)
+	}
 	return cmds
 }
