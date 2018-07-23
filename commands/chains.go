@@ -5,34 +5,62 @@ import (
 	"github.com/cybercongress/cybernode/common"
 	"log"
 	"github.com/docker/docker/client"
-	)
+)
 
 var dockerClient *client.Client
 
 var chains = []common.Chain{
 	{
-		Name:                "ethereum",
-		DockerImage:         "parity/parity:v1.11.7",
-		DataFolderFlagName:  "--db-path",
-		PortsToExpose:       map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
-		CommonFlags:         map[string]string{"--ui-interface": "all", "--jsonrpc-interface": "all"},
-		ModesFlags:          map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
+		Name:             "ethereum",
+		DockerImage:      "parity/parity:v1.11.7",
+		DockerDataFolder: "/cyberdata",
+		PortsToExpose:    map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
+		CommonFlags: map[string]string{
+			"--ui-interface":      "all",
+			"--jsonrpc-interface": "all",
+			"--db-path":           "/cyberdata",
+		},
+		ModesFlags: map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
 	},
 	{
-		Name:                "ethereum_kovan",
-		DockerImage:         "parity/parity:v1.11.7",
-		DataFolderFlagName:  "--db-path",
-		PortsToExpose:       map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
-		CommonFlags:         map[string]string{"--ui-interface": "all", "--jsonrpc-interface": "all", "--chain": "kovan"},
-		ModesFlags:          map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
+		Name:             "ethereum_kovan",
+		DockerImage:      "parity/parity:v1.11.7",
+		DockerDataFolder: "/cyberdata",
+		PortsToExpose:    map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
+		CommonFlags: map[string]string{
+			"--ui-interface":      "all",
+			"--jsonrpc-interface": "all",
+			"--chain":             "kovan",
+			"--db-path":           "/cyberdata",
+		},
+		ModesFlags: map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
 	},
 	{
-		Name:                "ethereum_classic",
-		DockerImage:         "parity/parity:v1.11.7",
-		DataFolderFlagName:  "--db-path",
-		PortsToExpose:       map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
-		CommonFlags:         map[string]string{"--ui-interface": "all", "--jsonrpc-interface": "all", "--chain": "classic"},
-		ModesFlags:          map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
+		Name:             "ethereum_classic",
+		DockerImage:      "parity/parity:v1.11.7",
+		DockerDataFolder: "/cyberdata",
+		PortsToExpose:    map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
+		CommonFlags: map[string]string{
+			"--ui-interface":      "all",
+			"--jsonrpc-interface": "all",
+			"--chain":             "classic",
+			"--db-path":           "/cyberdata",
+		},
+		ModesFlags: map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
+	},
+	{
+		Name:             "bitcoin",
+		DockerImage:      "ruimarinho/bitcoin-core:0.16.0",
+		DockerDataFolder: "/home/bitcoin/.bitcoin",
+		PortsToExpose:    map[int][]string{8332: {"tcp"}},
+		CommonFlags: map[string]string{
+			"-server":               "",
+			"-rest":                 "",
+			"-txindex":              "",
+			"-rpcallowip=0.0.0.0/0": "",
+			"-printtoconsole":       "",
+		},
+		ModesFlags: map[string]common.ChainMode{},
 	},
 }
 
