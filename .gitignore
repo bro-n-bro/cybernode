@@ -28,6 +28,8 @@ classes/
 .gradle/
 build
 
-# Glide
-glide.lock
+# Dep
 vendor/
+
+# Bin
+cybernode
