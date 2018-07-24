@@ -2,7 +2,7 @@ package commands
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/cybercongress/cybernode/common"
+	"../common"
 	"log"
 	"github.com/docker/docker/client"
 )
