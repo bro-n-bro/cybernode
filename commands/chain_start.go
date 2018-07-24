@@ -1,7 +1,7 @@
 package commands
 
 import (
-	"github.com/cybercongress/cybernode/common"
+	"../common"
 	"github.com/spf13/cobra"
 	"github.com/docker/docker/api/types"
 	"log"
