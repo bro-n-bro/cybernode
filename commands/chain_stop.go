@@ -1,7 +1,7 @@
 package commands
 
 import (
-	"../common"
+	"github.com/cybercongress/cybernode/common"
 	"github.com/spf13/cobra"
 	"log"
 	"golang.org/x/net/context"

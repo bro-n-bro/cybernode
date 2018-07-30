@@ -38,7 +38,7 @@
     "client",
     "errdefs"
   ]
-  revision = "1ef1cc8388165b2b848f9b3f53ec91c87de09f63"
+  revision = "73d73ba9622596b9c405f1ac955474804b286be6"
 
 [[projects]]
   name = "github.com/docker/go-connections"
@@ -184,7 +184,7 @@
     "internal/socks",
     "proxy"
   ]
-  revision = "a680a1efc54dd51c040b3b5ce4939ea3cf2ea0d1"
+  revision = "c4299a1a0d8524c11563db160fbf9bddbceadb21"
 
 [[projects]]
   branch = "master"
