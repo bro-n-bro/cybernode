@@ -55,7 +55,6 @@ var chains = []common.Chain{
 		PortsToExpose:    map[int][]string{8332: {"tcp"}},
 		CommonFlags: map[string]string{
 			"-server":               "",
-			"-testnet":              "",
 			"-rest":                 "",
 			"-txindex":              "",
 			"-rpcallowip=0.0.0.0/0": "",
