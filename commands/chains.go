@@ -2,7 +2,7 @@ package commands
 
 import (
 	"github.com/spf13/cobra"
-	"../common"
+	"github.com/cybercongress/cybernode/common"
 	"log"
 	"github.com/docker/docker/client"
 )
@@ -55,6 +55,7 @@ var chains = []common.Chain{
 		PortsToExpose:    map[int][]string{8332: {"tcp"}},
 		CommonFlags: map[string]string{
 			"-server":               "",
+			"-testnet":              "",
 			"-rest":                 "",
 			"-txindex":              "",
 			"-rpcallowip=0.0.0.0/0": "",

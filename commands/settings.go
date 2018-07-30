@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/viper"
 	"strings"
 	"errors"
-	"../common"
+	"github.com/cybercongress/cybernode/common"
 	"github.com/spf13/pflag"
 	"log"
 )
