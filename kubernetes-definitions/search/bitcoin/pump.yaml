@@ -57,7 +57,7 @@ spec:
         - name: BTC_TX_DOWNLOAD_MAX_CONCURRENCY
           value: "10"
         - name: WITH_MEMPOOL
-          value: "true"
+          value: "false"
         image: cybernode/chain-pump-bitcoin:latest
         imagePullPolicy: Always
         resources:
