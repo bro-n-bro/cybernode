@@ -4,6 +4,8 @@
 
 **Closed issues:**
 
+- CLI: Ethereum node integration [\#103](https://github.com/cybercongress/cybernode/issues/103)
+- CLI Settings [\#102](https://github.com/cybercongress/cybernode/issues/102)
 - Make chains resources templatable [\#93](https://github.com/cybercongress/cybernode/issues/93)
 - Make chains monitoring templateable. [\#90](https://github.com/cybercongress/cybernode/issues/90)
 - Raise kafka cluster in GCE with at least 3 brokers [\#89](https://github.com/cybercongress/cybernode/issues/89)
@@ -22,6 +24,7 @@
 - Manage gcloud cluster nodes usage [\#61](https://github.com/cybercongress/cybernode/issues/61)
 - Migrate to grafana 5.1 and PO 1.9 [\#53](https://github.com/cybercongress/cybernode/issues/53)
 - Extend a list of supported CEXes [\#52](https://github.com/cybercongress/cybernode/issues/52)
+- Research around cybernode CLI and daemon [\#51](https://github.com/cybercongress/cybernode/issues/51)
 - Add grafana overall clsuter monitoring and storages monitoring  [\#47](https://github.com/cybercongress/cybernode/issues/47)
 - Allow anonymus grafana access [\#41](https://github.com/cybercongress/cybernode/issues/41)
 - Execute up.sh failed [\#40](https://github.com/cybercongress/cybernode/issues/40)
@@ -38,6 +41,7 @@
 - Error on earth with pistonapi [\#15](https://github.com/cybercongress/cybernode/issues/15)
 - Errors during up.sh [\#14](https://github.com/cybercongress/cybernode/issues/14)
 - Mars failures [\#13](https://github.com/cybercongress/cybernode/issues/13)
+- Monitoring metrics for cybernode [\#12](https://github.com/cybercongress/cybernode/issues/12)
 - Setup CI/CD for cybernode containers on Mars  [\#11](https://github.com/cybercongress/cybernode/issues/11)
 - Setup cybernode clusters in GCS [\#10](https://github.com/cybercongress/cybernode/issues/10)
 - Fix mappings of cybernode Mars SSD disks [\#9](https://github.com/cybercongress/cybernode/issues/9)
@@ -51,8 +55,12 @@
 
 **Merged pull requests:**
 
+- Genesis CLI [\#108](https://github.com/cybercongress/cybernode/pull/108) ([arturalbov](https://github.com/arturalbov))
+- CLI: Ethereum node integration [\#105](https://github.com/cybercongress/cybernode/pull/105) ([arturalbov](https://github.com/arturalbov))
+- CLI: Settings [\#104](https://github.com/cybercongress/cybernode/pull/104) ([arturalbov](https://github.com/arturalbov))
 - Replace deployments from extensions/v1beta1 to apps/v1 apies. Custom elassandra image [\#101](https://github.com/cybercongress/cybernode/pull/101) ([arturalbov](https://github.com/arturalbov))
 - Update markets configs [\#100](https://github.com/cybercongress/cybernode/pull/100) ([vstavetski](https://github.com/vstavetski))
+- \[OPEN\_DISCUSSION\] Research around cybernode CLI and daemon \#51 [\#98](https://github.com/cybercongress/cybernode/pull/98) ([hleb-albau](https://github.com/hleb-albau))
 -  Run own ipfs node in cloud \#79 [\#97](https://github.com/cybercongress/cybernode/pull/97) ([hleb-albau](https://github.com/hleb-albau))
 - Fix container requirements for 0.7.0 serach version [\#96](https://github.com/cybercongress/cybernode/pull/96) ([hleb-albau](https://github.com/hleb-albau))
 - Raise kafka cluster in GCE with at least 3 brokers [\#95](https://github.com/cybercongress/cybernode/pull/95) ([arturalbov](https://github.com/arturalbov))
