@@ -6,21 +6,21 @@ items:
 - apiVersion: v1
   kind: Service
   metadata:
-    name: bitcoind-btc
+    name: bitcoind-btc-testnet
     namespace: chains
   spec:
     ports:
     - name: "8332"
       port: 8332
-      targetPort: 8332
+      targetPort: 18332
     selector:
-      chain: bitcoind-btc
+      chain: bitcoind-btc-testnet
 
 # Deployment
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
-    name: bitcoind-btc
+    name: bitcoind-btc-testnet
     namespace: chains
   spec:
     replicas: 1
@@ -28,14 +28,15 @@ items:
       type: Recreate
     selector:
       matchLabels:
-        chain: bitcoind-btc
+        chain: bitcoind-btc-testnet
     template:
       metadata:
         labels:
-          chain: bitcoind-btc
+          chain: bitcoind-btc-testnet
       spec:
         containers:
         - args:
+          - -testnet
           - -server
           - -rest
           - -txindex
@@ -47,35 +48,35 @@ items:
           - -rpcuser=cyber
           - -rpcallowip=0.0.0.0/0
           image: ruimarinho/bitcoin-core:0.16.0
-          name: bitcoind-btc-pod
+          name: bitcoind-btc-testnet-pod
           resources:
             requests:
-              cpu: "3"
-              memory: "20Gi"
+              cpu: "2"
+              memory: "10Gi"
             limits:
-              cpu: "3"
-              memory: "25Gi"
+              cpu: "2"
+              memory: "12Gi"
           ports:
-          - containerPort: 8332
+          - containerPort: 18332
           volumeMounts:
           - mountPath: /home/bitcoin/.bitcoin
-            name: bitcoind-btc-claim0
+            name: bitcoind-btc-testnet-claim0
         restartPolicy: Always
         volumes:
-        - name: bitcoind-btc-claim0
+        - name: bitcoind-btc-testnet-claim0
           persistentVolumeClaim:
-            claimName: bitcoind-btc-claim0
+            claimName: bitcoind-btc-testnet-claim0
 
 # Volume Claim
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
-    name: bitcoind-btc-claim0
+    name: bitcoind-btc-testnet-claim0
     namespace: chains
   spec:
     accessModes:
     - ReadWriteOnce
     resources:
       requests:
-        storage: 600Gi
+        storage: 200Gi
     storageClassName: fast
