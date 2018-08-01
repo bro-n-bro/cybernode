@@ -151,10 +151,35 @@ metadata:
   name: grafana
   namespace: monitoring
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
   - name: "web"
     port: 80
     targetPort: 3000
   selector:
     app: grafana
+
+---
+# Grafana Ingress
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: “true”
+spec:
+  rules:
+  - host: cybersearch.live
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: grafana
+          servicePort: 80
+  tls:
+  - secretName: grafana-prod-crt
+    hosts:
+    - cybersearch.live
