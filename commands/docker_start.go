@@ -14,7 +14,7 @@ import (
 )
 
 func startContainerCmd(spec common.DockerContainerSpec) *cobra.Command {
-	return &cobra.Command{
+	startCmd := &cobra.Command{
 		Use:  "start",
 		Args: cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -23,9 +23,11 @@ func startContainerCmd(spec common.DockerContainerSpec) *cobra.Command {
 
 			pullOrUpdateImage(ctx, spec)
 
+			autoStartup := cmd.Flags().Changed("autostartup")
+
 			dockerContainer, err := dockerClient.ContainerInspect(ctx, spec.FullContainerName())
 			if err != nil {
-				createContainer(spec, ctx)
+				createContainer(spec, autoStartup, ctx)
 			} else if dockerContainer.State.Running || dockerContainer.State.Restarting {
 				log.Fatal(strings.Title(spec.Name), " already running")
 			}
@@ -33,6 +35,9 @@ func startContainerCmd(spec common.DockerContainerSpec) *cobra.Command {
 			startContainer(ctx, spec)
 		},
 	}
+
+	startCmd.Flags().Bool("autostartup", false, "autorun node after system reboot")
+	return startCmd
 }
 
 func startContainer(ctx context.Context, spec common.DockerContainerSpec) {
@@ -51,18 +56,27 @@ func pullOrUpdateImage(ctx context.Context, spec common.DockerContainerSpec) {
 	io.Copy(os.Stdout, out)
 }
 
-func createContainer(spec common.DockerContainerSpec, ctx context.Context) {
+func createContainer(spec common.DockerContainerSpec, autoStartup bool, ctx context.Context) {
 	config := &container.Config{
 		Image:        spec.DockerImageName,
 		Cmd:          spec.CmdList(nil),
 		ExposedPorts: spec.ExposedPorts(),
 	}
 	hostConfig := &container.HostConfig{
-		Binds:        spec.Binds(),
-		PortBindings: spec.PortBindings(),
+		Binds:         spec.Binds(),
+		PortBindings:  spec.PortBindings(),
+		RestartPolicy: container.RestartPolicy{Name: restartPolicyName(autoStartup)},
 	}
 	_, err := dockerClient.ContainerCreate(ctx, config, hostConfig, nil, spec.FullContainerName())
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func restartPolicyName(autoStartup bool) string {
+	name := "no"
+	if autoStartup {
+		name = "always"
+	}
+	return name
 }
