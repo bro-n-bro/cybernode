@@ -60,7 +60,7 @@ var chains = []common.DockerContainerSpec{
 	},
 }
 
-var ChainsCmd = &cobra.Command{Use: "chains", Short: "Run chains p2pNodes", Long: "Run chains p2pNodes"}
+var ChainsCmd = &cobra.Command{Use: "chains", Short: "Run chains nodes", Long: "Run chains nodes"}
 
 func init() {
 

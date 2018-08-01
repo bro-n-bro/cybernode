@@ -13,6 +13,7 @@ func nodesStatusCmd(nodesGroupName string, nodeSpecs []common.DockerContainerSpe
 		Use:   "status",
 		Short: "Status of running " + nodesGroupName,
 		Long:  "Status of running " + nodesGroupName,
+		Args:  cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {
 
 			ctx := context.Background()

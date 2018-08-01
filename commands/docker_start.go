@@ -15,7 +15,8 @@ import (
 
 func startContainerCmd(spec common.DockerContainerSpec) *cobra.Command {
 	return &cobra.Command{
-		Use: "start",
+		Use:  "start",
+		Args: cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {
 
 			ctx := context.Background()

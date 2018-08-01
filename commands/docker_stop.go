@@ -10,7 +10,8 @@ import (
 
 func stopContainerCmd(spec common.DockerContainerSpec) *cobra.Command {
 	return &cobra.Command{
-		Use: "stop",
+		Use:  "stop",
+		Args: cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {
 
 			ctx := context.Background()

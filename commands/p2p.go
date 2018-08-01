@@ -16,7 +16,7 @@ var p2pNodes = []common.DockerContainerSpec{
 	},
 }
 
-var P2pCmd = &cobra.Command{Use: "p2p", Short: "Run p2p p2pNodes", Long: "Run p2p p2pNodes"}
+var P2pCmd = &cobra.Command{Use: "p2p", Short: "Run p2p nodes", Long: "Run p2p nodes"}
 
 func init() {
 
