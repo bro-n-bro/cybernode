@@ -8,16 +8,20 @@ import (
 	"github.com/mitchellh/go-homedir"
 	"log"
 	"github.com/spf13/viper"
+	"github.com/docker/docker/client"
 )
 
 const CONFIG_FILE_NAME = "settings.yaml"
 const CYBERNODE_SETTINGS_FOLDER = "/.cybernode/"
+const DOCKER_CLIENT_VERSION = "1.37"
 
-var RootCmd = &cobra.Command{ Use: "cybernode" }
+var RootCmd = &cobra.Command{Use: "cybernode"}
+
+var dockerClient *client.Client
 
 func init() {
-	cobra.OnInitialize(findDocker, createCybernodeDirectory, initSettings)
-	RootCmd.AddCommand(SettingsCmd, ChainsCmd)
+	cobra.OnInitialize(findDocker, createCybernodeDirectory, initSettings, initDockerClient)
+	RootCmd.AddCommand(SettingsCmd, ChainsCmd, P2pCmd, nodesStatusCmd("cyber nodes", append(chains, p2pNodes...)))
 }
 
 func findDocker() {
@@ -55,6 +59,15 @@ func initSettings() {
 		viper.ReadInConfig()
 	}
 
+}
+
+func initDockerClient() {
+	cli, err := client.NewClientWithOpts(client.WithVersion(DOCKER_CLIENT_VERSION))
+	dockerClient = cli
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func getSettingsFilePath() string {
