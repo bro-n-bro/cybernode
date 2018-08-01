@@ -56,6 +56,7 @@
 **Merged pull requests:**
 
 - CLI: P2P Systems Integratiion. IPFS [\#112](https://github.com/cybercongress/cybernode/pull/112) ([arturalbov](https://github.com/arturalbov))
+- Enable HTTPS for cybersearch.live [\#111](https://github.com/cybercongress/cybernode/pull/111) ([arturalbov](https://github.com/arturalbov))
 - Genesis CLI [\#108](https://github.com/cybercongress/cybernode/pull/108) ([arturalbov](https://github.com/arturalbov))
 - CLI: Ethereum node integration [\#105](https://github.com/cybercongress/cybernode/pull/105) ([arturalbov](https://github.com/arturalbov))
 - CLI: Settings [\#104](https://github.com/cybercongress/cybernode/pull/104) ([arturalbov](https://github.com/arturalbov))
