@@ -8,14 +8,14 @@ import (
 	"strings"
 )
 
-func stopNodeCmd(chain common.Chain) *cobra.Command {
+func stopContainerCmd(spec common.DockerContainerSpec) *cobra.Command {
 	return &cobra.Command{
 		Use: "stop",
 		Run: func(cmd *cobra.Command, args []string) {
 
 			ctx := context.Background()
 
-			dockContainer, err := dockerClient.ContainerInspect(ctx, chain.DockerContainerName())
+			dockContainer, err := dockerClient.ContainerInspect(ctx, spec.FullContainerName())
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -25,7 +25,7 @@ func stopNodeCmd(chain common.Chain) *cobra.Command {
 				if err != nil {
 					log.Fatal(err)
 				}
-				log.Println(strings.Title(chain.Name), "stopped!")
+				log.Println(strings.Title(spec.Name), "stopped!")
 			} else {
 				log.Fatal("Container not running now")
 			}

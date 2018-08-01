@@ -3,16 +3,12 @@ package commands
 import (
 	"github.com/spf13/cobra"
 	"github.com/cybercongress/cybernode/common"
-	"log"
-	"github.com/docker/docker/client"
-)
+		)
 
-var dockerClient *client.Client
-
-var chains = []common.Chain{
+var chains = []common.DockerContainerSpec{
 	{
 		Name:             "ethereum",
-		DockerImage:      "parity/parity:v1.11.7",
+		DockerImageName:  "parity/parity:v1.11.7",
 		DockerDataFolder: "/cyberdata",
 		PortsToExpose:    map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
 		CommonFlags: map[string]string{
@@ -20,11 +16,11 @@ var chains = []common.Chain{
 			"--jsonrpc-interface": "all",
 			"--db-path":           "/cyberdata",
 		},
-		ModesFlags: map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
+		ModesFlags: map[string]common.Mode{"light": {Flags: map[string]string{"--light": ""}}},
 	},
 	{
 		Name:             "ethereum_kovan",
-		DockerImage:      "parity/parity:v1.11.7",
+		DockerImageName:  "parity/parity:v1.11.7",
 		DockerDataFolder: "/cyberdata",
 		PortsToExpose:    map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
 		CommonFlags: map[string]string{
@@ -33,11 +29,11 @@ var chains = []common.Chain{
 			"--chain":             "kovan",
 			"--db-path":           "/cyberdata",
 		},
-		ModesFlags: map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
+		ModesFlags: map[string]common.Mode{"light": {Flags: map[string]string{"--light": ""}}},
 	},
 	{
 		Name:             "ethereum_classic",
-		DockerImage:      "parity/parity:v1.11.7",
+		DockerImageName:  "parity/parity:v1.11.7",
 		DockerDataFolder: "/cyberdata",
 		PortsToExpose:    map[int][]string{8180: {"tcp"}, 8545: {"tcp"}, 8456: {"tcp"}, 30303: {"tcp", "udp"},},
 		CommonFlags: map[string]string{
@@ -46,11 +42,11 @@ var chains = []common.Chain{
 			"--chain":             "classic",
 			"--db-path":           "/cyberdata",
 		},
-		ModesFlags: map[string]common.ChainMode{"light": {Flags: map[string]string{"--light": ""}}},
+		ModesFlags: map[string]common.Mode{"light": {Flags: map[string]string{"--light": ""}}},
 	},
 	{
 		Name:             "bitcoin",
-		DockerImage:      "ruimarinho/bitcoin-core:0.16.0",
+		DockerImageName:  "ruimarinho/bitcoin-core:0.16.0",
 		DockerDataFolder: "/home/bitcoin/.bitcoin",
 		PortsToExpose:    map[int][]string{8332: {"tcp"}},
 		CommonFlags: map[string]string{
@@ -60,20 +56,13 @@ var chains = []common.Chain{
 			"-rpcallowip=0.0.0.0/0": "",
 			"-printtoconsole":       "",
 		},
-		ModesFlags: map[string]common.ChainMode{},
+		ModesFlags: map[string]common.Mode{},
 	},
 }
 
-var ChainsCmd = &cobra.Command{Use: "chains", Short: "Run chains nodes", Long: "Run chains nodes"}
+var ChainsCmd = &cobra.Command{Use: "chains", Short: "Run chains p2pNodes", Long: "Run chains p2pNodes"}
 
 func init() {
-
-	cli, err := client.NewClientWithOpts(client.WithVersion("1.37"))
-	dockerClient = cli
-
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	for _, chain := range chains {
 
@@ -82,10 +71,10 @@ func init() {
 
 		ChainsCmd.AddCommand(chainNodeCmd)
 
-		chainNodeCmd.AddCommand(startNodeCmd(chain))
-		chainNodeCmd.AddCommand(stopNodeCmd(chain))
+		chainNodeCmd.AddCommand(startContainerCmd(chain))
+		chainNodeCmd.AddCommand(stopContainerCmd(chain))
 	}
 
-	ChainsCmd.AddCommand(ChainsStatusCmd)
+	ChainsCmd.AddCommand(nodesStatusCmd("chains", chains))
 
 }

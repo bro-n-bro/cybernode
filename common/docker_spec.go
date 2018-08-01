@@ -7,26 +7,26 @@ import (
 	"strings"
 )
 
-type Chain struct {
+type DockerContainerSpec struct {
 	Name             string
-	DockerImage      string
+	DockerImageName  string
 	DockerDataFolder string
 	PortsToExpose    map[int][]string
 	CommonFlags      map[string]string
-	ModesFlags       map[string]ChainMode
+	ModesFlags       map[string]Mode
 }
 
-type ChainMode struct {
+type Mode struct {
 	Flags map[string]string
 }
 
-func (c Chain) DockerContainerName() string {
-	return "cybernode_" + c.Name
+func (spec DockerContainerSpec) FullContainerName() string {
+	return "cybernode_" + spec.Name
 }
 
-func (c Chain) DockerExposedPorts() nat.PortSet {
+func (spec DockerContainerSpec) ExposedPorts() nat.PortSet {
 	portSet := nat.PortSet{}
-	for port, protocols := range c.PortsToExpose {
+	for port, protocols := range spec.PortsToExpose {
 		for _, protocol := range protocols {
 			portSet[nat.Port(strconv.Itoa(port)+"/"+protocol)] = struct{}{}
 		}
@@ -34,18 +34,18 @@ func (c Chain) DockerExposedPorts() nat.PortSet {
 	return portSet
 }
 
-func (c Chain) DataFolder() string {
-	return viper.GetString("cybernode.data.path") + "/" + strings.ToLower(c.Name)
+func (spec DockerContainerSpec) DataFolder() string {
+	return viper.GetString("cybernode.data.path") + "/" + strings.ToLower(spec.Name)
 }
 
-func (c Chain) DockerBinds() []string {
-	dataPathBinding := c.DataFolder() + ":" + c.DockerDataFolder
+func (spec DockerContainerSpec) Binds() []string {
+	dataPathBinding := spec.DataFolder() + ":" + spec.DockerDataFolder
 	return []string{dataPathBinding}
 }
 
-func (c Chain) DockerPortBindings() nat.PortMap {
+func (spec DockerContainerSpec) PortBindings() nat.PortMap {
 	portMap := nat.PortMap{}
-	for portBinding := range c.DockerExposedPorts() {
+	for portBinding := range spec.ExposedPorts() {
 		portMap[portBinding] = []nat.PortBinding{
 			{
 				HostIP:   "0.0.0.0", // todo: crossplatform???
@@ -56,10 +56,10 @@ func (c Chain) DockerPortBindings() nat.PortMap {
 	return portMap
 }
 
-func (c Chain) DockerCmdList(selectedMode *ChainMode) []string {
+func (spec DockerContainerSpec) CmdList(selectedMode *Mode) []string {
 	var cmds []string
 
-	for flag, value := range c.CommonFlags {
+	for flag, value := range spec.CommonFlags {
 		cmds = appendFlag(cmds, flag, value)
 	}
 
