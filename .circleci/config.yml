@@ -10,6 +10,12 @@ aliases:
     working_directory: ~/build
     docker:
       - image: circleci/openjdk:8-jdk
+  - &release_filter
+    filters:
+      tags:
+        only: /.*/
+      branches:
+        ignore: /.*/
 
 jobs:
 
@@ -62,9 +68,21 @@ jobs:
               git push -q https://${DOCS_GITHUB_TOKEN}@github.com/cybercongress/congress.git master
             fi
 
+
+  release:
+    docker:
+    - image: circleci/golang:1.10
+    working_directory: /go/src/github.com/cybercongress/cybernode
+    steps:
+    - checkout
+    - run: sudo apt-get update && sudo apt-get install -y rpm
+    - run: dep ensure -vendor-only
+    - run: curl -sL https://git.io/goreleaser | bash
+
+
+
 workflows:
   version: 2
-
   cybernode_build:
     jobs:
       - update_changelog:
@@ -75,3 +93,5 @@ workflows:
           filters:
             branches:
               only: master
+      - release:
+          <<: *release_filter

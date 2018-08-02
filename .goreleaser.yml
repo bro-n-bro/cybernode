@@ -1,0 +1,57 @@
+before:
+  hooks:
+  - go generate ./...
+
+builds:
+- env:
+  - CGO_ENABLED=0
+  goos:
+  - linux
+  - darwin
+  - windows
+  goarch:
+  - amd64
+
+
+checksum:
+  name_template: '{{ .ProjectName }}_checksums.txt'
+
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+    - Merge pull request
+    - Merge branch
+
+
+nfpm:
+  name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}_{{ .Version }}'
+  homepage:  https://github.com/cybercongress
+  description: Run decentralized applications as fast and easily as possible
+  maintainer: Cyber Admin <cybercongress42@gmail.com>
+  license: MIT
+  vendor: cyber.Congress
+  formats:
+  - deb
+  - rpm
+  dependencies:
+  - git
+  recommends:
+  - rpm
+
+
+archive:
+  name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}_{{ .Version }}'
+  replacements:
+    darwin: MacOS
+    linux: Linux
+    windows: Windows
+    386: i386
+    amd64: x86_64
+  format: zip
+  wrap_in_directory: true
+  files:
+  - none*
