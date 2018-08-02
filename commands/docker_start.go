@@ -25,9 +25,11 @@ func startContainerCmd(spec common.DockerContainerSpec) *cobra.Command {
 
 			autoStartup := cmd.Flags().Changed("autostartup")
 
+			selectedMode := parseMode(spec, cmd)
+
 			dockerContainer, err := dockerClient.ContainerInspect(ctx, spec.FullContainerName())
 			if err != nil {
-				createContainer(spec, autoStartup, ctx)
+				createContainer(spec, selectedMode, autoStartup, ctx)
 			} else if dockerContainer.State.Running || dockerContainer.State.Restarting {
 				log.Fatal(strings.Title(spec.Name), " already running")
 			}
@@ -37,7 +39,19 @@ func startContainerCmd(spec common.DockerContainerSpec) *cobra.Command {
 	}
 
 	startCmd.Flags().Bool("autostartup", false, "autorun node after system reboot")
+	for modeFlag, mode := range spec.ModesFlags {
+		startCmd.Flags().Bool(modeFlag, false, mode.Description)
+	}
 	return startCmd
+}
+
+func parseMode(spec common.DockerContainerSpec, cmd *cobra.Command) common.Mode {
+	for modeFlag, mode := range spec.ModesFlags {
+		if cmd.Flags().Changed(modeFlag) {
+			return mode
+		}
+	}
+	return spec.DefaultMode
 }
 
 func startContainer(ctx context.Context, spec common.DockerContainerSpec) {
@@ -56,10 +70,10 @@ func pullOrUpdateImage(ctx context.Context, spec common.DockerContainerSpec) {
 	io.Copy(os.Stdout, out)
 }
 
-func createContainer(spec common.DockerContainerSpec, autoStartup bool, ctx context.Context) {
+func createContainer(spec common.DockerContainerSpec, mode common.Mode, autoStartup bool, ctx context.Context) {
 	config := &container.Config{
 		Image:        spec.DockerImageName,
-		Cmd:          spec.CmdList(nil),
+		Cmd:          spec.CmdList(&mode),
 		ExposedPorts: spec.ExposedPorts(),
 	}
 	hostConfig := &container.HostConfig{
