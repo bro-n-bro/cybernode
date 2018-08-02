@@ -74,9 +74,8 @@ func createContainer(spec common.DockerContainerSpec, autoStartup bool, ctx cont
 }
 
 func restartPolicyName(autoStartup bool) string {
-	name := "no"
 	if autoStartup {
-		name = "always"
+		return "always"
 	}
-	return name
+	return "no"
 }
