@@ -4,6 +4,7 @@
 
 **Closed issues:**
 
+- CLI: P2P Systems Integratiion. IPFS [\#107](https://github.com/cybercongress/cybernode/issues/107)
 - CLI: Ethereum node integration [\#103](https://github.com/cybercongress/cybernode/issues/103)
 - CLI Settings [\#102](https://github.com/cybercongress/cybernode/issues/102)
 - Make chains resources templatable [\#93](https://github.com/cybercongress/cybernode/issues/93)
@@ -55,6 +56,7 @@
 
 **Merged pull requests:**
 
+- CLI: Autostratup flag [\#114](https://github.com/cybercongress/cybernode/pull/114) ([arturalbov](https://github.com/arturalbov))
 - CLI: P2P Systems Integratiion. IPFS [\#112](https://github.com/cybercongress/cybernode/pull/112) ([arturalbov](https://github.com/arturalbov))
 - Enable HTTPS for cybersearch.live [\#111](https://github.com/cybercongress/cybernode/pull/111) ([arturalbov](https://github.com/arturalbov))
 - Genesis CLI [\#108](https://github.com/cybercongress/cybernode/pull/108) ([arturalbov](https://github.com/arturalbov))
