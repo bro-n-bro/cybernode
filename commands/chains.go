@@ -3,7 +3,7 @@ package commands
 import (
 	"github.com/spf13/cobra"
 	"github.com/cybercongress/cybernode/common"
-		)
+)
 
 var chains = []common.DockerContainerSpec{
 	{
@@ -16,7 +16,13 @@ var chains = []common.DockerContainerSpec{
 			"--jsonrpc-interface": "all",
 			"--db-path":           "/cyberdata",
 		},
-		ModesFlags: map[string]common.Mode{"light": {Flags: map[string]string{"--light": ""}}},
+		DefaultMode: common.Mode{},
+		ModesFlags: map[string]common.Mode{
+			"light": {
+				Description: "light mode",
+				Flags:       map[string]string{"--light": ""},
+			},
+		},
 	},
 	{
 		Name:             "ethereum_kovan",
@@ -29,7 +35,13 @@ var chains = []common.DockerContainerSpec{
 			"--chain":             "kovan",
 			"--db-path":           "/cyberdata",
 		},
-		ModesFlags: map[string]common.Mode{"light": {Flags: map[string]string{"--light": ""}}},
+		DefaultMode: common.Mode{},
+		ModesFlags: map[string]common.Mode{
+			"light": {
+				Description: "light mode",
+				Flags:       map[string]string{"--light": ""},
+			},
+		},
 	},
 	{
 		Name:             "ethereum_classic",
@@ -42,7 +54,13 @@ var chains = []common.DockerContainerSpec{
 			"--chain":             "classic",
 			"--db-path":           "/cyberdata",
 		},
-		ModesFlags: map[string]common.Mode{"light": {Flags: map[string]string{"--light": ""}}},
+		DefaultMode: common.Mode{},
+		ModesFlags: map[string]common.Mode{
+			"light": {
+				Description: "light mode",
+				Flags:       map[string]string{"--light": ""},
+			},
+		},
 	},
 	{
 		Name:             "bitcoin",
@@ -56,7 +74,8 @@ var chains = []common.DockerContainerSpec{
 			"-rpcallowip=0.0.0.0/0": "",
 			"-printtoconsole":       "",
 		},
-		ModesFlags: map[string]common.Mode{},
+		DefaultMode: common.Mode{},
+		ModesFlags:  map[string]common.Mode{},
 	},
 }
 

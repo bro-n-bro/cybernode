@@ -13,11 +13,13 @@ type DockerContainerSpec struct {
 	DockerDataFolder string
 	PortsToExpose    map[int][]string
 	CommonFlags      map[string]string
+	DefaultMode      Mode
 	ModesFlags       map[string]Mode
 }
 
 type Mode struct {
-	Flags map[string]string
+	Description string
+	Flags       map[string]string
 }
 
 func (spec DockerContainerSpec) FullContainerName() string {

@@ -3,8 +3,9 @@ package commands
 import (
 	"github.com/cybercongress/cybernode/common"
 	"github.com/spf13/cobra"
-	"log"
 	"golang.org/x/net/context"
+	"fmt"
+	"strings"
 )
 
 func nodesStatusCmd(nodesGroupName string, nodeSpecs []common.DockerContainerSpec) *cobra.Command {
@@ -18,13 +19,18 @@ func nodesStatusCmd(nodesGroupName string, nodeSpecs []common.DockerContainerSpe
 
 			ctx := context.Background()
 
+			formatStr := "%-30s %s\n"
+			fmt.Printf(formatStr, "Container", "Status")
+			fmt.Printf(formatStr, "------------", "------------")
+
 			for _, node := range nodeSpecs {
 
 				dockerContainer, err := dockerClient.ContainerInspect(ctx, node.FullContainerName())
+				nodeName := strings.ToUpper(node.Name)
 				if err != nil {
-					log.Println(node.Name, " not running, no container created")
+					fmt.Printf(formatStr, nodeName, "not running, no container created")
 				} else {
-					log.Println(node.Name, dockerContainer.State.Status)
+					fmt.Printf(formatStr, nodeName, dockerContainer.State.Status)
 				}
 			}
 
