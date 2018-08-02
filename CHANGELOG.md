@@ -4,6 +4,7 @@
 
 **Closed issues:**
 
+- CLI: Autostratup flag [\#113](https://github.com/cybercongress/cybernode/issues/113)
 - CLI: P2P Systems Integratiion. IPFS [\#107](https://github.com/cybercongress/cybernode/issues/107)
 - CLI: Ethereum node integration [\#103](https://github.com/cybercongress/cybernode/issues/103)
 - CLI Settings [\#102](https://github.com/cybercongress/cybernode/issues/102)
@@ -56,6 +57,7 @@
 
 **Merged pull requests:**
 
+- CLI: Support flags with different modes for containers to run [\#116](https://github.com/cybercongress/cybernode/pull/116) ([arturalbov](https://github.com/arturalbov))
 - CLI: Autostratup flag [\#114](https://github.com/cybercongress/cybernode/pull/114) ([arturalbov](https://github.com/arturalbov))
 - CLI: P2P Systems Integratiion. IPFS [\#112](https://github.com/cybercongress/cybernode/pull/112) ([arturalbov](https://github.com/arturalbov))
 - Enable HTTPS for cybersearch.live [\#111](https://github.com/cybercongress/cybernode/pull/111) ([arturalbov](https://github.com/arturalbov))
