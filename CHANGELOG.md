@@ -2,8 +2,17 @@
 
 ## [Unreleased](https://github.com/cybercongress/cybernode/tree/HEAD)
 
+[Full Changelog](https://github.com/cybercongress/cybernode/compare/0.1.0...HEAD)
+
 **Closed issues:**
 
+- CLI: publish binaries for Linux, MacOs [\#106](https://github.com/cybercongress/cybernode/issues/106)
+- Setup genesis cybernode CLI [\#24](https://github.com/cybercongress/cybernode/issues/24)
+
+## [0.1.0](https://github.com/cybercongress/cybernode/tree/0.1.0) (2018-08-02)
+**Closed issues:**
+
+- CLI: Support flags with different modes for containers to run [\#115](https://github.com/cybercongress/cybernode/issues/115)
 - CLI: Autostratup flag [\#113](https://github.com/cybercongress/cybernode/issues/113)
 - CLI: P2P Systems Integratiion. IPFS [\#107](https://github.com/cybercongress/cybernode/issues/107)
 - CLI: Ethereum node integration [\#103](https://github.com/cybercongress/cybernode/issues/103)
@@ -57,6 +66,7 @@
 
 **Merged pull requests:**
 
+- \#106 CLI: publish binaries for Linux, MacOs [\#117](https://github.com/cybercongress/cybernode/pull/117) ([hleb-albau](https://github.com/hleb-albau))
 - CLI: Support flags with different modes for containers to run [\#116](https://github.com/cybercongress/cybernode/pull/116) ([arturalbov](https://github.com/arturalbov))
 - CLI: Autostratup flag [\#114](https://github.com/cybercongress/cybernode/pull/114) ([arturalbov](https://github.com/arturalbov))
 - CLI: P2P Systems Integratiion. IPFS [\#112](https://github.com/cybercongress/cybernode/pull/112) ([arturalbov](https://github.com/arturalbov))
