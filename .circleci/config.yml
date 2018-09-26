@@ -55,14 +55,14 @@ jobs:
           working_directory: ~/workdir/congress
           command: |
             # We need to remove current files in folder to avoid duplicating renamed files
-            rm -rf ./knowledge/docs/cybernode/*
-            cp -r ~/build/docs/. ./knowledge/docs/cybernode/
-            git add -N knowledge/docs/cybernode
-            diff=$(git diff knowledge/docs/cybernode/)
+            rm -rf ./wiki/docs/cybernode/*
+            cp -r ~/build/docs/. ./wiki/docs/cybernode/
+            git add -N wiki/docs/cybernode
+            diff=$(git diff wiki/docs/cybernode/)
             if [[  -n  "$diff" ]]; then
               git config user.email "cybercongress42@gmail.com"
               git config user.name "Cyber Admin"
-              git add knowledge/docs/cybernode/
+              git add wiki/docs/cybernode/
               git commit -m "Circle CI: Update Docs"
               # Push quietly to prevent showing the token in log
               git push -q https://${DOCS_GITHUB_TOKEN}@github.com/cybercongress/congress.git master
