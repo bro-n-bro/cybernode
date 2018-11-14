@@ -6,11 +6,14 @@
 
 **Closed issues:**
 
+- IPFS cluster integration [\#120](https://github.com/cybercongress/cybernode/issues/120)
+- Cyberd integration [\#119](https://github.com/cybercongress/cybernode/issues/119)
 - CLI: publish binaries for Linux, MacOs [\#106](https://github.com/cybercongress/cybernode/issues/106)
 - Setup genesis cybernode CLI [\#24](https://github.com/cybercongress/cybernode/issues/24)
 
 **Merged pull requests:**
 
+- UPD CI job docs update [\#124](https://github.com/cybercongress/cybernode/pull/124) ([SaveTheAles](https://github.com/SaveTheAles))
 - UPD config.yml knowledge -\> wiki [\#123](https://github.com/cybercongress/cybernode/pull/123) ([SaveTheAles](https://github.com/SaveTheAles))
 
 ## [0.1.0](https://github.com/cybercongress/cybernode/tree/0.1.0) (2018-08-02)
