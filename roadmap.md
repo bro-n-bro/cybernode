@@ -7,7 +7,8 @@
 - Pull out Prometheus from nodes to separate VPS node
 - Grafana dashes to git and publish to Grafana
 - Make grafana dash for Bostrom
-- Stup Postgress exporter for Cyberindex
+- Setup Postgress exporter for Cyberindex
+- Setup nginx monitor to count requests (as search, data etc)
 
 ## API endpoints setup
 
