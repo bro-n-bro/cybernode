@@ -2,7 +2,7 @@
 
 ## Solve problems
 
-- Standalone indtance for balancing
+- Standalone instance for balancing
 - Standalone instance for monitoring
     - Pull out Prometheus from nodes to separate VPS node
 - Node crash with webscocket erros
@@ -42,8 +42,8 @@
     - identical GPU machines with storage for redundancy
 - container for load-balancer
 - container for monitoring
-    - Deploy scripts of Prometheus, Grafana, node_exp, glances, cadvisor to Git
-    - Grafana dashes to git and publish to Grafana
+    - deploy scripts of Prometheus, Grafana, node_exp, glances, cadvisor to Git
+    - grafana dashes to git and publish to Grafana
 - container for go-cyber (euler-6)
 - container for go-cyber (bostrom)
 - container for cyber-index
@@ -53,6 +53,10 @@
 - container for ifps-cluster
 - k8s config
 - Documentation
+
+## Monetization infrustrucutre
+
+- token based auth for rate limiting
 
 ## Service for team
 
