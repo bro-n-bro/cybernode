@@ -1,29 +1,61 @@
-# Infrastructure roadmap
+# Сybernode roadmap
+
+## Solve problems
+
+- Standalone indtance for balancing
+- Standalone instance for monitoring
+    - Pull out Prometheus from nodes to separate VPS node
+- Node crash with webscocket erros
+    - Disconnect index from public api
+- Ethereum node for cyber.page
+
+## Setup load balancer
+
+- Cyber node keepalive-plugin
+- rpc.cyber-6.cybernode.ai
+- lcd.cyber-6.cybernode.ai
+- index.cyber-6.cybernode.ai
+- rpc.bostrom.cybernode.ai
+- lcd.bostrom.cybernode.ai
+- index.bostrom.cybernode.ai
+- rpc.cosmoshub-3.cybernode.ai
+- lcd.cosmoshub-3.cybernode.ai
+- rpc.ethereum.cybernode.ai
+- ws.ethereum.cybernode.ai
+- gateaway.ipfs.cybernode.ai
+- cluster.ipfs.cybernode.ai
 
 ## Monitoring
 
-- Add Glances to Grafana
-- Deploy scripts of Prometheus, Grafana, node_exp, glances, cadvisor to Git
-- Pull out Prometheus from nodes to separate VPS node
-- Grafana dashes to git and publish to Grafana
-- Make grafana dash for Bostrom
+- Actionable notifications for telegram
+- Endppoint uptime monitoring
 - Setup Postgress exporter for Cyberindex
-- Setup nginx monitor to count requests (as search, data etc)
+- Setup export of nginx metrics to prometheus
+- Dashboard for nginx (count requests such as search, data etc)
+- Add GPU metrics to Grafana (glances)
+- Make grafana dash for Bostrom
 
-## API endpoints setup
+## Reproducable infrustructure
 
-- Disconnect index from public api
-- Setup Europe as proxy balancer for Api, ws, Index
-- Setup correct Nginx balancing
-
-## Git Cyber_node
-
-- Mermaid Diagram on Git
+- new architechture
+    - diagram
+    - identical GPU machines with storage for redundancy
+- container for load-balancer
+- container for monitoring
+    - Deploy scripts of Prometheus, Grafana, node_exp, glances, cadvisor to Git
+    - Grafana dashes to git and publish to Grafana
+- container for go-cyber (euler-6)
+- container for go-cyber (bostrom)
+- container for cyber-index
+- container for gaia
+- container for go-ethereum
+- container for ifps-node
+- container for ifps-cluster
+- k8s config
 - Documentation
 
-## Dockerization
+## Service for team
 
-- Run validator guide for docker
-- Dockerize  Prometheus, Grafana and others
-- Test Dockerized cyberd upgrade module on Bostrom
-- Cyberindex deployment polish
+- Identify requrements from the team
+- Vpn
+- Ethereum node
