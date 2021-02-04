@@ -12,6 +12,7 @@
 ## Setup load balancer
 
 - [ ] Cyber node keepalive-plugin
+
 - Endpoints:
     - [ ] rpc.cyber-6.cybernode.ai
     - [ ] lcd.cyber-6.cybernode.ai
