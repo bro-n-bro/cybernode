@@ -12,18 +12,19 @@
 ## Setup load balancer
 
 - [ ] Cyber node keepalive-plugin
-- [ ] rpc.cyber-6.cybernode.ai
-- [ ] lcd.cyber-6.cybernode.ai
-- [ ] index.cyber-6.cybernode.ai
-- [ ] rpc.bostrom.cybernode.ai
-- [ ] lcd.bostrom.cybernode.ai
-- [ ] index.bostrom.cybernode.ai
-- [ ] rpc.cosmoshub-3.cybernode.ai
-- [ ] lcd.cosmoshub-3.cybernode.ai
-- [ ] rpc.ethereum.cybernode.ai
-- [ ] ws.ethereum.cybernode.ai
-- [ ] gateaway.ipfs.cybernode.ai
-- [ ] cluster.ipfs.cybernode.ai
+- Endpoints:
+    - [ ] rpc.cyber-6.cybernode.ai
+    - [ ] lcd.cyber-6.cybernode.ai
+    - [ ] index.cyber-6.cybernode.ai
+    - [ ] rpc.bostrom.cybernode.ai
+    - [ ] lcd.bostrom.cybernode.ai
+    - [ ] index.bostrom.cybernode.ai
+    - [ ] rpc.cosmoshub-3.cybernode.ai
+    - [ ] lcd.cosmoshub-3.cybernode.ai
+    - [ ] rpc.ethereum.cybernode.ai
+    - [ ] ws.ethereum.cybernode.ai
+    - [ ] gateaway.ipfs.cybernode.ai
+    - [ ] cluster.ipfs.cybernode.ai
 
 ## Monitoring
 
