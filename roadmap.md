@@ -14,9 +14,9 @@
 - [ ] Cyber node keepalive-plugin
 
 - Endpoints:
-    - [ ] rpc.cyber-6.cybernode.ai
-    - [ ] lcd.cyber-6.cybernode.ai
-    - [ ] index.cyber-6.cybernode.ai
+    - [x] rpc.euler-6.cybernode.ai
+    - [x] lcd.euler-6.cybernode.ai
+    - [ ] index.euler-6.cybernode.ai
     - [ ] rpc.bostrom.cybernode.ai
     - [ ] lcd.bostrom.cybernode.ai
     - [ ] index.bostrom.cybernode.ai
