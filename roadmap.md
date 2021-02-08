@@ -24,6 +24,8 @@
     - [ ] lcd.cosmoshub-3.cybernode.ai
     - [ ] rpc.ethereum.cybernode.ai
     - [ ] ws.ethereum.cybernode.ai
+    - [ ] rpc-rinkeby.ethereum.cybernode.ai
+    - [ ] ws-rinkeby.ethereum.cybernode.ai
     - [ ] gateaway.ipfs.cybernode.ai
     - [ ] cluster.ipfs.cybernode.ai
 
