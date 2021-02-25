@@ -7,7 +7,7 @@
     - [ ] Pull out Prometheus from nodes to separate VPS node
 - Node crash with webscocket erros
     - [ ] Disconnect index from public api
-- [ ] Ethereum node for cyber.page
+- [x] Ethereum node for cyber.page
 
 ## Setup load balancer
 
@@ -16,17 +16,17 @@
 - Endpoints:
     - [x] rpc.euler-6.cybernode.ai
     - [x] lcd.euler-6.cybernode.ai
-    - [ ] index.euler-6.cybernode.ai
+    - [x] index.euler-6.cybernode.ai
     - [ ] rpc.bostrom.cybernode.ai
     - [ ] lcd.bostrom.cybernode.ai
     - [ ] index.bostrom.cybernode.ai
     - [ ] rpc.cosmoshub-3.cybernode.ai
     - [ ] lcd.cosmoshub-3.cybernode.ai
-    - [ ] rpc.ethereum.cybernode.ai
-    - [ ] ws.ethereum.cybernode.ai
-    - [ ] rpc-rinkeby.ethereum.cybernode.ai
-    - [ ] ws-rinkeby.ethereum.cybernode.ai
-    - [ ] gateaway.ipfs.cybernode.ai
+    - [x] rpc.ethereum.cybernode.ai
+    - [x] ws.ethereum.cybernode.ai
+    - [x] rpc-rinkeby.ethereum.cybernode.ai
+    - [x] ws-rinkeby.ethereum.cybernode.ai
+    - [ ] gateway.ipfs.cybernode.ai
     - [ ] cluster.ipfs.cybernode.ai
 
 ## Monitoring
