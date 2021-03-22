@@ -20,8 +20,8 @@
     - [ ] rpc.bostrom.cybernode.ai
     - [ ] lcd.bostrom.cybernode.ai
     - [ ] index.bostrom.cybernode.ai
-    - [ ] rpc.cosmoshub-3.cybernode.ai
-    - [ ] lcd.cosmoshub-3.cybernode.ai
+    - [ ] rpc.cosmoshub-4.cybernode.ai
+    - [ ] lcd.cosmoshub-4.cybernode.ai
     - [x] rpc.ethereum.cybernode.ai
     - [x] ws.ethereum.cybernode.ai
     - [x] rpc-rinkeby.ethereum.cybernode.ai
@@ -57,6 +57,7 @@
 - [ ] container for ifps-cluster
 - [ ] k8s config
 - Documentation
+- [ ] Support cli install over brew, apt, docker(cli-only light container)
 
 ## Monetization infrustrucutre
 
