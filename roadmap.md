@@ -17,11 +17,11 @@
     - [x] rpc.euler-6.cybernode.ai
     - [x] lcd.euler-6.cybernode.ai
     - [x] index.euler-6.cybernode.ai
-    - [ ] rpc.bostrom.cybernode.ai
-    - [ ] lcd.bostrom.cybernode.ai
+    - [x] rpc.bostrom.cybernode.ai
+    - [x] lcd.bostrom.cybernode.ai
     - [ ] index.bostrom.cybernode.ai
-    - [ ] rpc.cosmoshub-4.cybernode.ai
-    - [ ] lcd.cosmoshub-4.cybernode.ai
+    - [x] rpc.cosmoshub-4.cybernode.ai
+    - [x] lcd.cosmoshub-4.cybernode.ai
     - [x] rpc.ethereum.cybernode.ai
     - [x] ws.ethereum.cybernode.ai
     - [x] rpc-rinkeby.ethereum.cybernode.ai
