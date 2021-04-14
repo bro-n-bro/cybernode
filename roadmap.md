@@ -6,7 +6,8 @@
 - Standalone instance for monitoring
     - [ ] Pull out Prometheus from nodes to separate VPS node
 - [x] Ethereum node for cyber.page
-
+- [ ] Automatic backups
+ 
 ## Setup load balancer
 
 - [ ] Cyber node keepalive-plugin
@@ -31,6 +32,7 @@
 
 - [ ] Actionable notifications for telegram
 - [ ] Endppoint uptime monitoring
+- [ ] Status.page for endpoints
 - [ ] Setup Postgress exporter for Cyberindex
 - [ ] Setup export of nginx metrics to prometheus
 - [ ] Dashboard for nginx (count requests such as search, data etc)
@@ -48,14 +50,18 @@
     - [ ] grafana dashes to git and publish to Grafana
 - [x] container for go-cyber (euler-6)
 - [x] container for go-cyber (bostrom)
-- [x] container for cyber-index
+- [x] container for euler cyber-index
+- [ ] container for bostrom cyber-index
 - [ ] container for gaia
 - [x] container for go-ethereum
 - [ ] container for ifps-node
 - [ ] container for ifps-cluster
 - [ ] k8s config
 - Documentation
-- [ ] Support cli install over brew, apt, docker(cli-only light container)
+- Support cli install over
+    [ ] brew
+    [ ] apt
+    [ ] docker(cli-only light container)
 
 ## Monetization infrustrucutre
 
