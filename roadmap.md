@@ -2,11 +2,9 @@
 
 ## Solve problems
 
-- [ ] Standalone instance for balancing
+- [x] Standalone instance for balancing
 - Standalone instance for monitoring
     - [ ] Pull out Prometheus from nodes to separate VPS node
-- Node crash with webscocket erros
-    - [ ] Disconnect index from public api
 - [x] Ethereum node for cyber.page
 
 ## Setup load balancer
@@ -48,11 +46,11 @@
 - [ ] container for monitoring
     - [ ] deploy scripts of Prometheus, Grafana, node_exp, glances, cadvisor to Git
     - [ ] grafana dashes to git and publish to Grafana
-- [ ] container for go-cyber (euler-6)
-- [ ] container for go-cyber (bostrom)
-- [ ] container for cyber-index
+- [x] container for go-cyber (euler-6)
+- [x] container for go-cyber (bostrom)
+- [x] container for cyber-index
 - [ ] container for gaia
-- [ ] container for go-ethereum
+- [x] container for go-ethereum
 - [ ] container for ifps-node
 - [ ] container for ifps-cluster
 - [ ] k8s config
