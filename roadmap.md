@@ -12,6 +12,8 @@
 
 - [ ] Cyber node keepalive-plugin
 
+- [ ] Infrastructure load streess test 
+
 - Endpoints:
     - [x] rpc.euler-6.cybernode.ai
     - [x] lcd.euler-6.cybernode.ai
