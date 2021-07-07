@@ -10,8 +10,6 @@
  
 ## Setup load balancer
 
-- [ ] Cyber node keepalive-plugin
-
 - [ ] Infrastructure load streess test 
 
 - Endpoints:
@@ -20,15 +18,15 @@
     - [x] index.euler-6.cybernode.ai
     - [x] rpc.bostrom.cybernode.ai
     - [x] lcd.bostrom.cybernode.ai
-    - [ ] index.bostrom.cybernode.ai
+    - [x] index.bostrom.cybernode.ai
     - [x] rpc.cosmoshub-4.cybernode.ai
     - [x] lcd.cosmoshub-4.cybernode.ai
     - [x] rpc.ethereum.cybernode.ai
     - [x] ws.ethereum.cybernode.ai
     - [x] rpc-rinkeby.ethereum.cybernode.ai
     - [x] ws-rinkeby.ethereum.cybernode.ai
-    - [ ] gateway.ipfs.cybernode.ai
-    - [ ] cluster.ipfs.cybernode.ai
+    - [x] gateway.ipfs.cybernode.ai
+    - [x] cluster.ipfs.cybernode.ai
 
 ## Monitoring
 
@@ -36,7 +34,7 @@
 - [ ] Endppoint uptime monitoring
 - [ ] Status.page for endpoints
 - [ ] Setup Postgress exporter for Cyberindex
-- [ ] Setup export of nginx metrics to prometheus
+- [x] Setup export of nginx metrics to prometheus
 - [ ] Dashboard for nginx (count requests such as search, data etc)
 - [ ] Add GPU metrics to Grafana (glances)
 - [ ] Make grafana dash for Bostrom
@@ -53,7 +51,7 @@
 - [x] container for go-cyber (euler-6)
 - [x] container for go-cyber (bostrom)
 - [x] container for euler cyber-index
-- [ ] container for bostrom cyber-index
+- [x] container for bostrom cyber-index
 - [ ] container for gaia
 - [x] container for go-ethereum
 - [ ] container for ifps-node
