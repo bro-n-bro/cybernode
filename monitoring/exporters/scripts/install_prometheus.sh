@@ -1,5 +1,10 @@
 #/bin/bash
 
+     sudo useradd --no-create-home --shell /usr/sbin/nologin prometheus
+     sudo mkdir /etc/prometheus
+     sudo mkdir /var/lib/prometheus
+     sudo chown prometheus:prometheus /etc/prometheus
+     sudo chown prometheus:prometheus /var/lib/prometheus
      wget https://github.com/prometheus/prometheus/releases/download/v2.29.1/prometheus-2.29.1.linux-amd64.tar.gz
      tar xfz prometheus-2.29.1.linux-amd64.tar.gz
      cd prometheus-2.29.1.linux-amd64/
