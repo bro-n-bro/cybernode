@@ -16,9 +16,9 @@
     - [x] rpc.euler-6.cybernode.ai
     - [x] lcd.euler-6.cybernode.ai
     - [x] index.euler-6.cybernode.ai
-    - [x] rpc.bostrom.cybernode.ai
-    - [x] lcd.bostrom.cybernode.ai
-    - [x] index.bostrom.cybernode.ai
+    - [x] rpc.bostromdev.cybernode.ai
+    - [x] lcd.bostromdev.cybernode.ai
+    - [x] index.bostromdev.cybernode.ai
     - [x] rpc.cosmoshub-4.cybernode.ai
     - [x] lcd.cosmoshub-4.cybernode.ai
     - [x] rpc.ethereum.cybernode.ai
@@ -31,8 +31,8 @@
 ## Monitoring
 
 - [ ] Actionable notifications for telegram
-- [ ] Endppoint uptime monitoring
-- [ ] Status.page for endpoints
+- [x] Endppoint uptime monitoring
+- [x] Status.page for endpoints
 - [ ] Setup Postgress exporter for Cyberindex
 - [x] Setup export of nginx metrics to prometheus
 - [ ] Dashboard for nginx (count requests such as search, data etc)
