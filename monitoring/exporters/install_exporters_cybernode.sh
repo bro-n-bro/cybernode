@@ -15,24 +15,29 @@ then
     sudo ./scripts/install_nginx_exporter.sh
 
 else
-    printf "Select exporter you want to install \n[1] Cadvisor\n[2] Nginx_exporter\n"
+    printf "Select exporter you want to install \n[1] Cadvisor\n[2] Nginx_exporter\n[3] Node_exporter and Prometheus"
     read -r  OPT
     case $OPT in
 
     1)
     sudo ./scripts/install_cadvisor.sh
-    echo -n "Installed cadvisor."
+    printf "\nInstalled cadvisor\n"
     ;;
 
     2)
     sudo ./scripts/install_nginx_exporter.sh
-    echo -n "Installed nginx_exporter"
+    printf "\nInstalled nginx_exporter\n"
+    ;;
+
+    3)
+    sudo ./scripts/install_node-exporter.sh
+    sudo ./scripts/install_prometheus.sh
+    printf "\nInstalled Node Exporter and Prometheus"
     ;;
 
 #    3 | 4 | 5 )
 #    echo -n "Done"
 #    ;;
-
     *)
     echo -n "Nothing selected"
     ;;

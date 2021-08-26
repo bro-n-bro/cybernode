@@ -8,3 +8,16 @@ sudo cp ./service_files/nginx_prometheus_exporter.service /etc/systemd/system/ng
 sudo systemctl daemon-reload
 sudo systemctl start nginx_prometheus_exporter
 sudo systemctl enable nginx_prometheus_exporter
+
+if [ -f "/etc/prometheus/prometheus.yml" ]
+then
+    if ! grep -q nginx /etc/prometheus/prometheus.yml;
+    then
+    echo "  - job_name: 'nginx'" >> /etc/prometheus/prometheus.yml
+    echo "    static_configs:" >> /etc/prometheus/prometheus.yml
+    echo "    - targets: ['localhost:9113']" >> /etc/prometheus/prometheus.yml
+    systemctl restart prometheus
+    fi
+else
+    printf "Cant find /etc/prometheus/prometheus.yml Do you have prometheus installed?"
+fi

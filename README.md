@@ -18,4 +18,4 @@ Checkout [roadmap](./roadmap.md) of cybernode.
 - Ethereum rinkeby [websocket](wss://ws-rinkeby.ethereum.cybernode.ai)
 - IPFS [gateway](https://gateway.ipfs.cybernode.ai)
 
-Uptime od the services could be checked on [dashboard](https://monitor.cybernode.ai).
+Uptime of the services could be checked on that [monitor](https://monitor.cybernode.ai).
