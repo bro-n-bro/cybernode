@@ -6,10 +6,10 @@ Checkout [roadmap](./roadmap.md) of cybernode.
 
 ## Backend services provided by cybernode.ai
 
-- Bostrom-testnet [RPC](https://rpc.bostromdev.cybernode.ai)
-- Bostrom-testnet [REST](https://lcd.bostromdev.cybernode.ai)
-- Bostrom-testnet [index](https://index.bostromdev.cybernode.ai)
-- Bostrom-testnet [websocket](wss://rpc.bostromdev.cybernode.ai/websocket)
+- Bostrom [RPC](https://rpc.bostrom.cybernode.ai)
+- Bostrom [REST](https://lcd.bostrom.cybernode.ai)
+- Bostrom [index](https://index.bostrom.cybernode.ai)
+- Bostrom [websocket](wss://rpc.bostrom.cybernode.ai/websocket)
 - Cosmoshub-4 [RPC](https://rpc.cosmoshub-4.cybernode.ai)
 - Cosmoshub-4 [REST](https://lcd.cosmoshub-4.cybernode.ai)
 - Ethereum [RPC](https://rpc.ethereum.cybernode.ai)
@@ -18,4 +18,4 @@ Checkout [roadmap](./roadmap.md) of cybernode.
 - Ethereum rinkeby [websocket](wss://ws-rinkeby.ethereum.cybernode.ai)
 - IPFS [gateway](https://gateway.ipfs.cybernode.ai)
 
-Uptime of the services could be checked on that [monitor](https://monitor.cybernode.ai).
+Uptime of the services could be checked on that [monitor](https://cybernode.ai).

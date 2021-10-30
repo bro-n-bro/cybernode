@@ -30,14 +30,14 @@
 
 ## Monitoring
 
-- [ ] Actionable notifications for telegram
+- [x] Actionable notifications for telegram
 - [x] Endppoint uptime monitoring
 - [x] Status.page for endpoints
 - [ ] Setup Postgress exporter for Cyberindex
 - [x] Setup export of nginx metrics to prometheus
 - [ ] Dashboard for nginx (count requests such as search, data etc)
-- [ ] Add GPU metrics to Grafana (glances)
-- [ ] Make grafana dash for Bostrom
+- [x] Add GPU metrics to Grafana (glances)
+- [x] Make grafana dash for Bostrom
 
 ## Reproducable infrustructure
 
@@ -46,13 +46,13 @@
     - identical GPU machines with storage for redundancy
 - [ ] container for load-balancer
 - [ ] container for monitoring
-    - [ ] deploy scripts of Prometheus, Grafana, node_exp, glances, cadvisor to Git
+    - [x] deploy scripts of Prometheus, Grafana, node_exp, glances, cadvisor to Git
     - [ ] grafana dashes to git and publish to Grafana
 - [x] container for go-cyber (euler-6)
 - [x] container for go-cyber (bostrom)
 - [x] container for euler cyber-index
 - [x] container for bostrom cyber-index
-- [ ] container for gaia
+- [x] container for gaia
 - [x] container for go-ethereum
 - [ ] container for ifps-node
 - [ ] container for ifps-cluster
