@@ -26,4 +26,6 @@ Checkout [roadmap](./roadmap.md) of cybernode.
 
 Uptime of the services could be checked on that [monitor](https://cybernode.ai).
 
+
+## UX
 https://gvolpe.com/blog/xmonad-polybar-nixos/
