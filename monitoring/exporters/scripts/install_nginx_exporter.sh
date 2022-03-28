@@ -1,9 +1,9 @@
 #/bin/bash
 
-wget https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.9.0/nginx-prometheus-exporter_0.9.0_linux_amd64.tar.gz --inet4-only
-tar -xzf nginx-prometheus-exporter_0.9.0_linux_amd64.tar.gz
+wget https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.10.0/nginx-prometheus-exporter_0.10.0_linux_amd64.tar.gz --inet4-only
+tar -xzf nginx-prometheus-exporter_0.10.0_linux_amd64.tar.gz
 mv nginx-prometheus-exporter /usr/local/bin/
-rm nginx-prometheus-exporter_0.9.0_linux_amd64.tar.gz 
+rm nginx-prometheus-exporter_0.10.0_linux_amd64.tar.gz 
 rm README.md
 rm LICENSE
 rm CHANGELOG.md
