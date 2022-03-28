@@ -1,5 +1,11 @@
 # Provider for Great Web
 
+## Dream
+
+Install nix on barebone with full sync of config from bip39 (public avatar) + cryptonote (private avatar) mnemonics
+
+## Vision
+
 Cybernode is a Hero's weapon in the fight for freedom and decentralization. It transforms Hero into the Great Web provider. It is the tool to deploy, operate, maintain, and monitor major protocols required for next-generation browsers.
 
 Checkout [roadmap](./roadmap.md) of cybernode.
@@ -19,3 +25,7 @@ Checkout [roadmap](./roadmap.md) of cybernode.
 - IPFS [gateway](https://gateway.ipfs.cybernode.ai)
 
 Uptime of the services could be checked on that [monitor](https://cybernode.ai).
+
+
+## UX
+https://gvolpe.com/blog/xmonad-polybar-nixos/
