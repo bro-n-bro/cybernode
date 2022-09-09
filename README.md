@@ -12,12 +12,14 @@ Checkout [roadmap](./roadmap.md) of cybernode.
 
 ## Backend services provided by cybernode.ai
 
-- Bostrom [RPC](https://rpc.bostrom.cybernode.ai)
-- Bostrom [REST](https://lcd.bostrom.cybernode.ai)
+- Bostrom [RPC](https://rpc.bostrom.cybernode.ai:443)
+- Bostrom [REST](https://lcd.bostrom.cybernode.ai:443)
 - Bostrom [index](https://index.bostrom.cybernode.ai)
 - Bostrom [websocket](wss://rpc.bostrom.cybernode.ai/websocket)
-- Cosmoshub-4 [RPC](https://rpc.cosmoshub-4.cybernode.ai)
+- Bostrom [GRPC](https://grpc.bostrom.cybernode.ai:1443)
+- Cosmoshub-4 [RPC](https://rpc.cosmoshub-4.cybernode.ai:443)
 - Cosmoshub-4 [REST](https://lcd.cosmoshub-4.cybernode.ai)
+- Cosmoshub-4 [GRPC](https://grpc.cosmoshub-4.cybernode.ai:1443)
 - Ethereum [RPC](https://rpc.ethereum.cybernode.ai)
 - Ethereum [websocket](wss://ws.ethereum.cybernode.ai)
 - Ethereum rinkeby [RPC](https://rpc-rinkeby.ethereum.cybernode.ai)
