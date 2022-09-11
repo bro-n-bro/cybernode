@@ -17,7 +17,7 @@ then
     sudo ./scripts/install_smart_exporter.sh
 
 else
-    printf "Select exporter you want to install \n[1] Cadvisor\n[2] Nginx_exporter\n[3] Node_exporter, Smart_exporter and Prometheus\n"
+    printf "Select exporter you want to install \n[1] Cadvisor\n[2] Nginx_exporter\n[3] Node_exporter, Smart_exporter and Prometheus\n[4] Smart exporter (requires node_exporter)\n"
     read -r  OPT
     case $OPT in
 
@@ -36,6 +36,11 @@ else
     sudo ./scripts/install_prometheus.sh
     sudo ./scripts/install_smart_exporter.sh
     printf "\nInstalled Node Exporter, Smart Exporter and Prometheus\n"
+    ;;
+
+    4)
+    sudo ./scripts/install_smart_exporter.sh
+    printf "\nInstalled smart_exporter\n"
     ;;
 
 #    3 | 4 | 5 )
