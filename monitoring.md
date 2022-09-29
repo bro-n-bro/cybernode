@@ -1,10 +1,10 @@
-## Monitoring for Сyber
+# Monitoring for Сyber
 
-# Clone the repo
+## Clone the repo
 ```bash
 git clone git@github.com:cybercongress/cybernode.git 
 ```
-# Run the script
+## Run the script
 ```bash
 cd cybernode/monitoring/exporters/ && sh install_exporters_cybernode.sh 
 ```
@@ -16,7 +16,11 @@ Select exporter you want to install
 ```bash
 3 
 ```
-# Fix the configs
+## Fix the config
+Fix config.toml 
+prometheus = false → prometheus = true
+![](https://ipfs.io/ipfs/Qma1YqX1v87SqWscWwhrwe9ccuzfB4YnGcPaqvnJd2Gdyj)
+
 Stop your container
 ```bash
 docker stop <your container>
@@ -25,20 +29,16 @@ Remove your container
 ```bash
 docker rm <your container>
 ```
-Run validator
+Run your container
 ```bash
-docker run -d --gpus all --name=bostrom --restart always -p 26656:26656 -p 26657:26657 -p 1317:1317 -p 26660:26660 -e ALLOW_SEARCH=true -v $HOME/.cyber:/root/.cyber  cyberd/cyber:bostrom-1
-```
-To apply config changes restart the container
-```bash
-docker restart bostrom
+docker run -d --gpus all --name=bostrom --restart always -p 26656:26656 -p 26657:26657 -p 1317:1317 -p 26660:26660 -e ALLOW_SEARCH=true -v $HOME/.cyber:/root/.cyber  cyberd/cyber:bostrom-2.1
 ```
 Then check the status of your node
 ```bash
 docker exec bostrom cyber status
 ```
 
-# Great, moving on
+## Great, moving on
 
 Now let's make sure that everything works: 
 - cyber 
@@ -54,7 +54,9 @@ curl localhost:8090
 curl localhost:9100
 ```
 
-# GRAFANA
+## GRAFANA
+We will need another one server where our data will be sent for graphana visualization. \
+1 CPU, 2 GB RAM and 20 GB will be enough
 
 Install:
 ```bash
@@ -72,23 +74,29 @@ Check:
 ```bash
 sudo journalctl -u grafana-server -f
 ```
-Go to your browser, localhost:3000
-
+Go to your browser, localhost:3000 \
 login - admin, password - admin 
-![grafana](https://ipfs.io/ipfs/QmVEKi8fuxPQpoF5SYbJn7pW6CWaKsEDa3SLLuGXSZn8eD?filename=QmVEKi8fuxPQpoF5SYbJn7pW6CWaKsEDa3SLLuGXSZn8eD)
+![](https://ipfs.io/ipfs/QmVEKi8fuxPQpoF5SYbJn7pW6CWaKsEDa3SLLuGXSZn8eD) \
+(If you want you can set your own password) \
 Next step: Add your first data source, select 'Prometheus'
-![datasource](https://ipfs.io/ipfs/QmfVJLCVwGv3WzR6ou9opgcFcuTYRjEqQUK6TBi7vd7HSZ?filename=QmfVJLCVwGv3WzR6ou9opgcFcuTYRjEqQUK6TBi7vd7HSZ)
-Specify in the column the URL to your server with prometheus and set the Name
-![prometheus](https://ipfs.io/ipfs/QmZhVdd262jcFRN2CzKcgWsEUoxf9C9eN4NXN4fXsA244C?filename=QmZhVdd262jcFRN2CzKcgWsEUoxf9C9eN4NXN4fXsA244C)
-Then click Save & test.
-If everything is configured correctly, a green check mark will be displayed
-![clicksave](https://ipfs.io/ipfs/QmYk1yqxaexPsYQvjgUNRZrDx4ayPRSyZVreGNvGkNTQHA)
+![](https://ipfs.io/ipfs/QmfVJLCVwGv3WzR6ou9opgcFcuTYRjEqQUK6TBi7vd7HSZ)
+![](https://ipfs.io/ipfs/QmZhVdd262jcFRN2CzKcgWsEUoxf9C9eN4NXN4fXsA244C)
+Type in field "URL" address of your server with prometheus and set the Name.
+![](https://ipfs.io/ipfs/QmU62N1LqiFEKE8v372Hg1c9pXZJbzdhavKXo7N1rMB73S) \
+Then click Save & test. If everything is configured correctly, a green check mark will be displayed
+![](https://ipfs.io/ipfs/QmYk1yqxaexPsYQvjgUNRZrDx4ayPRSyZVreGNvGkNTQHA)
 
-Next step: import CyberNode dashboard and click Load button
-https://github.com/cybercongress/cybernode/blob/master/monitoring/Grafana_dashboards/cyber_node.json
-![loaddash](https://ipfs.io/ipfs/QmQYZeUpFmBUYNY4YPui4BEht2n3vPUTyLTaiCJYDXR6HH)
-Set the Name - CyberNode and click Import 
-![import](https://ipfs.io/ipfs/Qmbycax2pAXJtJbZA7Ev8USYtpzLofu1PZvxFPt5dPWGqZ)
+For further work you will need to find out your uid. 
+It is located in your browser address bar
+![](https://ipfs.io/ipfs/QmdcCM7W7AUzccmdNnAKijHgREPyDBabhaZThqShfTDeBz)
+Next step: import CyberNode dashboard to your text editor. 
+https://github.com/cybercongress/cybernode/blob/master/monitoring/Grafana_dashboards/cyber_node.json \
+Then select the entire text with the ctrl + A command, turn on the search function with the ctrl + F command, find the uid value, in my case it is 000000003, select it and replace it with your value from the previous step 
+![](https://ipfs.io/ipfs/QmZhUTznQ7ShRPzJC4NSrbn29fVKbX6DtW5cXg61wKNyrK)
+After that, import your json file and click Load button
+![](https://ipfs.io/ipfs/QmQYZeUpFmBUYNY4YPui4BEht2n3vPUTyLTaiCJYDXR6HH) \
+Set the Name and click Import 
+![](https://ipfs.io/ipfs/Qmbycax2pAXJtJbZA7Ev8USYtpzLofu1PZvxFPt5dPWGqZ)
 and you can notice how the graphs have come to life:
-![metrics](https://ipfs.io/ipfs/QmeunC7yv1h77hVCmsevZHGdR8Xk8TwCWBLtnc1P7GB82G)
-# GOOD LUCK!
+![](https://ipfs.io/ipfs/QmeunC7yv1h77hVCmsevZHGdR8Xk8TwCWBLtnc1P7GB82G)
+## GOOD LUCK!

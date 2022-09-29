@@ -1,4 +1,4 @@
-# Provider for Great Web
+# Provider for The Great Web
 
 ## Dream
 
@@ -6,9 +6,9 @@ Install nix on barebone with full sync of config from bip39 (public avatar) + cr
 
 ## Vision
 
-Cybernode is a Hero's weapon in the fight for freedom and decentralization. It transforms Hero into the Great Web provider. It is the tool to deploy, operate, maintain, and monitor major protocols required for next-generation browsers.
+Cybernode is a Hero's weapon in the fight for freedom and decentralization. It transforms a Hero into a Great Web provider. It is the tool to deploy, operate, maintain, and monitor major protocols required for next-generation browsers.
 
-Checkout [roadmap](./roadmap.md) of cybernode.
+Checkout the [roadmap](./roadmap.md) of cybernode.
 
 ## Backend services provided by cybernode.ai
 
@@ -16,7 +16,7 @@ Checkout [roadmap](./roadmap.md) of cybernode.
 - Bostrom [REST](https://lcd.bostrom.cybernode.ai:443)
 - Bostrom [index](https://index.bostrom.cybernode.ai)
 - Bostrom [websocket](wss://rpc.bostrom.cybernode.ai/websocket)
-- Bostrom [GRPC](https://grpc.bostrom.cybernode.ai:1443)
+- Bostrom [GRPC](https://grpc.bstrom.cybernode.ai:1443)
 - Cosmoshub-4 [RPC](https://rpc.cosmoshub-4.cybernode.ai:443)
 - Cosmoshub-4 [REST](https://lcd.cosmoshub-4.cybernode.ai)
 - Cosmoshub-4 [GRPC](https://grpc.cosmoshub-4.cybernode.ai:1443)
@@ -26,8 +26,46 @@ Checkout [roadmap](./roadmap.md) of cybernode.
 - Ethereum rinkeby [websocket](wss://ws-rinkeby.ethereum.cybernode.ai)
 - IPFS [gateway](https://gateway.ipfs.cybernode.ai)
 
-Uptime of the services could be checked on that [monitor](https://cybernode.ai).
+Uptime of services can be checked at [monitor](https://cybernode.ai).
 
 
 ## UX
 https://gvolpe.com/blog/xmonad-polybar-nixos/
+
+## Testnets endpoints
+## space-pussy-1
+
+- Space Pussy [ssl RPC](https://rpc.space-pussy-1.cybernode.ai:443), [non-ssl RPC](http://rpc.space-pussy-1.cybernode.ai:26657)
+- Space Pussy [ssl REST](https://lcd.space-pussy-1.cybernode.ai:443/swagger/), [non-ssl REST](http://lcd.space-pussy-1.cybernode.ai:26317/swagger/)
+- Space Pussy [ssl index](https://index.space-pussy-1.cybernode.ai:443)
+- Space Pussy [ssl GRPC](https://grpc.space-pussy-1.cybernode.ai:1443), [non-ssl GRPC](http://grpc.space-pussy-1.cybernode.ai:26090)
+
+## osmo-test-4
+
+- Osmo [ssl RPC](https://rpc.osmo-test-4.cybernode.ai:443), [non-ssl RPC](http://rpc.osmo-test-4.cybernode.ai:26657)
+- Osmo [ssl REST](https://lcd.osmo-test-4.cybernode.ai:443/swagger/), [non-ssl REST](http://lcd.osmo-test-4.cybernode.ai:26317/swagger/)
+- Osmo [ssl GRPC](https://grpc.osmo-test-4.cybernode.ai:1443), [non-ssl GRPC](http://grpc.osmo-test-4.cybernode.ai:26090)
+
+## uni-3 (juno testnet)
+
+- Uni [ssl RPC](https://rpc.uni-3.cybernode.ai:443), [non-ssl RPC](http://rpc.uni-3.cybernode.ai:26657)
+- Uni [ssl REST](https://lcd.uni-3.cybernode.ai:443), [non-ssl REST](http://lcd.uni-3.cybernode.ai:26317)
+- Uni [ssl GRPC](https://grpc.uni-3.cybernode.ai:1443), [non-ssl GRPC](http://grpc.uni-3.cybernode.ai:26090)
+
+## faucet
+
+### space-pussy-1
+
+curl --header "Content-Type: application/json"   --request POST   --data '{"denom":"boot","address":"bostrom14yzdndjxpgavs4cdy5qyxyg9l38rgwew38eksy"}'   https://space-pussy-1.cybernode.ai/credit
+
+### osmo-test-4
+
+https://discord.com/invite/osmosis
+
+tab TESTNET channel #faucet `$request osmo1smdem8qur9jxpl8eztc4appnwek2gc63qrqaap`
+
+### juno-test-4
+
+https://discord.com/invite/d2CstAyjut
+
+tab VALIDATORS channel #faucet `$request osmo1smdem8qur9jxpl8eztc4appnwek2gc63qrqaapo
