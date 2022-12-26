@@ -1,8 +1,16 @@
 # ![](https://ipfs.io/ipfs/QmWeAd87fZm1pMYyX9BmhnTrXYKCZLoyzMJMcSwNHfB6gU)Restart Cyber with Snapshot
 ## Download snapshot
-You can check actual snapshot and block from https://jupiter.cybernode.ai/shared/ and download with
+First, go to [cyb snapshotrobot](https://cyb.ai/network/bostrom/contract/bostrom137p3ll78yrlw3gtfltgwhdkz0qxke4z6mt9qe6)
+You can check last block at the top of search results
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ТУТ БУДЕТ КАРТИНКА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Сlick on the link with the last block and you will see two results. The first is a hash of the current snapshot that can be downloaded via the cli using the command (to do this, you will need an 
+installed ipfs)
 ```
-wget https://jupiter.cybernode.ai/shared/bostrom_pruned_<snap_block>.tar.gz
+ipfs add <insert the hash here>
+```
+The second hash is an url link that can be downloaded using the command
+```
+wget https://jupiter.cybernode.ai/shared/bostrom_pruned_<change block number>.tar.gz
 ```
 or you can ask it in [Hall of Fame](https://t.me/fameofcyber)
 ## Unpack snapshot
