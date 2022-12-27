@@ -1,8 +1,8 @@
 # ![](https://ipfs.io/ipfs/QmWeAd87fZm1pMYyX9BmhnTrXYKCZLoyzMJMcSwNHfB6gU)Restart Cyber with Snapshot
 ## Download snapshot
-First, go to [cyb snapshotrobot](https://cyb.ai/network/bostrom/contract/bostrom137p3ll78yrlw3gtfltgwhdkz0qxke4z6mt9qe6)
-You can check last block at the top of search results
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ТУТ БУДЕТ КАРТИНКА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+First, go to [cyb snapshotrobot](https://cyb.ai/network/bostrom/contract/bostrom137p3ll78yrlw3gtfltgwhdkz0qxke4z6mt9qe6)  
+You can check last block at the top of search results  
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ТУТ БУДЕТ КАРТИНКА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  
 Сlick on the link with the last block and you will see two results. The first is a hash of the current snapshot that can be downloaded via the cli using the command (to do this, you will need an 
 installed ipfs)
 ```
