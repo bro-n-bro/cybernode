@@ -1,10 +1,12 @@
 # ![](https://ipfs.io/ipfs/QmWeAd87fZm1pMYyX9BmhnTrXYKCZLoyzMJMcSwNHfB6gU)Restart Cyber with Snapshot
 ## Download snapshot
-You can check <a href="https://cyb.ai/network/bostrom/contract/bostrom137p3ll78yrlw3gtfltgwhdkz0qxke4z6mt9qe6" target="_blank">Cyb SnapshotRobot</a>  
-last block at the top of search results  
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ТУТ БУДЕТ КАРТИНКА!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  
-Сlick on the link with the last block and you will see two results. The first is a hash of the current snapshot that can be downloaded via the cli using the command (to do this, you will need an 
-installed ipfs)
+First, go to <a href="https://cyb.ai/network/bostrom/contract/bostrom137p3ll78yrlw3gtfltgwhdkz0qxke4z6mt9qe6" target="_blank">Cyb Snapshot Robot</a>  
+You can check last block at the top of search results  
+![](https://ipfs.io/ipfs/QmWjcgseTj5GmGSC8z1X6wzD5Eh1wQv1RfBfChmafqcwvm)  
+Сlick on the link with the last block and you will see two results.  
+![](https://ipfs.io/ipfs/QmQvZegg39JnQ5EESgA3t9seCYSAF7nZyDZGRo1iUXLemi)  
+The first is a hash of the current snapshot that can be downloaded via the cli using the command:  
+(to do this, you will need an installed ipfs)  
 ```
 ipfs add <insert the hash here>
 ```
@@ -32,7 +34,7 @@ cp -r data/ wasm/ ~/.cyber/
 ```
 ## Start Cyber and check status  
 ```
-docker run -d --gpus all --name=bostrom --restart always -p 26656:26656 -p 26657:26657 -p 1317:1317 -p 26660:26660 -e ALLOW_SEARCH=true -v $HOME/.cyber:/root/.cyber  cyberd/cyber:bostrom-2.1
+docker run --log-opt max-size=2g --log-opt max-file=1 -d --gpus all --name=bostrom --restart always -p 26656:26656 -p 26657:26657 -p 1317:1317 -p 26660:26660 -e ALLOW_SEARCH=true -v $HOME/.cyber:/root/.cyber  cyberd/cyber:bostrom-2.1
 
 docker exec bostrom cyber status
 ```
