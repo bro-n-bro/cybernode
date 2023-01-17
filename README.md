@@ -54,9 +54,9 @@ https://gvolpe.com/blog/xmonad-polybar-nixos/
 
 ## axelar-dojo-1
 
-- Axelar [ssl RPC](https://rpc.axelar-dojo-1.cybernode.ai:433), [non-ssl RPC](http://rpc.axelar-dojo-1.cybernode.ai:26657)
-- Axelar [ssl REST](https://lcd.axelar-dojo-1.cybernode.ai:433), [non-ssl REST](http://lcd.axelar-dojo-1.cybernode.ai:26317)
-- Axelar [ssl GRPC](https://grpc.axelar-dojo-1.cybernode.ai:1443), [non-ssl GRPC](http://grpc.axelar-dojo-1.cybernode.ai:26090)
+- Axelar [ssl RPC](https://rpc.axelar-dojo-1.cybernode.ai), [non-ssl RPC](http://rpc.axelar-dojo-1.cybernode.ai:26657)
+- Axelar [ssl REST](https://lcd.axelar-dojo-1.cybernode.ai), [non-ssl REST](http://lcd.axelar-dojo-1.cybernode.ai:26317)
+- Axelar [ssl GRPC](https://grpc.axelar-dojo-1.cybernode.ai), [non-ssl GRPC](http://grpc.axelar-dojo-1.cybernode.ai:26090)
 
 ## faucet
 
