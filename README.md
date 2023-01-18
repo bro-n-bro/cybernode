@@ -16,7 +16,7 @@ Checkout the [roadmap](./roadmap.md) of cybernode.
 - Bostrom [REST](https://lcd.bostrom.cybernode.ai:443)
 - Bostrom [index](https://index.bostrom.cybernode.ai)
 - Bostrom [websocket](wss://rpc.bostrom.cybernode.ai/websocket)
-- Bostrom [GRPC](https://grpc.bstrom.cybernode.ai:1443)
+- Bostrom [GRPC](https://grpc.bostrom.cybernode.ai:1443)
 - Cosmoshub-4 [RPC](https://rpc.cosmoshub-4.cybernode.ai:443)
 - Cosmoshub-4 [REST](https://lcd.cosmoshub-4.cybernode.ai)
 - Cosmoshub-4 [GRPC](https://grpc.cosmoshub-4.cybernode.ai:1443)
@@ -25,6 +25,9 @@ Checkout the [roadmap](./roadmap.md) of cybernode.
 - Ethereum rinkeby [RPC](https://rpc-rinkeby.ethereum.cybernode.ai)
 - Ethereum rinkeby [websocket](wss://ws-rinkeby.ethereum.cybernode.ai)
 - IPFS [gateway](https://gateway.ipfs.cybernode.ai)
+- Axelar [ssl RPC](https://rpc.axelar-dojo-1.cybernode.ai:443), [non-ssl RPC](http://rpc.axelar-dojo-1.cybernode.ai:26657)
+- Axelar [ssl REST](https://lcd.axelar-dojo-1.cybernode.ai:443), [non-ssl REST](http://lcd.axelar-dojo-1.cybernode.ai:26317)
+- Axelar [ssl GRPC](https://grpc.axelar-dojo-1.cybernode.ai:1443), [non-ssl GRPC](http://grpc.axelar-dojo-1.cybernode.ai:26090)
 
 Uptime of services can be checked at [monitor](https://cybernode.ai).
 
