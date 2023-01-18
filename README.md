@@ -25,9 +25,12 @@ Checkout the [roadmap](./roadmap.md) of cybernode.
 - Ethereum rinkeby [RPC](https://rpc-rinkeby.ethereum.cybernode.ai)
 - Ethereum rinkeby [websocket](wss://ws-rinkeby.ethereum.cybernode.ai)
 - IPFS [gateway](https://gateway.ipfs.cybernode.ai)
+- Axelar [ssl RPC](https://rpc.axelar-dojo-1.cybernode.ai:443), [non-ssl RPC](http://rpc.axelar-dojo-1.cybernode.ai:26657)
+- Axelar [ssl REST](https://lcd.axelar-dojo-1.cybernode.ai:443), [non-ssl REST](http://lcd.axelar-dojo-1.cybernode.ai:26317)
+- Axelar [ssl GRPC](https://grpc.axelar-dojo-1.cybernode.ai:1443), [non-ssl GRPC](http://grpc.axelar-dojo-1.cybernode.ai:26090)
+
 
 Uptime of services can be checked at [monitor](https://cybernode.ai).
-
 
 ## UX
 https://gvolpe.com/blog/xmonad-polybar-nixos/
@@ -51,12 +54,6 @@ https://gvolpe.com/blog/xmonad-polybar-nixos/
 - Uni [ssl RPC](https://rpc.uni-3.cybernode.ai:443), [non-ssl RPC](http://rpc.uni-3.cybernode.ai:26657)
 - Uni [ssl REST](https://lcd.uni-3.cybernode.ai:443), [non-ssl REST](http://lcd.uni-3.cybernode.ai:26317)
 - Uni [ssl GRPC](https://grpc.uni-3.cybernode.ai:1443), [non-ssl GRPC](http://grpc.uni-3.cybernode.ai:26090)
-
-## axelar-dojo-1
-
-- Axelar [ssl RPC](https://rpc.axelar-dojo-1.cybernode.ai), [non-ssl RPC](http://rpc.axelar-dojo-1.cybernode.ai:26657)
-- Axelar [ssl REST](https://lcd.axelar-dojo-1.cybernode.ai), [non-ssl REST](http://lcd.axelar-dojo-1.cybernode.ai:26317)
-- Axelar [ssl GRPC](https://grpc.axelar-dojo-1.cybernode.ai), [non-ssl GRPC](http://grpc.axelar-dojo-1.cybernode.ai:26090)
 
 ## faucet
 
