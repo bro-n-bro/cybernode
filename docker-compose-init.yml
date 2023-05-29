@@ -17,7 +17,7 @@ services:
     image: certbot/certbot:latest
     depends_on:
       - nginx
-    command: certonly --dry-run  --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/html --no-eff-email --agree-tos --email maximxmoroz@gmail.com -d ${DOMAIN} -d rpc.${DOMAIN} -d grpc.${DOMAIN} -d lcd.${DOMAIN} -d ipfs.${DOMAIN} -d index.${DOMAIN}
+    command: certonly --dry-run  --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email maximxmoroz@gmail.com -d ${DOMAIN} -d rpc.${DOMAIN} -d grpc.${DOMAIN} -d lcd.${DOMAIN} -d ipfs.${DOMAIN} -d index.${DOMAIN}
     volumes:
       - ./volumes/nginx/www/:/var/www/
       - ./volumes/certbot/letsencrypt:/etc/letsencrypt:rw
