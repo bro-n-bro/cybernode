@@ -151,10 +151,10 @@ services:
     container_name: nginx-exporter
     restart: unless-stopped
     environment:
-      - SCRAPE_URI=http://172.25.0.1:81/status
+      - SCRAPE_URI=http://nginx:81/status
       - TELEMETRY_PATH=/metrics
     ports:
-      - "172.23.0.1:9113:9113"
+      - "9113:9113"
     #mem_limit: 128m      # for docker-compose v2 only
     #mem_reservation: 64m # for docker-compose v2 only
     depends_on:

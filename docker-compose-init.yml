@@ -8,6 +8,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "0.0.0.0:81:81"
     volumes:
       - ./volumes/nginx/cybernode_init.conf:/etc/nginx/conf.d/cybernode_init.conf
       - ./volumes/nginx/www:/var/www
