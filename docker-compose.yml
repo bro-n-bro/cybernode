@@ -138,7 +138,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "0.0.0.0:81:81"
+      - "81:81"
     volumes:
       - ./volumes/nginx/cybernode.conf:/etc/nginx/conf.d/cybernode.conf
       - ./volumes/certbot/www:/var/www
@@ -165,7 +165,7 @@ services:
     image: certbot/certbot:latest
     depends_on:
       - nginx
-    command: certonly --dry-run --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email maximxmoroz@gmail.com -d ${DOMAIN} -d rpc.${DOMAIN} -d grpc.${DOMAIN} -d lcd.${DOMAIN} -d ipfs.${DOMAIN} -d index.${DOMAIN}
+    command: certonly --dry-run --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.${DOMAIN} -d grpc.${DOMAIN} -d lcd.${DOMAIN} -d ipfs.${DOMAIN} -d index.${DOMAIN}
     volumes:
       - ./volumes/certbot/www/:/var/www/
       - ./volumes/certbot/letsencrypt:/etc/letsencrypt:rw
