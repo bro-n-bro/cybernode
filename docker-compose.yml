@@ -174,3 +174,16 @@ services:
       options:
         max-size: 1m
         max-file: "3"
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:latest
+    container_name: blackbox-exporter
+    volumes:
+      - ./blackbox.yml:/config/blackbox.yml
+    ports:
+      - "9115:9115"
+    command:
+      - '--config.file=/config/blackbox.yml'
+    restart: unless-stopped
+    depends_on:
+      - nginx-exporter
