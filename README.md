@@ -38,9 +38,6 @@ Checkout the [roadmap](./roadmap.md) of cybernode.
 Uptime of services can be checked at [monitor](https://cybernode.ai).
 
 
-## UX
-https://gvolpe.com/blog/xmonad-polybar-nixos/
-
 ## Testnets endpoints
 ### osmo-test-4
 
