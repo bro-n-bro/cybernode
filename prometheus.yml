@@ -1,5 +1,5 @@
 global:
-  scrape_interval:     15s
+  scrape_interval: 15s
   evaluation_interval: 5s
 
 rule_files:
@@ -7,37 +7,56 @@ rule_files:
   # - "second.rules"
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: "prometheus"
     scrape_interval: 5s
     static_configs:
-       - targets: ['prometheus:9090']
-#      - targets: ['localhost:36080']
-  - job_name: 'node_exporter'
+      - targets: ["prometheus:9090"]
+  #      - targets: ['localhost:36080']
+  - job_name: "node_exporter"
     scrape_interval: 5s
     static_configs:
-      - targets: ['node-exporter:9100']
-  - job_name: 'bostrom'
+      - targets: ["node-exporter:9100"]
+  - job_name: "bostrom"
     scrape_interval: 5s
     static_configs:
-      - targets: ['bostrom:26660']
-  - job_name: 'cadvisor'
+      - targets: ["bostrom:26660"]
+  - job_name: "cadvisor"
     scrape_interval: 5s
     static_configs:
-      - targets: ['cadvisor:8080']
-  - job_name: 'ipfs'
-#    metrics_path: '/debug/metrics/prometheus'
+      - targets: ["cadvisor:8080"]
+  - job_name: "ipfs"
+    #    metrics_path: '/debug/metrics/prometheus'
     scrape_interval: 5s
     static_configs:
-       - targets: ['ipfs:36001']
-  - job_name: 'cyberindex_postgres'
+      - targets: ["ipfs:36001"]
+  - job_name: "cyberindex_postgres"
     scrape_interval: 5s
     static_configs:
-      - targets: ['cyberindex_postgres:5432']
-  - job_name: 'cyberindex_hasura'
+      - targets: ["cyberindex_postgres:5432"]
+  - job_name: "cyberindex_hasura"
     scrape_interval: 5s
     static_configs:
-      - targets: ['cyberindex_hasura:8089']
-  - job_name: 'nginx-exporter'
+      - targets: ["cyberindex_hasura:8089"]
+  - job_name: "nginx-exporter"
     scrape_interval: 5s
     static_configs:
-      - targets: ['nginx-exporter:9113']
+      - targets: ["nginx-exporter:9113"]
+  - job_name: "blackbox-exporter"
+    metrics_path: /probe
+    scrape_interval: 5s
+    params:
+      module: [http_prometheus]
+    static_configs:
+      - targets: # Target to probe with https.
+          - https://:9115
+          - https://rpc./block?height=7278626
+          - https://lcd./node_info
+          - https://index./console/
+          - https://ipfs./ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115 # The blackbox exporter's real hostname:port.
