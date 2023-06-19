@@ -40,7 +40,7 @@ services:
     ports:
       - "36002:4001"
       - "36001:8080"
-      - "5001:5001"
+      - "localhost:5001:5001"
     depends_on:
       - bostrom
 
