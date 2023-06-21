@@ -85,8 +85,24 @@ echo "Following endpoint list will be provided by your Hero"
 grep -E "(https?|rpc\.|lcd\.|index\.|ipfs\.|$domain:9115)" prometheus.yml | grep -v -e "module: \[http_prometheus\]" -e "- targets: # Target to probe with https."
 echo "Domain name has been updated successfully."
 
+# Step 3.2: Ping rpc.<DOMAIN_NAME> and display IP address
+rpc_domain="rpc.$domain"
+echo "STEP 2: Pinging $rpc_domain..."
+ip_address=$(ping -c 1 $rpc_domain | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+
+echo "The IP address of $rpc_domain is: $ip_address"
+
+# Step 3.3: Confirm IP address ownership
+read -p "Does the IP address $ip_address belong to you? (y/n): " ip_confirmation
+
+if [[ $ip_confirmation == "y" || $ip_confirmation == "Y" ]]; then
+    echo "IP address ownership confirmed."
+else
+    echo "Please ensure the correct IP address is assigned to your domain and try again."
+fi
+
 # Step 4: Ask user if they want to use email for SSL certificates
-read -p "STEP 2: Do you want to use email to obtain SSL certificates? (y/n): " use_email
+read -p "STEP 3: Do you want to use email to obtain SSL certificates? (y/n): " use_email
 
 if [[ $use_email == "y" || $use_email == "Y" ]]; then
   while true; do
@@ -109,12 +125,11 @@ if [[ $use_email == "n" || $use_email == "N" ]]; then
 fi
 
 # Step 5: Open Ports
-read -p "STEP 3: The following ports will be open:
+read -p "STEP 4: The following ports will be open:
  - Port 80 (HTTP)
  - Port 443 (HTTPS)
  - Port 26656 (BOSTROM)
  - Port 4001 (IPFS)
-
 Do you want to allow these ports and start running Hero node? (y/n): " answer
 
 if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
@@ -126,15 +141,24 @@ if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
 else
     echo "No action taken. Ports are not allowed."
 fi
+# Step 6: Check nvidia
+echo "STEP 5: Checking if the drivers are installed"
 
-# Step 6: Start docker-compose-init.yml
-echo "Getting certificates to start your node"
+nvidia-smi &> /dev/null
+if [[ $? -eq 0 ]]; then
+	  echo "Success! Nvidia driver is installed."
+  else
+	    echo "Error: Nvidia driver is not installed or not detected."
+fi
+
+# Step 7: Start docker-compose-init.yml
+echo "STEP 6: Getting certificates to start your node"
 docker-compose -f docker-compose-init.yml up -d
 
-# Step 7: Check if docker-compose-init.yml started successfully
+# Step 8: Check if docker-compose-init.yml started successfully
 if [ $? -eq 0 ]; then
     echo "docker-compose-init.yml started successfully."
-    echo "Wait a minute for your Hero Node to start"
+    echo "STEP 7: Wait a minute for your Hero Node to start"
     # Step 8: Start docker-compose.yml
     sleep 60
     docker-compose -f docker-compose.yml up -d
