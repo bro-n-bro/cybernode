@@ -34,3 +34,6 @@ vendor/
 # Bin
 cybernode
 dist
+
+# ENV
+.env
