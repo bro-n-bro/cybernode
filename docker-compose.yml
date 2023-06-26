@@ -186,4 +186,19 @@ services:
       - '--config.file=/config/blackbox.yml'
     restart: unless-stopped
     depends_on:
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./volumes/grafana:/var/lib/grafana
+    depends_on:
+      - prometheus
       - nginx-exporter
