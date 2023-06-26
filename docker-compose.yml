@@ -40,7 +40,7 @@ services:
     ports:
       - "36002:4001"
       - "36001:8080"
-      - "localhost:5001:5001"
+      - "127.0.0.1:5001:5001"
     depends_on:
       - bostrom
 
@@ -165,7 +165,7 @@ services:
     image: certbot/certbot:latest
     depends_on:
       - nginx
-    command: certonly --dry-run --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.${DOMAIN} -d grpc.${DOMAIN} -d lcd.${DOMAIN} -d ipfs.${DOMAIN} -d index.${DOMAIN}
+    command: certonly --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.${DOMAIN} -d grpc.${DOMAIN} -d lcd.${DOMAIN} -d ipfs.${DOMAIN} -d index.${DOMAIN}
     volumes:
       - ./volumes/certbot/www/:/var/www/
       - ./volumes/certbot/letsencrypt:/etc/letsencrypt:rw
