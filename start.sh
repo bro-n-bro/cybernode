@@ -125,22 +125,45 @@ if [[ $use_email == "n" || $use_email == "N" ]]; then
 fi
 
 # Step 5: Open Ports
-read -p "STEP 4: The following ports will be open:
- - Port 80 (HTTP)
- - Port 443 (HTTPS)
- - Port 26656 (BOSTROM)
- - Port 4001 (IPFS)
-Do you want to allow these ports and start running Hero node? (y/n): " answer
+# Check if ufw is active
+echo "STEP 4: Enable ufw and open ports"
+ufw_status=$(sudo ufw status | grep -o "Status: active")
 
-if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
-    ufw allow 80
-    ufw allow 443
-    ufw allow 26656
-    ufw allow 4001
-    echo "Ports allowed successfully."
+if [[ "$ufw_status" == "Status: active" ]]; then
+    echo "ufw is already active."
+    read -p "The following ports will be open:
+     - Port 80 (HTTP)
+     - Port 443 (HTTPS)
+     - Port 26656 (BOSTROM)
+     - Port 4001 (IPFS)
+    Do you want to allow these ports and start running Hero node? (y/n): " answer
+
+    if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
+        sudo ufw allow 80
+        sudo ufw allow 443
+        sudo ufw allow 26656
+        sudo ufw allow 4001
+        echo "Ports allowed successfully."
+    else
+        echo "WARNING: If the required ports are not open, the application may not function properly."
+        echo "WARNING: Please configure your firewall to allow the following ports after the script finishes:"
+    fi
 else
-    echo "No action taken. Ports are not allowed."
+    read -p "ufw is not active. Do you want to activate ufw and allow the required ports? (y/n): " activate_ufw
+
+    if [[ "$activate_ufw" == "y" || "$activate_ufw" == "Y" ]]; then
+        sudo ufw enable
+        sudo ufw allow 80
+        sudo ufw allow 443
+        sudo ufw allow 26656
+        sudo ufw allow 4001
+        echo "UFW activated and ports allowed successfully."
+    else
+	echo "WARNING: If the required ports are not open, the application may not function properly."
+        echo "WARNING: Please configure your firewall to allow the following ports after the script finishes:"
+    fi
 fi
+
 # Step 6: Check nvidia
 echo "STEP 5: Checking if the drivers are installed"
 
