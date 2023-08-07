@@ -29,14 +29,6 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ["ipfs:36001"]
-  - job_name: "cyberindex_postgres"
-    scrape_interval: 5s
-    static_configs:
-      - targets: ["cyberindex_postgres:5432"]
-  - job_name: "cyberindex_hasura"
-    scrape_interval: 5s
-    static_configs:
-      - targets: ["cyberindex_hasura:8089"]
   - job_name: "nginx-exporter"
     scrape_interval: 5s
     static_configs:
