@@ -88,9 +88,16 @@ echo "Domain name has been updated successfully."
 # Step 3.2: Ping rpc.<DOMAIN_NAME> and display IP address
 rpc_domain="rpc.$domain"
 echo "STEP 2: Pinging $rpc_domain..."
-ip_address=$(ping -c 1 $rpc_domain | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+ping_result=$(ping -c 1 $rpc_domain)
 
-echo "The IP address of $rpc_domain is: $ip_address"
+# Check if ping result contains an IP address
+if echo "$ping_result" | grep -qE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'; then
+    ip_address=$(echo "$ping_result" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+    echo "The IP address of $rpc_domain is: $ip_address"
+else
+    echo "ERROR: Unable to retrieve IP address for $rpc_domain."
+    exit 1  # Exit the script with an error code
+fi
 
 # Step 3.3: Confirm IP address ownership
 read -p "Does the IP address $ip_address belong to you? (y/n): " ip_confirmation
@@ -99,6 +106,7 @@ if [[ $ip_confirmation == "y" || $ip_confirmation == "Y" ]]; then
     echo "IP address ownership confirmed."
 else
     echo "Please ensure the correct IP address is assigned to your domain and try again."
+    exit 1
 fi
 
 # Step 4: Ask user if they want to use email for SSL certificates
