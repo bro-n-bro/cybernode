@@ -74,23 +74,29 @@ done
 sed -i -E "s/^(DOMAIN=).*/\1${domain}/" .env
 
 # Step 3: Insert domain name into prometheus.yml
-sed -i -e "s#- https://.*:9115#- https://$domain:9115#" \
-       -e "s#- https://rpc\..*/block?height=7278626#- https://rpc.$domain/block?height=7278626#" \
-       -e "s#- https://lcd\..*/node_info#- https://lcd.$domain/node_info#" \
-       -e "s#- https://index\..*/console/#- https://index.$domain/console/#" \
+sed -i -e "s#- https://.*:9115#- https://bostrom.$domain:9115#" \
+       -e "s#- https://rpc.bostrom\..*/block?height=7278626#- https://rpc.bostrom.$domain/block?height=7278626#" \
+       -e "s#- https://lcd.bostrom\..*/node_info#- https://lcd.bostrom.$domain/node_info#" \
        -e "s#- https://ipfs\..*/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#- https://ipfs.$domain/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#" prometheus.yml
 
 # Step 3.1: Display updated lines from prometheus.yml
 echo "Following endpoint list will be provided by your Hero"
-grep -E "(https?|rpc\.|lcd\.|index\.|ipfs\.|$domain:9115)" prometheus.yml | grep -v -e "module: \[http_prometheus\]" -e "- targets: # Target to probe with https."
+grep -E "(https?|rpc\.|lcd\.|ipfs\.|$domain:9115)" prometheus.yml | grep -v -e "module: \[http_prometheus\]" -e "- targets: # Target to probe with https."
 echo "Domain name has been updated successfully."
 
 # Step 3.2: Ping rpc.<DOMAIN_NAME> and display IP address
 rpc_domain="rpc.$domain"
 echo "STEP 2: Pinging $rpc_domain..."
-ip_address=$(ping -c 1 $rpc_domain | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+ping_result=$(ping -c 1 $rpc_domain)
 
-echo "The IP address of $rpc_domain is: $ip_address"
+# Check if ping result contains an IP address
+if echo "$ping_result" | grep -qE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'; then
+    ip_address=$(echo "$ping_result" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+    echo "The IP address of $rpc_domain is: $ip_address"
+else
+    echo "ERROR: Unable to retrieve IP address for $rpc_domain."
+    exit 1  # Exit the script with an error code
+fi
 
 # Step 3.3: Confirm IP address ownership
 read -p "Does the IP address $ip_address belong to you? (y/n): " ip_confirmation
@@ -99,6 +105,7 @@ if [[ $ip_confirmation == "y" || $ip_confirmation == "Y" ]]; then
     echo "IP address ownership confirmed."
 else
     echo "Please ensure the correct IP address is assigned to your domain and try again."
+    exit 1
 fi
 
 # Step 4: Ask user if they want to use email for SSL certificates
