@@ -41,9 +41,8 @@ scrape_configs:
     static_configs:
       - targets: # Target to probe with https.
           - https://:9115
-          - https://rpc./block?height=7278626
-          - https://lcd./node_info
-          - https://index./console/
+          - https://rpc.bostrom./block?height=7278626
+          - https://lcd.bostrom./node_info
           - https://ipfs./ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
     relabel_configs:
       - source_labels: [__address__]

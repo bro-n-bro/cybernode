@@ -74,15 +74,14 @@ done
 sed -i -E "s/^(DOMAIN=).*/\1${domain}/" .env
 
 # Step 3: Insert domain name into prometheus.yml
-sed -i -e "s#- https://.*:9115#- https://$domain:9115#" \
-       -e "s#- https://rpc\..*/block?height=7278626#- https://rpc.$domain/block?height=7278626#" \
-       -e "s#- https://lcd\..*/node_info#- https://lcd.$domain/node_info#" \
-       -e "s#- https://index\..*/console/#- https://index.$domain/console/#" \
+sed -i -e "s#- https://.*:9115#- https://bostrom.$domain:9115#" \
+       -e "s#- https://rpc.bostrom\..*/block?height=7278626#- https://rpc.bostrom.$domain/block?height=7278626#" \
+       -e "s#- https://lcd.bostrom\..*/node_info#- https://lcd.bostrom.$domain/node_info#" \
        -e "s#- https://ipfs\..*/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#- https://ipfs.$domain/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#" prometheus.yml
 
 # Step 3.1: Display updated lines from prometheus.yml
 echo "Following endpoint list will be provided by your Hero"
-grep -E "(https?|rpc\.|lcd\.|index\.|ipfs\.|$domain:9115)" prometheus.yml | grep -v -e "module: \[http_prometheus\]" -e "- targets: # Target to probe with https."
+grep -E "(https?|rpc\.|lcd\.|ipfs\.|$domain:9115)" prometheus.yml | grep -v -e "module: \[http_prometheus\]" -e "- targets: # Target to probe with https."
 echo "Domain name has been updated successfully."
 
 # Step 3.2: Ping rpc.<DOMAIN_NAME> and display IP address

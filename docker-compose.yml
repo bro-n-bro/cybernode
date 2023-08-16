@@ -134,7 +134,7 @@ services:
     image: certbot/certbot:latest
     depends_on:
       - nginx
-    command: certonly --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.${DOMAIN} -d grpc.${DOMAIN} -d lcd.${DOMAIN} -d ipfs.${DOMAIN} -d index.${DOMAIN}
+    command: certonly --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.bostrom.${DOMAIN} -d grpc.bostrom.${DOMAIN} -d lcd.bostrom.${DOMAIN} -d ipfs.${DOMAIN}
     volumes:
       - ./volumes/certbot/www/:/var/www/
       - ./volumes/certbot/letsencrypt:/etc/letsencrypt:rw
@@ -158,7 +158,7 @@ services:
       - nginx-exporter
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana-enterprise
     container_name: grafana
     restart: unless-stopped
     ports:
@@ -172,3 +172,4 @@ services:
     depends_on:
       - prometheus
       - nginx-exporter
+    user: "0"
