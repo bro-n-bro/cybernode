@@ -6,7 +6,7 @@ Cybernode is a Hero's weapon in the fight for freedom and decentralization. It t
 
 ## Run your own cybernode
 
-Checkout the [guide](./cybernode_manual) ow to setup your cybernode.
+Checkout the [guide](./cybernode_manual.md) ow to setup your cybernode.
 
 ## Backend services provided by cybernode.ai
 
