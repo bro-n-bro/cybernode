@@ -75,7 +75,7 @@ sed -i -E "s/^(DOMAIN=).*/\1${domain}/" .env
 
 # Step 3: Insert domain name into prometheus.yml
 sed -i -e "s#- https://.*:9115#- https://bostrom.$domain:9115#" \
-       -e "s#- https://rpc.bostrom\..*/block?height=7278626#- https://rpc.bostrom.$domain/block?height=7278626#" \
+       -e "s#- https://rpc.bostrom\..*/block?height=8733522#- https://rpc.bostrom.$domain/block?height=8733522#" \
        -e "s#- https://lcd.bostrom\..*/node_info#- https://lcd.bostrom.$domain/node_info#" \
        -e "s#- https://ipfs\..*/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#- https://ipfs.$domain/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#" prometheus.yml
 

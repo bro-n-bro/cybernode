@@ -28,7 +28,7 @@ scrape_configs:
     #    metrics_path: '/debug/metrics/prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: ["ipfs:36001"]
+      - targets: ["ipfs:8080"]
   - job_name: "nginx-exporter"
     scrape_interval: 5s
     static_configs:
@@ -44,6 +44,7 @@ scrape_configs:
           - https://rpc.bostrom./block?height=7278626
           - https://lcd.bostrom./node_info
           - https://ipfs./ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
+
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target

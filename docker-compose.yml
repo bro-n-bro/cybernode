@@ -6,11 +6,11 @@ services:
     restart: always
     container_name: bostrom
     ports:
-      - "26091:9090"
-      - "36656:26656"
-      - "26657:26657"
-      - "26317:1317"
-      - "26660:26660"
+      - "127.0.0.1:26090:9090"
+      - "26656:26656"
+      - "127.0.0.1:26657:26657"
+      - "127.0.0.1:1317:1317"
+      - "127.0.0.1:26660:26660"
     environment:
       ALLOW_SEARCH: "true"
     volumes:
@@ -38,8 +38,8 @@ services:
     volumes:
       - ./data/ipfs:/ipfsdata
     ports:
-      - "36002:4001"
-      - "36001:8080"
+      - "4001:4001"
+      - "127.0.0.1:8080:8080"
       - "127.0.0.1:5001:5001"
     depends_on:
       - bostrom
@@ -47,7 +47,7 @@ services:
   node-exporter:
     image: prom/node-exporter:latest
     ports:
-      - "9100:9100"
+      - "127.0.0.1:9100:9100"
     container_name: node-exporter
     restart: unless-stopped
     volumes:
@@ -67,7 +67,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     ports:
-      - "0.0.0.0:36090:9090"
+      - "0.0.0.0:9090:9090"
     container_name: prometheus
     restart: unless-stopped
     volumes:
@@ -86,7 +86,7 @@ services:
     container_name: cadvisor
     restart: unless-stopped
     ports:
-      - "8089:8089"
+      - "127.0.0.1:8089:8089"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -107,7 +107,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "81:81"
+      - "127.0.0.1:81:81"
     volumes:
       - ./volumes/nginx/cybernode.conf:/etc/nginx/conf.d/cybernode.conf
       - ./volumes/certbot/www:/var/www
@@ -123,7 +123,7 @@ services:
       - SCRAPE_URI=http://nginx:81/status
       - TELEMETRY_PATH=/metrics
     ports:
-      - "9113:9113"
+      - "127.0.0.1:9113:9113"
     #mem_limit: 128m      # for docker-compose v2 only
     #mem_reservation: 64m # for docker-compose v2 only
     depends_on:
@@ -150,7 +150,7 @@ services:
     volumes:
       - ./blackbox.yml:/config/blackbox.yml
     ports:
-      - "9115:9115"
+      - "127.0.0.1:9115:9115"
     command:
       - '--config.file=/config/blackbox.yml'
     restart: unless-stopped
