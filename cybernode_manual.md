@@ -330,8 +330,10 @@ It is located in your browser address bar
 ![find_uid](https://ipfs.io/ipfs/QmdcCM7W7AUzccmdNnAKijHgREPyDBabhaZThqShfTDeBz)
 Next step: import CyberNode dashboard to your text editor.
 https://github.com/cybercongress/cybernode/blob/master/grafana_dashboard \
-Then select the entire text with the ctrl + A command, turn on the search function with the ctrl + F command, find the ***uid*** value, in my case it is 000000003, select it and replace it with your value from the previous step
-![edit_board](https://ipfs.io/ipfs/QmZhUTznQ7ShRPzJC4NSrbn29fVKbX6DtW5cXg61wKNyrK)
+Then select the entire text with the ctrl + A command, turn on the search function with the ctrl + F command, find the string <PUT_YOUR_UID>, select it and replace it with your value from the previous step
+![edit_board](https://ipfs.io/ipfs/QmSVUTpHBnwPF6VsTVddyXjnSvakGkyWx7kozyqsSTGais)
+Repeat the previous step only this time search for the string <PUT_YOUR_HOST_NAME> and replace it with your hostname  
+![](https://ipfs.io/ipfs/QmPkJWS3kXu1CNNsoeonSCS4TaVyF5jiC1mKj1fqsUL6z8)
 After that, import your JSON file and click Load button
 ![upload_board](https://ipfs.io/ipfs/QmQYZeUpFmBUYNY4YPui4BEht2n3vPUTyLTaiCJYDXR6HH) \
 Set the Name and click Import
