@@ -78,10 +78,11 @@ sed -i -e "s#- https://.*:9115#- https://bostrom.$domain:9115#" \
        -e "s#- https://rpc.bostrom\..*/block?height=8733522#- https://rpc.bostrom.$domain/block?height=8733522#" \
        -e "s#- https://lcd.bostrom\..*/node_info#- https://lcd.bostrom.$domain/node_info#" \
        -e "s#- https://ipfs\..*/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#- https://ipfs.$domain/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#" prometheus.yml
+       -e "s#- https://index\..*/console/#- https://index.$domain/console/#" \
 
 # Step 3.1: Display updated lines from prometheus.yml
 echo "Following endpoint list will be provided by your Hero"
-grep -E "(https?|rpc\.|lcd\.|ipfs\.|$domain:9115)" prometheus.yml | grep -v -e "module: \[http_prometheus\]" -e "- targets: # Target to probe with https."
+grep -E "(https?|rpc\.|lcd\.|index\.|ipfs\.|$domain:9115)" prometheus.yml | grep -v -e "module: \[http_prometheus\]" -e "- targets: # Target to probe with https."
 echo "Domain name has been updated successfully."
 
 # Step 3.2: Ping rpc.<DOMAIN_NAME> and display IP address
