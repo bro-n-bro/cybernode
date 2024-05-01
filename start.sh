@@ -184,7 +184,7 @@ fi
 
 # Step 7: Start docker-compose-init.yml
 echo "STEP 6: Getting certificates to start your node"
-docker-compose -f docker-compose-init.yml up -d
+docker compose -f docker-compose-init.yml up -d
 
 # Step 8: Check if docker-compose-init.yml started successfully
 if [ $? -eq 0 ]; then
@@ -192,7 +192,7 @@ if [ $? -eq 0 ]; then
     echo "STEP 7: Wait a minute for your Hero Node to start"
     # Step 8: Start docker-compose.yml
     sleep 60
-    docker-compose -f docker-compose.yml up -d
+    docker compose -f docker-compose.yml up -d
 else
     echo "Failed to start docker-compose-init.yml. Aborting."
 fi

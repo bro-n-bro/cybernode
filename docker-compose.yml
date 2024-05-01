@@ -2,15 +2,15 @@ version: "3.8"
 
 services:
   bostrom:
-    image: cyberd/bostrom:dragonberry-cuda11.4
+    image: cyberd/bostrom:v3.0.1-cuda11.4
     restart: always
     container_name: bostrom
     ports:
-      - "127.0.0.1:26090:9090"
+      - "0.0.0.0:26090:9090"
       - "26656:26656"
-      - "127.0.0.1:26657:26657"
-      - "127.0.0.1:1317:1317"
-      - "127.0.0.1:26660:26660"
+      - "0.0.0.0:26657:26657"
+      - "0.0.0.0:1317:1317"
+      - "0.0.0.0:26660:26660"
     environment:
       ALLOW_SEARCH: "true"
     volumes:
