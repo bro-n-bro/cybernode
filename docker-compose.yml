@@ -32,10 +32,12 @@ services:
     restart: always
     container_name: cyberindex_postgres
     environment:
-      - DOMAIN
+      - POSTGRES_DB=${POSTGRES_DB_NAME}
+      - POSTGRES_USER=${POSTGRES_USER_NAME}
+      - POSTGRES_PASSWORD=${POSTGRES_DB_PASSWORD}
     volumes:
       - $HOME/.cyberindex/postgres:/var/lib/postgresql/data
-      - ./database/schema/:/root/schema
+      - ./database/schema/:/docker-entrypoint-initdb.d/
     env_file:
       - .env
     ports:
@@ -63,7 +65,7 @@ services:
     environment:
       - DOMAIN
     volumes:
-      - ~/cybernode/.env:/.env
+      - ~/cybernode/.env:/app/.env
     env_file:
       - .env
     depends_on:
