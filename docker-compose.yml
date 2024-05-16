@@ -7,7 +7,7 @@ services:
     container_name: bostrom
     ports:
       - "0.0.0.0:26090:9090"
-      - "26656:26656"
+      - "0.0.0.0:26656:26656"
       - "0.0.0.0:26657:26657"
       - "0.0.0.0:1317:1317"
       - "0.0.0.0:26660:26660"
@@ -178,7 +178,7 @@ services:
     image: certbot/certbot:latest
     depends_on:
       - nginx
-    command: certonly --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.bostrom.${DOMAIN} -d grpc.bostrom.${DOMAIN} -d lcd.bostrom.${DOMAIN} -d ipfs.${DOMAIN} -d index.${DOMAIN}
+    command: certonly --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.bostrom.${DOMAIN} -d grpc.bostrom.${DOMAIN} -d lcd.bostrom.${DOMAIN} -d ipfs.${DOMAIN} -d grafana.${DOMAIN} -d index.${DOMAIN}
     volumes:
       - ./volumes/certbot/www/:/var/www/
       - ./volumes/certbot/letsencrypt:/etc/letsencrypt:rw
@@ -206,7 +206,7 @@ services:
     container_name: grafana
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "0.0.0.0:3000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
