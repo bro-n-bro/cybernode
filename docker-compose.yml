@@ -215,5 +215,4 @@ services:
       - ./volumes/grafana:/var/lib/grafana
     depends_on:
       - prometheus
-      - nginx-exporter
     user: "0"
