@@ -50,6 +50,8 @@ For installation, you will need:
       - Port 443 (HTTPS)
       - Port 26656 (BOSTROM)
       - Port 4001 (IPFS)
+      - Port 8090 (HASURA)
+      - Port 3000 (GRAFANA)
  - Email to receive SSL certificates (optional)
 EOF
 )
@@ -77,11 +79,13 @@ sed -i -E "s/^(DOMAIN=).*/\1${domain}/" .env
 sed -i -e "s#- https://.*:9115#- https://bostrom.$domain:9115#" \
        -e "s#- https://rpc.bostrom\..*/block?height=8733522#- https://rpc.bostrom.$domain/block?height=8733522#" \
        -e "s#- https://lcd.bostrom\..*/node_info#- https://lcd.bostrom.$domain/node_info#" \
-       -e "s#- https://ipfs\..*/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#- https://ipfs.$domain/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#" prometheus.yml
+       -e "s#- https://ipfs\..*/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#- https://ipfs.$domain/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#" \
+       -e "s#- https://index\..*/console/#- https://index.$domain/console/#" \
+       -e "s#- https://grafana\..*/login/#- https://grafana.$domain/login/#" prometheus.yml
 
 # Step 3.1: Display updated lines from prometheus.yml
 echo "Following endpoint list will be provided by your Hero"
-grep -E "(https?|rpc\.|lcd\.|ipfs\.|$domain:9115)" prometheus.yml | grep -v -e "module: \[http_prometheus\]" -e "- targets: # Target to probe with https."
+grep -E "(https?|rpc\.|lcd\.|index\.|grafana\.|ipfs\.|$domain:9115)" prometheus.yml | grep -v -e "module: \[http_prometheus\]" -e "- targets: # Target to probe with https."
 echo "Domain name has been updated successfully."
 
 # Step 3.2: Ping rpc.<DOMAIN_NAME> and display IP address
@@ -143,6 +147,8 @@ if [[ "$ufw_status" == "Status: active" ]]; then
      - Port 443 (HTTPS)
      - Port 26656 (BOSTROM)
      - Port 4001 (IPFS)
+     - Port 8090 (HASURA)
+     - Port 3000 (GRAFANA)
     Do you want to allow these ports and start running Hero node? (y/n): " answer
 
     if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
@@ -150,6 +156,8 @@ if [[ "$ufw_status" == "Status: active" ]]; then
         sudo ufw allow 443
         sudo ufw allow 26656
         sudo ufw allow 4001
+        sudo ufw allow 8090
+        sudo ufw allow 3000
         echo "Ports allowed successfully."
     else
         echo "WARNING: If the required ports are not open, the application may not function properly."
@@ -164,6 +172,8 @@ else
         sudo ufw allow 443
         sudo ufw allow 26656
         sudo ufw allow 4001
+        sudo ufw allow 8090
+        sudo ufw allow 3000
         echo "UFW activated and ports allowed successfully."
     else
 	echo "WARNING: If the required ports are not open, the application may not function properly."
@@ -181,17 +191,30 @@ if [[ $? -eq 0 ]]; then
 	    echo "Error: Nvidia driver is not installed or not detected."
 fi
 
-# Step 7: Start docker-compose-init.yml
-echo "STEP 6: Getting certificates to start your node"
-docker-compose -f docker-compose-init.yml up -d
+# Step 7: Make directory for Bostrom Node
+# Check if the folder ~/.cyber/data exists
+echo "Step 6: Make directory for Bostrom Node. Check if the folder ~/.cyber/data exists"
 
-# Step 8: Check if docker-compose-init.yml started successfully
+if [ -d ~/.cyber/data ]; then
+    echo "Folder ~/.cyber/data exists."
+else
+    echo "Folder ~/.cyber/data does not exist. Creating it..."
+    mkdir -p ~/.cyber/data
+    echo "Folder created."
+fi
+
+# Step 8: Start docker-compose-init.yml
+echo "STEP 7: Getting certificates to start your node"
+docker compose -f docker-compose-init.yml up -d
+
+# Step 9: Check if docker-compose-init.yml started successfully
 if [ $? -eq 0 ]; then
     echo "docker-compose-init.yml started successfully."
-    echo "STEP 7: Wait a minute for your Hero Node to start"
-    # Step 8: Start docker-compose.yml
+    echo "STEP 8: Wait a minute for your Hero Node to start"
+    # Step 10: Start docker-compose.yml
     sleep 60
-    docker-compose -f docker-compose.yml up -d
+    docker compose -f docker-compose.yml up -d
 else
     echo "Failed to start docker-compose-init.yml. Aborting."
 fi
+

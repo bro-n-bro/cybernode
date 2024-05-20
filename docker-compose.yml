@@ -2,15 +2,15 @@ version: "3.8"
 
 services:
   bostrom:
-    image: cyberd/bostrom:dragonberry-cuda11.4
+    image: cyberd/bostrom:v3.0.1-cuda11.4
     restart: always
     container_name: bostrom
     ports:
-      - "127.0.0.1:26090:9090"
-      - "26656:26656"
-      - "127.0.0.1:26657:26657"
-      - "127.0.0.1:1317:1317"
-      - "127.0.0.1:26660:26660"
+      - "0.0.0.0:26090:9090"
+      - "0.0.0.0:26656:26656"
+      - "0.0.0.0:26657:26657"
+      - "0.0.0.0:1317:1317"
+      - "0.0.0.0:26660:26660"
     environment:
       ALLOW_SEARCH: "true"
     volumes:
@@ -26,6 +26,50 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    container_name: cyberindex_postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB_NAME}
+      - POSTGRES_USER=${POSTGRES_USER_NAME}
+      - POSTGRES_PASSWORD=${POSTGRES_DB_PASSWORD}
+    volumes:
+      - $HOME/.cyberindex/postgres:/var/lib/postgresql/data
+      - ./database/schema/:/docker-entrypoint-initdb.d/
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_DB_PORT}:5432
+    depends_on:
+      - ipfs
+
+  graphql-engine:
+    image: hasura/graphql-engine:latest
+    restart: always
+    container_name: cyberindex_hasura
+    environment:
+      - DOMAIN
+    env_file:
+      - .env
+    ports:
+        - ${HASURA_PORT}:8080
+    depends_on:
+      - postgres
+
+  cyberindex:
+    image: cyberd/cyberindex:v1.0.0
+    restart: always
+    container_name: cyberindex
+    environment:
+      - DOMAIN
+    volumes:
+      - ~/cybernode/.env:/app/.env
+    env_file:
+      - .env
+    depends_on:
+      - graphql-engine
 
   ipfs:
     image: ipfs/go-ipfs:latest
@@ -62,7 +106,7 @@ services:
     expose:
       - 9100
     depends_on:
-      - ipfs
+      - cyberindex
 
   prometheus:
     image: prom/prometheus:latest
@@ -134,7 +178,7 @@ services:
     image: certbot/certbot:latest
     depends_on:
       - nginx
-    command: certonly --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.bostrom.${DOMAIN} -d grpc.bostrom.${DOMAIN} -d lcd.bostrom.${DOMAIN} -d ipfs.${DOMAIN}
+    command: certonly --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.bostrom.${DOMAIN} -d grpc.bostrom.${DOMAIN} -d lcd.bostrom.${DOMAIN} -d ipfs.${DOMAIN} -d grafana.${DOMAIN} -d index.${DOMAIN}
     volumes:
       - ./volumes/certbot/www/:/var/www/
       - ./volumes/certbot/letsencrypt:/etc/letsencrypt:rw
@@ -162,7 +206,7 @@ services:
     container_name: grafana
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
@@ -171,5 +215,4 @@ services:
       - ./volumes/grafana:/var/lib/grafana
     depends_on:
       - prometheus
-      - nginx-exporter
     user: "0"

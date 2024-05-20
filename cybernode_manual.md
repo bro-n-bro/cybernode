@@ -8,7 +8,9 @@ After completing the installation, you will end up with the following endpoints 
 - `rpc.bostrom.<yourdomain.ai>` - for bostrom RPC endpoint
 - `lcd.bostrom.<yourdomain.ai>` - for bostrom LCD endpoint
 - `grpc.bostrom.<yourdomain.ai>` - for bostrom GRPC endpoint
-- `ipfs.<yourdomain.ai>` - - for ipfs gateway endpoint
+- `ipfs.<yourdomain.ai>` - for ipfs gateway endpoint
+- `grafana.<yourdomain.ai>` - for grafana monitor
+- `index.<yourdomain.ai>`- to interact with the index
 
 All of them could be later added to the skill registry to be used as chain data provider in `cyb.ai`:
 
@@ -24,6 +26,15 @@ GPU: Nvidia GeForce (or Tesla/Titan/Quadro) with CUDA-cores; 4+ Gb of video memo
 Software: Ubuntu 20.04 LTS / 22.04 LTS
 Optional: VPS for Grafana monitoring server (standard config for Cybernode includes automatic installation)
 ```
+
+## Domain name preparation
+You will need a domain name to serve endpoints to the outer world. Use one of the domain name providers (like Namecheap) to buy one, and set up wildcard (*) forwarding to your server static ip:
+
+![use your ip address](https://gateway.ipfs.cybernode.ai/ipfs/QmbG3RPnsapfyT48YgUDTkQ9rwCvE8vdjWo3WnM7itDwzh)
+
+If you are willing to use the second layer domain, set up wildcard forward for it as well.
+
+`!!!Applying a domain name to your server IP can take up to 1 day, keep this in mind if errors occur when launching cybernode!!!`
 
 ## Cybernode setup
 
@@ -263,20 +274,12 @@ You should get a reply with the version you have installed.
 
 Your machine is ready to launch the cybernode.
 
-### Domain name preparation
-
-You will need a domain name to serve endpoints to the outer world. Use one of the domain name providers (like Namecheap) to buy one, and set up wildcard (\*) forwarding to your server *static* ip:
-
-![use your ip address](https://gateway.ipfs.cybernode.ai/ipfs/QmbG3RPnsapfyT48YgUDTkQ9rwCvE8vdjWo3WnM7itDwzh)
-
-If you are willing to use the second layer domain, set up wildcard forward for it as well.
-
 ### Firewall setup
 
 To make everything work, you will need to allow specific ports on your server firewall:
 
 ```bash
-sudo ufw allow 80,443,26656,4001/tcp
+sudo ufw allow 80,443,26656,8090,3000,4001/tcp
 ```
 
 Those are necessary for Nginx, node's p2p, and ipfs p2p connections. Also, if your server is behind a NAT router, remember to set up PORT mapping for the same ports.
@@ -329,11 +332,11 @@ For further work, you will need to find out your data source uid.
 It is located in your browser address bar
 ![find_uid](https://ipfs.io/ipfs/QmdcCM7W7AUzccmdNnAKijHgREPyDBabhaZThqShfTDeBz)
 Next step: import CyberNode dashboard to your text editor.
-https://github.com/cybercongress/cybernode/blob/master/grafana_dashboard \
+<https://github.com/cybercongress/cybernode/blob/master/grafana_dashboard> \
 Then select the entire text with the ctrl + A command, turn on the search function with the ctrl + F command, find the string <PUT_YOUR_UID>, select it and replace it with your value from the previous step
-![edit_board](https://ipfs.io/ipfs/QmSVUTpHBnwPF6VsTVddyXjnSvakGkyWx7kozyqsSTGais)
+![edit_board](https://ipfs.io/ipfs/QmSVUTpHBnwPF6VsTVddyXjnSvakGkyWx7kozyqsSTGais) \
 Repeat the previous step only this time search for the string <PUT_YOUR_HOST_NAME> and replace it with your hostname  
-![](https://ipfs.io/ipfs/QmPkJWS3kXu1CNNsoeonSCS4TaVyF5jiC1mKj1fqsUL6z8)
+![board](https://ipfs.io/ipfs/QmPkJWS3kXu1CNNsoeonSCS4TaVyF5jiC1mKj1fqsUL6z8)
 After that, import your JSON file and click Load button
 ![upload_board](https://ipfs.io/ipfs/QmQYZeUpFmBUYNY4YPui4BEht2n3vPUTyLTaiCJYDXR6HH) \
 Set the Name and click Import
@@ -356,14 +359,16 @@ You will see the advanced settings of a specific schedule:
 
 You may use variable options to receive alerts, including [email](https://grafana.com/docs/grafana/latest/alerting/set-up/), [Telegram](https://community.grafana.com/t/telegram-alert-channel-configuration/242) or even calls.
 
-## Congrats!
+## Congrats
 
-It seems like you did it! 
+It seems like you did it!
 Open your cybernode endpoints in browser to verify them working correctly. You should have:
 
 - `https://rpc.bostrom.<yourdomain.ai>`
 - `https://lcd.bostrom.<yourdomain.ai>`
 - `https://grpc.bostrom.<yourdomain.ai>`
 - `https://ipfs.<yourdomain.ai>/ipfs/CID`
+- `https://grafana.<yourdomain.ai>/login`
+- `https://index.<yourdomain.ai>/console`
 
 In case of any questions, do not hesitate to ask them in our [Telegram](https://t.me/fameofcyber)  channel for cyber Heroe's.
