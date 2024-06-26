@@ -182,24 +182,24 @@ else
 fi
 
 # Step 6: Check nvidia
-echo "STEP 5: Checking if the drivers are installed"
+#echo "STEP 5: Checking if the drivers are installed"
 
-nvidia-smi &> /dev/null
-if [[ $? -eq 0 ]]; then
-	  echo "Success! Nvidia driver is installed."
-  else
-	    echo "Error: Nvidia driver is not installed or not detected."
-fi
+#nvidia-smi &> /dev/null
+#if [[ $? -eq 0 ]]; then
+#	  echo "Success! Nvidia driver is installed."
+#  else
+#	    echo "Error: Nvidia driver is not installed or not detected."
+#fi
 
-# Step 7: Make directory for Bostrom Node
-# Check if the folder ~/.cyber/data exists
-echo "Step 6: Make directory for Bostrom Node. Check if the folder ~/.cyber/data exists"
+ Step 7: Make directory for Deep Node
+ Check if the folder ~/testnet/data exists
+echo "Step 6: Make directory for Deep Node. Check if the folder ~/testnet/data exists"
 
-if [ -d ~/.cyber/data ]; then
-    echo "Folder ~/.cyber/data exists."
+if [ -d ~/testnet/data ]; then
+    echo "Folder ~/testnet/data exists."
 else
-    echo "Folder ~/.cyber/data does not exist. Creating it..."
-    mkdir -p ~/.cyber/data
+    echo "Folder ~/testnet/data does not exist. Creating it..."
+    mkdir -p ~/testnet/data
     echo "Folder created."
 fi
 
