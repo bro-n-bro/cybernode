@@ -79,11 +79,11 @@ sed -i -E "s/^(DOMAIN=).*/\1${domain}/" .env
 
 # Step 3: Insert domain name into prometheus.yml
 sed -i -e "s#- https://*:9115#- https://$domain:9115#" \
-       -e "s#- https://rpc\..*/block?height=8733522#- https://rpc.$domain/block?height=8733522#" \
-       -e "s#- https://lcd\..*/node_info#- https://lcd.$domain/node_info#" \
-       -e "s#- https://ipfs\..*/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#- https://ipfs.$domain/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#" \
-       -e "s#- https://index\..*/console/#- https://index.$domain/console/#" \
-       -e "s#- https://grafana\..*/login/#- https://grafana.$domain/login/#" prometheus.yml
+       -e "s#- https://rpc.testnet\..*/block?height=8733522#- https://rpc.testnet.$domain/block?height=8733522#" \
+       -e "s#- https://lcd.testnet\..*/node_info#- https://lcd.testnet.$domain/node_info#" \
+       -e "s#- https://ipfs.testnet\..*/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#- https://ipfs.testnet.$domain/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#" \
+       -e "s#- https://index.testnet\..*/console/#- https://index.testnet.$domain/console/#" \
+       -e "s#- https://grafana.testnet\..*/login/#- https://grafana.testnet.$domain/login/#" prometheus.yml
 
 # Step 3.1: Display updated lines from prometheus.yml
 echo "Following endpoint list will be provided by your Hero"
@@ -199,8 +199,8 @@ fi
 #	    echo "Error: Nvidia driver is not installed or not detected."
 #fi
 
- Step 7: Make directory for Deep Node
- Check if the folder ~/testnet/data exists
+# Step 7: Make directory for Deep Node
+#Check if the folder ~/testnet/data exists
 echo "Step 6: Make directory for Deep Node. Check if the folder ~/testnet/data exists"
 
 if [ -d ~/testnet/data ]; then

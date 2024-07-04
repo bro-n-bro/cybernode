@@ -57,11 +57,11 @@ scrape_configs:
     static_configs:
       - targets: # Target to probe with https.
           - https://:9115
-          - https://rpc./block?height=8733522
-          - https://lcd./node_info
-          - https://ipfs./ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
-          - https://index./console/
-          - https://grafana./login/
+          - https://rpc.testnet./block?height=8733522
+          - https://lcd.testnet./node_info
+          - https://ipfs.testnet./ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
+          - https://index.testnet./console/
+          - https://grafana.testnet./login/
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
