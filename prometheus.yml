@@ -20,6 +20,10 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ["grafana:3000"]
+  - job_name: "cyb-ts-app-1"
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["cyb-ts-app-1:3000"]
   - job_name: "bostrom"
     scrape_interval: 5s
     static_configs:
@@ -53,8 +57,8 @@ scrape_configs:
     static_configs:
       - targets: # Target to probe with https.
           - https://:9115
-          - https://rpc.bostrom./block?height=8733522
-          - https://lcd.bostrom./node_info
+          - https://rpc./block?height=8733522
+          - https://lcd./node_info
           - https://ipfs./ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme
           - https://index./console/
           - https://grafana./login/

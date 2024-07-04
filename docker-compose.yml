@@ -178,7 +178,7 @@ services:
     image: certbot/certbot:latest
     depends_on:
       - nginx
-    command: certonly --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.bostrom.${DOMAIN} -d grpc.bostrom.${DOMAIN} -d lcd.bostrom.${DOMAIN} -d ipfs.${DOMAIN} -d grafana.${DOMAIN} -d index.${DOMAIN}
+    command: certonly --cert-name cybernode --reinstall --webroot --webroot-path=/var/www/ --no-eff-email --agree-tos --email ${EMAIL} -d ${DOMAIN} -d rpc.${DOMAIN} -d grpc.${DOMAIN} -d lcd.${DOMAIN} -d ipfs.${DOMAIN} -d grafana.${DOMAIN} -d index.${DOMAIN}
     volumes:
       - ./volumes/certbot/www/:/var/www/
       - ./volumes/certbot/letsencrypt:/etc/letsencrypt:rw
@@ -206,7 +206,7 @@ services:
     container_name: grafana
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3000:3000"
+      - "0.0.0.0:4000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
@@ -216,3 +216,20 @@ services:
     depends_on:
       - prometheus
     user: "0"
+
+  app:
+    container_name: cyb-ts-app-1
+    image: cyb-ts-app:latest
+    ports:
+      - '0.0.0.0:3000:3000'
+    env_file:
+      - .env
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=8192
+      - CHAIN_ID=bostrom
+      - CYBER_NODE_URL_API=https://rpc.testnet.deepchain.dev
+      - CYBER_NODE_URL_WS=wss://rpc.testnet.deepchain.dev/websocket
+      - CYBER_NODE_URL_LCD=https://lcd.testnet.deepchain.dev
+      - CYBER_INDEX_HTTPS=https://index.testnet.deepchain.dev/v1/graphql
+      - CYBER_INDEX_WEBSOCKET=wss://index.testnet.deepchain.dev/v1/graphql
+    command: npx serve -s build

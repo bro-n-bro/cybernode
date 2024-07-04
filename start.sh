@@ -46,12 +46,14 @@ message=$(cat <<EOF
 For installation, you will need:
   - Domain name to provide endpoints
   - Open ports:
+      - Port 22 (SSH)
       - Port 80 (HTTP)
       - Port 443 (HTTPS)
       - Port 26656 (BOSTROM)
       - Port 4001 (IPFS)
       - Port 8090 (HASURA)
-      - Port 3000 (GRAFANA)
+      - Port 3000 (UI APP)
+      - Port 4000 (GRAFANA)
  - Email to receive SSL certificates (optional)
 EOF
 )
@@ -76,9 +78,9 @@ done
 sed -i -E "s/^(DOMAIN=).*/\1${domain}/" .env
 
 # Step 3: Insert domain name into prometheus.yml
-sed -i -e "s#- https://.*:9115#- https://bostrom.$domain:9115#" \
-       -e "s#- https://rpc.bostrom\..*/block?height=8733522#- https://rpc.bostrom.$domain/block?height=8733522#" \
-       -e "s#- https://lcd.bostrom\..*/node_info#- https://lcd.bostrom.$domain/node_info#" \
+sed -i -e "s#- https://*:9115#- https://$domain:9115#" \
+       -e "s#- https://rpc\..*/block?height=8733522#- https://rpc.$domain/block?height=8733522#" \
+       -e "s#- https://lcd\..*/node_info#- https://lcd.$domain/node_info#" \
        -e "s#- https://ipfs\..*/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#- https://ipfs.$domain/ipfs/QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG/readme#" \
        -e "s#- https://index\..*/console/#- https://index.$domain/console/#" \
        -e "s#- https://grafana\..*/login/#- https://grafana.$domain/login/#" prometheus.yml
@@ -143,21 +145,25 @@ ufw_status=$(sudo ufw status | grep -o "Status: active")
 if [[ "$ufw_status" == "Status: active" ]]; then
     echo "ufw is already active."
     read -p "The following ports will be open:
+     - Port 22 (SSH)
      - Port 80 (HTTP)
      - Port 443 (HTTPS)
      - Port 26656 (BOSTROM)
      - Port 4001 (IPFS)
      - Port 8090 (HASURA)
-     - Port 3000 (GRAFANA)
+     - Port 3000 (UI APP)
+     - Port 4000 (GRAFANA)
     Do you want to allow these ports and start running Hero node? (y/n): " answer
 
     if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
+        sudo ufw allow 22
         sudo ufw allow 80
         sudo ufw allow 443
         sudo ufw allow 26656
         sudo ufw allow 4001
         sudo ufw allow 8090
         sudo ufw allow 3000
+        sudo ufw allow 4000
         echo "Ports allowed successfully."
     else
         echo "WARNING: If the required ports are not open, the application may not function properly."
@@ -168,12 +174,14 @@ else
 
     if [[ "$activate_ufw" == "y" || "$activate_ufw" == "Y" ]]; then
         sudo ufw enable
+        sudo ufw allow 22
         sudo ufw allow 80
         sudo ufw allow 443
         sudo ufw allow 26656
         sudo ufw allow 4001
         sudo ufw allow 8090
         sudo ufw allow 3000
+        sudo ufw allow 4000
         echo "UFW activated and ports allowed successfully."
     else
 	echo "WARNING: If the required ports are not open, the application may not function properly."
