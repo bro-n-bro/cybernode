@@ -1,10 +1,10 @@
 version: "3.8"
 
 services:
-  bostrom:
+  deep:
     image: deepchain_image:latest
     restart: always
-    container_name: bostrom
+    container_name: deep
     ports:
       - "0.0.0.0:26090:9090"
       - "0.0.0.0:26656:26656"
@@ -86,7 +86,7 @@ services:
       - "127.0.0.1:8080:8080"
       - "127.0.0.1:5001:5001"
     depends_on:
-      - bostrom
+      - deep
 
   node-exporter:
     image: prom/node-exporter:latest
@@ -226,7 +226,7 @@ services:
       - .env
     environment:
       - NODE_OPTIONS=--max-old-space-size=8192
-      - CHAIN_ID=bostrom
+      - CHAIN_ID=deep
       - CYBER_NODE_URL_API=https://rpc.testnet.deepchain.dev
       - CYBER_NODE_URL_WS=wss://rpc.testnet.deepchain.dev/websocket
       - CYBER_NODE_URL_LCD=https://lcd.testnet.deepchain.dev

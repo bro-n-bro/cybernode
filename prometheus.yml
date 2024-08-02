@@ -24,10 +24,10 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ["cyb-ts-app-1:3000"]
-  - job_name: "bostrom"
+  - job_name: "deep"
     scrape_interval: 5s
     static_configs:
-      - targets: ["bostrom:26660"]
+      - targets: ["deep:26660"]
   - job_name: "cadvisor"
     scrape_interval: 5s
     static_configs:
