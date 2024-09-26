@@ -359,6 +359,33 @@ You will see the advanced settings of a specific schedule:
 
 You may use variable options to receive alerts, including [email](https://grafana.com/docs/grafana/latest/alerting/set-up/), [Telegram](https://community.grafana.com/t/telegram-alert-channel-configuration/242) or even calls.
 
+## Setup Hasura permissions
+
+For correct interaction of web apps with Hasura graphql API there's necessary to setup few settings inside Hasura web UI.
+
+Right after index started, login to Hasura web ui and open Data tab and select default > public folder on the left menu. Than click on `Track All` button for Untracked tables or views, Untracked foreign-key relationships and Untracked custom functions. For functions select to track as root field:
+
+![Screenshot from 2024-09-26 16-10-41](https://github.com/user-attachments/assets/88ee0a70-0904-4dbe-9b65-168eac52a5a8)
+![Screenshot from 2024-09-26 16-11-39](https://github.com/user-attachments/assets/9d7419cb-e399-4bdd-ae62-87a8478f0d45)
+
+Now you have to see database tables on the left page. It is necessary to create `anonymous` role for every table with `select` permissions to all columns in table.
+
+![Screenshot from 2024-09-26 16-12-13](https://github.com/user-attachments/assets/337c6a95-e6c9-4b62-bf6a-4c9b681e9f84)
+
+Set checkboxes as on the screen below:
+
+![Screenshot from 2024-09-26 16-12-30](https://github.com/user-attachments/assets/16e8015d-20ba-4039-9e98-89484e49db2c)
+
+**Hint** 
+It is possible to clone permissions once created for one table:
+![Screenshot from 2024-09-26 16-12-48](https://github.com/user-attachments/assets/5e297508-6bc4-448e-9543-af5619ef7f44)
+
+After cloning permissions to all tables, make sure to check that anonymous role have allowance to access all columns in the table
+
+![Screenshot from 2024-09-26 16-14-11](https://github.com/user-attachments/assets/10a87137-6656-4564-93db-36c03a033392)
+
+![Screenshot from 2024-09-26 16-14-26](https://github.com/user-attachments/assets/3dcb17f7-0c8c-415d-bb75-bd43b9d1dfdc)
+
 ## Congrats
 
 It seems like you did it!
